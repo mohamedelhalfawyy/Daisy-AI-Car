@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.daisy_project">
-   <application
-        android:label="daisy_project"
+    package="com.Daisy.graduation_project">
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+
+    <application
+        android:label="Daisy"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -37,5 +39,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="ocr" />
     </application>
 </manifest>
