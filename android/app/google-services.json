@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1079877629994",
+    "project_id": "daisy-16f86",
+    "storage_bucket": "daisy-16f86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079877629994:android:1fb7358d3d01fe52a0eb53",
+        "android_client_info": {
+          "package_name": "com.Daisy.graduation_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1079877629994-vp6c8bbm9v2hofllc12sjjog6kl2dl2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrYEs9VJvAtTJgsLYZaQFblEkVUQeRDIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1079877629994-vp6c8bbm9v2hofllc12sjjog6kl2dl2g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,4 @@
-name: daisy_project
+name: graduation_project
 description: Graduation Project
 
 # The following line prevents the package from being accidentally published to
@@ -18,16 +18,28 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.11.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+
+  cupertino_icons: ^1.0.3
+  firebase_core: ^1.4.0
+  connectivity: ^3.0.6
+  rive_splash_screen: ^0.1.0
+  camera: ^0.8.1+5
+  path: ^1.8.0
+  google_ml_kit: ^0.6.0
+  tflite_flutter: ^0.9.0
+  image: ^3.0.2
+  path_provider: ^2.0.2
+  font_awesome_flutter: ^9.1.0
+  animated_text_kit: ^4.2.1
+  lottie: ^1.1.0
+
 
 dev_dependencies:
   flutter_test:
@@ -44,6 +56,10 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - assets/mobilefacenet.tflite
+    - assets/Images/
+    - assets/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

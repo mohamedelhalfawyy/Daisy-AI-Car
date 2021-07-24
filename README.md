@@ -1,4 +1,4 @@
-# daisy_project
+# graduation_project
 
 Graduation Project
 
