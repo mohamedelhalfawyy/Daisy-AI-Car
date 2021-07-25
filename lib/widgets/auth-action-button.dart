@@ -13,10 +13,12 @@ import 'app_text_field.dart';
 class AuthActionButton extends StatefulWidget {
   AuthActionButton(this._initializeControllerFuture,
       {Key key, @required this.onPressed, @required this.isLogin, this.reload});
+
   final Future _initializeControllerFuture;
   final Function onPressed;
   final bool isLogin;
   final Function reload;
+
   @override
   _AuthActionButtonState createState() => _AuthActionButtonState();
 }
@@ -31,6 +33,8 @@ class _AuthActionButtonState extends State<AuthActionButton> {
       TextEditingController(text: '');
   final TextEditingController _passwordTextEditingController =
       TextEditingController(text: '');
+
+  final _formKey = GlobalKey<FormState>();
 
   User predictedUser;
 
@@ -53,25 +57,47 @@ class _AuthActionButtonState extends State<AuthActionButton> {
     String password = _passwordTextEditingController.text;
 
     if (this.predictedUser.password == password) {
-      Container(
-        color: Colors.black,
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Lottie.asset(
-            'assets/faceChecked.json',
-            fit: BoxFit.cover,
-            onLoaded: (value){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => ControlRoom(
-                        this.predictedUser.user,
-                        imagePath: _cameraService.imagePath,
-                      )));
-            },
-            alignment: Alignment.center,
-            repeat: false,
-        ),
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (context) {
+          return AlertDialog(
+            content: Lottie.asset(
+              'assets/faceChecked.json',
+              height: 400,
+              width: 350,
+              fit: BoxFit.contain,
+              animate: true,
+              onLoaded: (value) async {
+                await Future.delayed(const Duration(seconds: 5), () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => ControlRoom(
+                                this.predictedUser.user,
+                                imagePath: _cameraService.imagePath,
+                              )));
+                });
+              },
+              alignment: Alignment.center,
+              repeat: false,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            backgroundColor: Colors.black,
+            elevation: 11,
+            title: Text(
+              'Checking Credentials\n Please Wait...',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
+                  fontSize: 23,
+                  color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          );
+        },
       );
     } else {
       showDialog(
@@ -79,14 +105,14 @@ class _AuthActionButtonState extends State<AuthActionButton> {
         builder: (context) {
           return AlertDialog(
             content: Text(
-              'Password Incorrect please try again',
+              'Incorrect Password',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                   fontSize: 24),
               textAlign: TextAlign.center,
             ),
-            backgroundColor: Color(0xffE3E3E3),
+            backgroundColor: Colors.white,
             elevation: 11,
             title: SplashScreen.callback(
               fit: BoxFit.cover,
@@ -186,43 +212,54 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                 )
               : widget.isLogin
                   ? Column(
-                    children: [
-                      Container(
-                          child: Text(
+                      children: [
+                        Container(
+                            child: Text(
                           'User not found 😞',
                           style: TextStyle(fontSize: 20),
                         )),
-                      SplashScreen.callback(
-                        fit: BoxFit.cover,
-                        name: 'assets/er.riv',
-                        height: 150,
-                        width: 200,
-                        onSuccess: (data) {},
-                        onError: (err, stack) {},
-                        startAnimation: 'Manatime 404 Error',
-                        until: () => Future.delayed(Duration(milliseconds: 100)),
-                        loopAnimation: 'Manatime 404 Error',
-                      )
-                    ],
-                  )
+                        SizedBox(height: 15,),
+                        SplashScreen.callback(
+                          backgroundColor: Colors.white,
+                          fit: BoxFit.cover,
+                          name: 'assets/er.riv',
+                          height: 150,
+                          width: 200,
+                          onSuccess: (data) {},
+                          onError: (err, stack) {},
+                          startAnimation: 'Manatime 404 Error',
+                          endAnimation: 'Manatime 404 Error',
+                          until: () =>
+                              Future.delayed(Duration(milliseconds: 100)),
+                          loopAnimation: 'Manatime 404 Error',
+                        )
+                      ],
+                    )
                   : Container(),
           Container(
             child: Column(
               children: [
-                !widget.isLogin
-                    ? AppTextField(
-                        controller: _userTextEditingController,
-                        labelText: "Your Name",
-                      )
-                    : Container(),
-                SizedBox(height: 10),
-                widget.isLogin && predictedUser == null
-                    ? Container()
-                    : AppTextField(
-                        controller: _passwordTextEditingController,
-                        labelText: "Password",
-                        isPassword: true,
-                      ),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      !widget.isLogin
+                          ? AppTextField(
+                              controller: _userTextEditingController,
+                              labelText: "Your Name",
+                            )
+                          : Container(),
+                      SizedBox(height: 10),
+                      widget.isLogin && predictedUser == null
+                          ? Container()
+                          : AppTextField(
+                              controller: _passwordTextEditingController,
+                              labelText: "Password",
+                              isPassword: true,
+                            ),
+                    ],
+                  ),
+                ),
                 SizedBox(height: 10),
                 Divider(),
                 SizedBox(height: 10),
@@ -241,8 +278,8 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                         ? AppButton(
                             text: 'SIGN UP',
                             onPressed: () async {
-
-                              await _signUp(context);
+                              if (_formKey.currentState.validate())
+                                await _signUp(context);
                             },
                             icon: Icon(
                               Icons.person_add,
