@@ -1,6 +1,5 @@
 // A screen that allows users to take a picture using a given camera.
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';

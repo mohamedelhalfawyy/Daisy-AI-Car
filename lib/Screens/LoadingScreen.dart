@@ -1,10 +1,9 @@
-import 'dart:developer';
-import 'package:connectivity/connectivity.dart';
+import 'dart:async';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rive_splash_screen/rive_splash_screen.dart';
-
 import 'DashBoard.dart';
 
 
@@ -29,18 +28,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Future checkConnection() async {
     try {
       var _result = await (Connectivity().checkConnectivity());
+
       if (_result == ConnectivityResult.mobile ||
-          _result == ConnectivityResult.wifi) {
+          _result == ConnectivityResult.wifi)
+            await Firebase.initializeApp();
 
-        log('connected to internet');
 
-        await Firebase.initializeApp();
-
-      } else {
-        //Navigator.pushReplacementNamed(context, NoNetworkScreen.id);
-
-        log('no connection');
-      }
     } catch (e) {
       print(e);
     }
@@ -48,24 +41,19 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      backgroundColor: Colors.grey.shade900,
-      body: Center(
-        child: SplashScreen.callback(
-          fit: BoxFit.cover,
-          name: riveFile,
-          onSuccess: (data) {
-            Navigator.of(context).pushReplacementNamed(DashBoard.id);
-          },
-          onError: (err, stack) {
-          },
-          startAnimation: 'Animation',
-          until: () => Future.delayed(Duration(milliseconds: 100)),
-          endAnimation: '1',
-          loopAnimation: '1',
-        ),
+    return Scaffold(
+      body: SplashScreen.callback(
+        fit: BoxFit.cover,
+        name: riveFile,
+        onSuccess: (data) {
+          Navigator.pushReplacementNamed(context, DashBoard.id);
+        },
+        onError: (err, stack) {},
+        startAnimation: 'Animation',
+        endAnimation: '1',
+        loopAnimation: '1',
+        isLoading: false,
       ),
-    ));
+    );
   }
 }

@@ -32,23 +32,16 @@ class ControlRoom extends StatelessWidget {
                       ),
                     ),
                     margin: EdgeInsets.all(20),
-                    width: 50,
-                    height: 50,
-                    // child: Transform(
-                    //     alignment: Alignment.center,
-                    //     child: FittedBox(
-                    //       fit: BoxFit.cover,
-                    //       child: Image.file(File(imagePath)),
-                    //     ),
-                    //     transform: Matrix4.rotationY(mirror)),
+                    width: 55,
+                    height: 75,
                   ),
                   AnimatedTextKit(
                     animatedTexts: [
-                      TypewriterAnimatedText('Hi $username!',textStyle: TextStyle(
+                      TypewriterAnimatedText('Welcome $username!',textStyle: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontStyle: FontStyle.italic,
-                        fontSize: 25,
+                        fontSize: 30,
                       ),
                       speed: Duration(milliseconds: 500))
                     ],

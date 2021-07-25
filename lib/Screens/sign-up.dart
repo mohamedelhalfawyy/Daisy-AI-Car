@@ -11,7 +11,6 @@ import 'package:graduation_project/widgets/FacePainter.dart';
 import 'package:graduation_project/widgets/auth-action-button.dart';
 import 'package:graduation_project/widgets/camera_header.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rive_splash_screen/rive_splash_screen.dart';
 
 class SignUp extends StatefulWidget {
   final CameraDescription cameraDescription;
