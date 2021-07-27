@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:camera/camera.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation_project/Screens/LoadingScreen.dart';
 import 'package:graduation_project/Screens/sign-in.dart';
 import 'package:graduation_project/Screens/sign-up.dart';
 import 'package:graduation_project/Services/facenet.service.dart';
@@ -26,6 +29,7 @@ class _DashBoardState extends State<DashBoard> {
   CameraDescription cameraDescription;
   bool loading = false;
   StreamSubscription<ConnectivityResult> subscription;
+  bool isLoaded = false;
 
   @override
   void initState() {
@@ -130,11 +134,47 @@ class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: !loading
-          ? SafeArea()
-          : Center(
-              child: CircularProgressIndicator(),
+      appBar: AppBar(
+        centerTitle: true,
+          title: !isLoaded ? Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          const SizedBox(width: 20.0, height: 100.0),
+          const SizedBox(width: 20.0, height: 100.0),
+          DefaultTextStyle(
+            style: const TextStyle(
+              fontSize: 40.0,
+              fontFamily: 'Horizon',
             ),
+            child: AnimatedTextKit(
+              isRepeatingAnimation: false,
+                onFinished: (){
+                  setState(() {
+                    isLoaded = true;
+                  });
+                },
+                animatedTexts: [
+              RotateAnimatedText('Be UNIQUE'),
+              RotateAnimatedText('Be CREATIVE'),
+              RotateAnimatedText('Be DIFFERENT'),
+            ]),
+          ),
+        ],
+      ) : Text('Daisy')),
+      bottomNavigationBar: ConvexAppBar(
+        style: TabStyle.react,
+        items: [
+          TabItem(icon: Icons.home, title: 'Home'),
+          TabItem(icon: Icons.videogame_asset, title: 'Control'),
+          TabItem(
+            icon: Icons.assignment_late_outlined,
+            title: 'About Us',
+          ),
+        ],
+        initialActiveIndex: 1,
+        backgroundColor: Colors.blueGrey,
+        onTap: (int i) => print('click index=$i'),
+      ),
     );
   }
 }
