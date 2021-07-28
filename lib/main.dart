@@ -25,7 +25,6 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-      //i am in local
         return MaterialApp(
           theme: ThemeData(
             primarySwatch: Colors.blue,
@@ -36,7 +35,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
           routes: {
              DashBoard.id : (context) => DashBoard(),
           },
-          debugShowCheckedModeBanner: false, // home: DrawerItSelf(),
+          debugShowCheckedModeBanner: false,
         );
   }
 }
