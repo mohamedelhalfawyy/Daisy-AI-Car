@@ -39,7 +39,9 @@ dependencies:
   animated_text_kit: ^4.2.1
   lottie: ^1.1.0
   connectivity_plus: ^1.0.6
-
+  convex_bottom_bar: ^3.0.0
+  flutter_bluetooth_serial: ^0.3.2
+  syncfusion_flutter_sliders: ^19.2.49
 
 dev_dependencies:
   flutter_test:
