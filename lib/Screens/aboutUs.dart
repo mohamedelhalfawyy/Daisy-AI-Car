@@ -7,6 +7,8 @@ import 'control_room.dart';
 class AboutUs extends StatefulWidget {
   const AboutUs({key}) : super(key: key);
 
+  static const String id = 'AboutUs';
+
   @override
   _AboutUsState createState() => _AboutUsState();
 }
@@ -16,7 +18,7 @@ class _AboutUsState extends State<AboutUs> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Control Room'),
+        title: Text('About Us!!'),
       ),
       backgroundColor: Color(0XFFC7FFBE),
       body: Container(
@@ -31,10 +33,10 @@ class _AboutUsState extends State<AboutUs> {
           TabItem(icon: Icons.assignment_late_outlined, title: 'About Us'),
           TabItem(icon: Icons.logout, title: 'Log Out'),
         ],
-        initialActiveIndex: 1,
+        initialActiveIndex: 2,
         backgroundColor: Colors.blueGrey,
         onTap: (int i) {
-          if(i == 1){
+          if(i == 0){
             Navigator.pushReplacementNamed(context, DashBoard.id);
           }
           else if(i == 2){

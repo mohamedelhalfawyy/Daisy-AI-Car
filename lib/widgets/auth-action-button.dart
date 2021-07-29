@@ -70,13 +70,13 @@ class _AuthActionButtonState extends State<AuthActionButton> {
               animate: true,
               onLoaded: (value) async {
                 await Future.delayed(const Duration(seconds: 5), () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (BuildContext context) => ControlRoom(
-                                this.predictedUser.user,
-                                imagePath: _cameraService.imagePath,
-                              )));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (BuildContext context) => ControlRoom(
+                  //               this.predictedUser.user,
+                  //               imagePath: _cameraService.imagePath,
+                  //             )));
                 });
               },
               alignment: Alignment.center,

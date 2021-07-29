@@ -115,93 +115,6 @@ class _ChatPage extends State<VoiceControl> {
     super.dispose();
   }
 
-  double _value = 90.0;
-  @override
-  Widget build(BuildContext context) {
-    final List<Row> list = messages.map((_message) {
-      return Row(
-        children: <Widget>[
-          Container(
-            child: Text(
-                    (text) {
-                  return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
-                }(_message.text.trim()),
-                style: TextStyle(color: Colors.white)),
-            padding: EdgeInsets.all(12.0),
-            margin: EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
-            width: 222.0,
-            decoration: BoxDecoration(
-                color:
-                _message.whom == clientID ? Colors.blueAccent : Colors.grey,
-                borderRadius: BorderRadius.circular(7.0)),
-          ),
-        ],
-        mainAxisAlignment: _message.whom == clientID
-            ? MainAxisAlignment.end
-            : MainAxisAlignment.start,
-      );
-    }).toList();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: (isConnecting
-            ? Text('Connecting chat to ' + widget.server.name + '...')
-            : isConnected
-            ? Text('Connected with ' + widget.server.name)
-            : Text('Logout with ' + widget.server.name)),
-        leading: ElevatedButton(
-          onPressed: () {
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (BuildContext context) => ControlRoom(
-            //           this.predictedUser.user,
-            //           imagePath: _cameraService.imagePath,
-            //         )));
-          },
-          child: Icon(Icons.arrow_back_ios),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: AvatarGlow(
-        animate: _isListening,
-        glowColor: Theme.of(context).primaryColor,
-        endRadius: 75.0,
-        duration: const Duration(milliseconds: 2000),
-        repeatPauseDuration: const Duration(milliseconds: 100),
-        repeat: true,
-        child: FloatingActionButton(
-          onPressed: isConnected ? _listen : null,
-          child: Icon(_isListening ? Icons.mic : Icons.mic_none),
-        ),
-      ),
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 150.0),
-              child: TextHighlight(
-                text: _text == '' ? "listening.." : _text,
-                words: _highlights,
-                textStyle: const TextStyle(
-                  fontSize: 32.0,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-            Flexible(
-              child: ListView(
-                  padding: const EdgeInsets.all(12.0),
-                  controller: listScrollController,
-                  children: list),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   void _onDataReceived(Uint8List data) {
     // Allocate buffer for parsed data
     int backspacesCounter = 0;
@@ -311,5 +224,93 @@ class _ChatPage extends State<VoiceControl> {
     } else if (_text.contains('backward|back')) {
       _sendMessage('3');
     }
+  }
+
+  double _value = 90.0;
+  @override
+  Widget build(BuildContext context) {
+    final List<Row> list = messages.map((_message) {
+      return Row(
+        children: <Widget>[
+          Container(
+            child: Text(
+                    (text) {
+                  return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
+                }(_message.text.trim()),
+                style: TextStyle(color: Colors.white)),
+            padding: EdgeInsets.all(12.0),
+            margin: EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
+            width: 222.0,
+            decoration: BoxDecoration(
+                color:
+                _message.whom == clientID ? Colors.blueAccent : Colors.grey,
+                borderRadius: BorderRadius.circular(7.0)),
+          ),
+        ],
+        mainAxisAlignment: _message.whom == clientID
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
+      );
+    }).toList();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: (isConnecting
+            ? Text('Connecting chat to ' + widget.server.name + '...')
+            : isConnected
+            ? Text('Connected with ' + widget.server.name)
+            : Text('Logout with ' + widget.server.name)),
+        leading: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (BuildContext context) => ControlRoom(
+            //           this.predictedUser.user,
+            //           imagePath: _cameraService.imagePath,
+            //         )));
+          },
+          child: Icon(Icons.arrow_back_ios),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: AvatarGlow(
+        animate: _isListening,
+        glowColor: Theme.of(context).primaryColor,
+        endRadius: 75.0,
+        duration: const Duration(milliseconds: 2000),
+        repeatPauseDuration: const Duration(milliseconds: 100),
+        repeat: true,
+        child: FloatingActionButton(
+          onPressed: isConnected ? _listen : null,
+          child: Icon(_isListening ? Icons.mic : Icons.mic_none),
+        ),
+      ),
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 150.0),
+              child: TextHighlight(
+                text: _text == '' ? "listening.." : _text,
+                words: _highlights,
+                textStyle: const TextStyle(
+                  fontSize: 32.0,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            Flexible(
+              child: ListView(
+                  padding: const EdgeInsets.all(12.0),
+                  controller: listScrollController,
+                  children: list),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -6,13 +6,12 @@ import 'package:graduation_project/Screens/voiceControl.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:graduation_project/Services/connection.dart';
 import 'DashBoard.dart';
+import 'Voice.dart';
 import 'aboutUs.dart';
 
 class ControlRoom extends StatelessWidget {
 
-  const ControlRoom(this.username, {Key key, this.imagePath}) : super(key: key);
-  final String username;
-  final String imagePath;
+  const ControlRoom({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,170 +20,166 @@ class ControlRoom extends StatelessWidget {
         future: FlutterBluetoothSerial.instance.requestEnable(),
         builder: (context, future) {
           if (future.connectionState != ConnectionState.waiting) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text('Control Room'),
-              ),
-              backgroundColor: Color(0XFFC7FFBE),
-              body: SafeArea(
-                child: Container(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.black,
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: FileImage(File(imagePath)),
-                              ),
-                            ),
-                            margin: EdgeInsets.all(20),
-                            width: 55,
-                            height: 75,
-                          ),
-                          AnimatedTextKit(
-                            animatedTexts: [
-                              TypewriterAnimatedText('Welcome $username!',
-                                  textStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 30,
-                                  ),
-                                  speed: Duration(milliseconds: 500)),
-                            ],
-                            totalRepeatCount: 1,
-                            displayFullTextOnTap: true,
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              SelectBondedDevicePage(
-                                onChatPage: (device1) {
-                                  BluetoothDevice device = device1;
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return VoiceControl(server: device);
-                                      },
+            return SafeArea(
+              child: Scaffold(
+                appBar: AppBar(
+                  title: Text('Control Room'),
+                ),
+                backgroundColor: Color(0XFFC7FFBE),
+                body: SafeArea(
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            // Container(
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(10),
+                            //     color: Colors.black,
+                            //     image: DecorationImage(
+                            //       fit: BoxFit.cover,
+                            //       image: FileImage(File(imagePath)),
+                            //     ),
+                            //   ),
+                            //   margin: EdgeInsets.all(20),
+                            //   width: 55,
+                            //   height: 75,
+                            // ),
+                            AnimatedTextKit(
+                              animatedTexts: [
+                                TypewriterAnimatedText('Welcome Test!',
+                                    textStyle: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FontStyle.italic,
+                                      fontSize: 30,
                                     ),
-                                  );
-                                },
-                              );
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color(0xFF0F0BDB),
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                    color: Colors.blue.withOpacity(0.1),
-                                    blurRadius: 1,
-                                    offset: Offset(0, 2),
+                                    speed: Duration(milliseconds: 500)),
+                              ],
+                              totalRepeatCount: 1,
+                              displayFullTextOnTap: true,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 150,
+                        ),
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return Voice();
+                                    },
                                   ),
-                                ],
-                              ),
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 14, horizontal: 16),
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Voice'
-                                        'Control',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Icon(Icons.keyboard_voice, color: Colors.white)
-                                ],
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color(0xFF0F0BDB),
+                                  boxShadow: <BoxShadow>[
+                                    BoxShadow(
+                                      color: Colors.blue.withOpacity(0.1),
+                                      blurRadius: 1,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 14, horizontal: 16),
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Voice'
+                                          'Control',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Icon(Icons.keyboard_voice, color: Colors.white)
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                              width:20
-                          ),
-                          InkWell(
-                            onTap: () {
-                              //manual page
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color(0xFF0F0BDB),
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                    color: Colors.blue.withOpacity(0.1),
-                                    blurRadius: 1,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 14, horizontal: 16),
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Manual'
-                                        'Control',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Icon(Icons.gamepad, color: Colors.white)
-                                ],
+                            SizedBox(
+                                height:20
+                            ),
+                            InkWell(
+                              onTap: () {
+                                //manual page
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color(0xFF0F0BDB),
+                                  boxShadow: <BoxShadow>[
+                                    BoxShadow(
+                                      color: Colors.blue.withOpacity(0.1),
+                                      blurRadius: 1,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 14, horizontal: 16),
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Manual'
+                                          'Control',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Icon(Icons.gamepad, color: Colors.white)
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              bottomNavigationBar: ConvexAppBar(
-                style: TabStyle.react,
-                items: [
-                  TabItem(icon: Icons.home, title: 'Home'),
-                  TabItem(icon: Icons.videogame_asset, title: 'Control'),
-                  TabItem(icon: Icons.assignment_late_outlined, title: 'About Us'),
-                  TabItem(icon: Icons.logout, title: 'Log Out'),
-                ],
-                initialActiveIndex: 1,
-                backgroundColor: Colors.blueGrey,
-                onTap: (int i) {
-                  if(i == 1){
-                    Navigator.pushReplacementNamed(context, DashBoard.id);
-                  }
-                  else if(i == 3){
-                    Navigator.pushReplacement(context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) => AboutUs(),
-                      ),
-                    );
-                  }
-                  else if(i == 4){
-                    Navigator.pushReplacementNamed(context, DashBoard.id);
-                  }
-                },
+                bottomNavigationBar: ConvexAppBar(
+                  style: TabStyle.react,
+                  items: [
+                    TabItem(icon: Icons.home, title: 'Home'),
+                    TabItem(icon: Icons.videogame_asset, title: 'Control'),
+                    TabItem(icon: Icons.assignment_late_outlined, title: 'About Us'),
+                    TabItem(icon: Icons.logout, title: 'Log Out'),
+                  ],
+                  initialActiveIndex: 1,
+                  backgroundColor: Colors.blueGrey,
+                  onTap: (int i) {
+                    if(i == 0){
+                      Navigator.pushReplacementNamed(context, DashBoard.id);
+                    }
+                    else if(i == 2){
+                      Navigator.pushReplacement(context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => AboutUs(),
+                        ),
+                      );
+                    }
+                    else if(i == 3){
+                      Navigator.pushReplacementNamed(context, DashBoard.id);
+                    }
+                  },
+                ),
               ),
             );
           } else {
@@ -221,17 +216,17 @@ class Home extends StatelessWidget {
         initialActiveIndex: 1,
         backgroundColor: Colors.blueGrey,
         onTap: (int i) {
-          if(i == 1){
+          if(i == 0){
             Navigator.pushReplacementNamed(context, DashBoard.id);
           }
-          else if(i == 3){
+          else if(i == 2){
             Navigator.pushReplacement(context,
               MaterialPageRoute<void>(
                 builder: (BuildContext context) => AboutUs(),
               ),
             );
           }
-          else if(i == 4){
+          else if(i == 3){
             Navigator.pushReplacementNamed(context, DashBoard.id);
           }
         },
