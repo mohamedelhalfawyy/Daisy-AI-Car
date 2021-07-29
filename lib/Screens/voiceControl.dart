@@ -4,12 +4,14 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'package:avatar_glow/avatar_glow.dart';
+import 'package:highlight_text/highlight_text.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
-class ChatPage extends StatefulWidget {
+class VoiceControl extends StatefulWidget {
   final BluetoothDevice server;
 
-  const ChatPage({this.server});
+  const VoiceControl({this.server});
 
   @override
   _ChatPage createState() => new _ChatPage();
@@ -22,11 +24,46 @@ class _Message {
   _Message(this.whom, this.text);
 }
 
-class _ChatPage extends State<ChatPage> {
+class _ChatPage extends State<VoiceControl> {
+  final Map<String, HighlightedWord> _highlights = {
+    'move forward': HighlightedWord(
+      onTap: () => print('flutter'),
+      textStyle: const TextStyle(
+        color: Colors.blue,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    'move right': HighlightedWord(
+      onTap: () => print('right'),
+      textStyle: const TextStyle(
+        color: Colors.green,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    'move left': HighlightedWord(
+      onTap: () => print('left'),
+      textStyle: const TextStyle(
+        color: Colors.red,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    'move backward': HighlightedWord(
+      onTap: () => print('flutter'),
+      textStyle: const TextStyle(
+        color: Colors.blue,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  };
+  stt.SpeechToText _speech;
+  bool _isListening = false;
+  String _text = 'Press the button and start speaking';
+  double _confidence = 1.0;
+
   static final clientID = 0;
   BluetoothConnection connection;
 
-  List<_Message> messages = List<_Message>();
+  List<_Message> messages = <_Message>[];
   String _messageBuffer = '';
 
   final TextEditingController textEditingController =
@@ -41,6 +78,7 @@ class _ChatPage extends State<ChatPage> {
   @override
   void initState() {
     super.initState();
+    _speech = stt.SpeechToText();
 
     BluetoothConnection.toAddress(widget.server.address).then((_connection) {
       print('Connected to the device');
@@ -49,14 +87,7 @@ class _ChatPage extends State<ChatPage> {
         isConnecting = false;
         isDisconnecting = false;
       });
-
       connection.input.listen(_onDataReceived).onDone(() {
-        // Example: Detect which side closed the connection
-        // There should be `isDisconnecting` flag to show are we are (locally)
-        // in middle of disconnecting process, should be set before calling
-        // `dispose`, `finish` or `close`, which all causes to disconnect.
-        // If we except the disconnection, `onDone` should be fired as result.
-        // If we didn't except this (no flag set), it means closing by remote.
         if (isDisconnecting) {
           print('Disconnecting locally!');
         } else {
@@ -113,49 +144,50 @@ class _ChatPage extends State<ChatPage> {
 
     return Scaffold(
       appBar: AppBar(
-          title: (isConnecting
-              ? Text('Connecting chat to ' + widget.server.name + '...')
-              : isConnected
-              ? Text('Live chat with ' + widget.server.name)
-              : Text('Chat log with ' + widget.server.name))),
+        title: (isConnecting
+            ? Text('Connecting chat to ' + widget.server.name + '...')
+            : isConnected
+            ? Text('Connected with ' + widget.server.name)
+            : Text('Logout with ' + widget.server.name)),
+        leading: ElevatedButton(
+          onPressed: () {
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (BuildContext context) => ControlRoom(
+            //           this.predictedUser.user,
+            //           imagePath: _cameraService.imagePath,
+            //         )));
+          },
+          child: Icon(Icons.arrow_back_ios),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: AvatarGlow(
+        animate: _isListening,
+        glowColor: Theme.of(context).primaryColor,
+        endRadius: 75.0,
+        duration: const Duration(milliseconds: 2000),
+        repeatPauseDuration: const Duration(milliseconds: 100),
+        repeat: true,
+        child: FloatingActionButton(
+          onPressed: isConnected ? _listen : null,
+          child: Icon(_isListening ? Icons.mic : Icons.mic_none),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.only(top: 50),
-              padding: const EdgeInsets.all(5),
-              width: double.infinity,
-              child: SfSlider(
-                min: 0.0,
-                max: 180.0,
-                value: _value,
-                interval: 30,
-                stepSize: 30.0,
-                showTicks: true,
-                showLabels: true,
-                minorTicksPerInterval: 1,
-                onChanged: (dynamic value) {
-                  if (isConnected) {
-                    setState(() {
-                      _value = value;
-                    });
-                    if (_value == 0) {
-                      _sendMessage('0');
-                    } else if (_value == 30) {
-                      _sendMessage('1');
-                    } else if (_value == 60) {
-                      _sendMessage('2');
-                    } else if (_value == 90) {
-                      _sendMessage('3');
-                    } else if (_value == 120) {
-                      _sendMessage('4');
-                    } else if (_value == 150) {
-                      _sendMessage('5');
-                    } else if (_value == 180) {
-                      _sendMessage('6');
-                    }
-                  }
-                },
+              padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 150.0),
+              child: TextHighlight(
+                text: _text == '' ? "listening.." : _text,
+                words: _highlights,
+                textStyle: const TextStyle(
+                  fontSize: 32.0,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
             Flexible(
@@ -164,36 +196,6 @@ class _ChatPage extends State<ChatPage> {
                   controller: listScrollController,
                   children: list),
             ),
-            Row(
-              children: <Widget>[
-                Flexible(
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 16.0),
-                    child: TextField(
-                      style: const TextStyle(fontSize: 15.0),
-                      controller: textEditingController,
-                      decoration: InputDecoration.collapsed(
-                        hintText: isConnecting
-                            ? 'Wait until connected...'
-                            : isConnected
-                            ? 'Type your message...'
-                            : 'Chat got disconnected',
-                        hintStyle: const TextStyle(color: Colors.grey),
-                      ),
-                      enabled: isConnected,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(8.0),
-                  child: IconButton(
-                      icon: const Icon(Icons.send),
-                      onPressed: isConnected
-                          ? () => _sendMessage(textEditingController.text)
-                          : null),
-                ),
-              ],
-            )
           ],
         ),
       ),
@@ -272,6 +274,42 @@ class _ChatPage extends State<ChatPage> {
         // Ignore error, but notify state
         setState(() {});
       }
+    }
+  }
+
+  void _listen() async {
+    if (!_isListening) {
+      bool available = await _speech.initialize(
+        onStatus: (val) => print('onStatus: $val'),
+        onError: (val) => print('onError: $val'),
+      );
+      if (available) {
+        setState(() => _isListening = true);
+        _speech.listen(
+          onResult: (val) => setState(() {
+            _text = val.recognizedWords;
+            if (val.hasConfidenceRating && val.confidence > 0) {
+              _confidence = val.confidence;
+            }
+          }),
+        );
+      }
+    } else {
+      setState(() => _isListening = false);
+      _speech.stop();
+      moveServo();
+    }
+  }
+
+  void moveServo() {
+    if (_text.contains('forward|up|front')) {
+      _sendMessage('0');
+    } else if (_text.contains('right')) {
+      _sendMessage('1');
+    } else if (_text.contains('left')) {
+      _sendMessage('2');
+    } else if (_text.contains('backward|back')) {
+      _sendMessage('3');
     }
   }
 }

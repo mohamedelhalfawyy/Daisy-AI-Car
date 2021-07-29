@@ -42,6 +42,9 @@ dependencies:
   convex_bottom_bar: ^3.0.0
   flutter_bluetooth_serial: ^0.3.2
   syncfusion_flutter_sliders: ^19.2.49
+  speech_to_text: ^4.2.2
+  highlight_text: ^0.7.2
+  avatar_glow: ^1.2.0
 
 dev_dependencies:
   flutter_test:

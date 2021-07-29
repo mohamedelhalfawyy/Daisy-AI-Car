@@ -14,10 +14,10 @@ class BluetoothDeviceListEntry extends StatelessWidget {
       leading: Icon(Icons.devices),
       title: Text(device.name ?? "Unknown device"),
       subtitle: Text(device.address.toString()),
-      trailing: FlatButton(
+      tileColor: Colors.blue,
+      trailing: TextButton(
         child: Text('Connect'),
         onPressed: onTap,
-        color: Colors.blue,
       ),
     );
   }
