@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class _Message {
 }
 
 class _ChatPage extends State<VoiceControl> {
+
   final Map<String, HighlightedWord> _highlights = {
     'move forward': HighlightedWord(
       onTap: () => print('flutter'),
@@ -55,6 +57,7 @@ class _ChatPage extends State<VoiceControl> {
       ),
     ),
   };
+
   stt.SpeechToText _speech;
   bool _isListening = false;
   String _text = 'Press the button and start speaking';
@@ -290,11 +293,13 @@ class _ChatPage extends State<VoiceControl> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
+            //todo render error is here
             Container(
               padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 150.0),
               child: TextHighlight(
                 text: _text == '' ? "listening.." : _text,
                 words: _highlights,
+                textAlign: TextAlign.justify,
                 textStyle: const TextStyle(
                   fontSize: 32.0,
                   color: Colors.black,

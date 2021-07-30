@@ -15,8 +15,8 @@ class ControlRoom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: FutureBuilder(
+    return Scaffold(
+      body: FutureBuilder(
         future: FlutterBluetoothSerial.instance.requestEnable(),
         builder: (context, future) {
           if (future.connectionState != ConnectionState.waiting) {
@@ -166,7 +166,12 @@ class ControlRoom extends StatelessWidget {
                   backgroundColor: Colors.blueGrey,
                   onTap: (int i) {
                     if(i == 0){
-                      Navigator.pushReplacementNamed(context, DashBoard.id);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) => DashBoard(),
+                          )
+                      );
                     }
                     else if(i == 2){
                       Navigator.pushReplacement(context,
@@ -217,7 +222,12 @@ class Home extends StatelessWidget {
         backgroundColor: Colors.blueGrey,
         onTap: (int i) {
           if(i == 0){
-            Navigator.pushReplacementNamed(context, DashBoard.id);
+            Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) => DashBoard(),
+              )
+            );
           }
           else if(i == 2){
             Navigator.pushReplacement(context,

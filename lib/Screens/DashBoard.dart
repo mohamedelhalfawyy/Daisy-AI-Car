@@ -167,6 +167,7 @@ class _DashBoardState extends State<DashBoard> {
             fontSize: 40.0,
             fontFamily: 'Horizon',
           ),)),
+      //todo make all in one navBar!
       bottomNavigationBar: ConvexAppBar(
         style: TabStyle.react,
         items: [
@@ -181,13 +182,18 @@ class _DashBoardState extends State<DashBoard> {
         backgroundColor: Colors.blueGrey,
         onTap: (int i) {
           if(i == 1){
-          Navigator.push(
+          Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                   builder: (BuildContext context) => ControlRoom()));
           }
           else if(i == 2){
-            Navigator.pushReplacementNamed(context, AboutUs.id);
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => AboutUs(),
+                )
+            );
           }
         },
       ),

@@ -37,19 +37,29 @@ class _AboutUsState extends State<AboutUs> {
         backgroundColor: Colors.blueGrey,
         onTap: (int i) {
           if(i == 0){
-            Navigator.pushReplacementNamed(context, DashBoard.id);
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => DashBoard(),
+                )
+            );
           }
           else if(i == 1){
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (BuildContext context) => ControlRoom(
-            //           this.predictedUser.user,
-            //           imagePath: _cameraService.imagePath,
-            //         )));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => ControlRoom(
+                      // this.predictedUser.user,
+                      // imagePath: _cameraService.imagePath,
+                    )));
           }
           else if(i == 3){
-            Navigator.pushReplacementNamed(context, DashBoard.id);
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => DashBoard(),
+                )
+            );
           }
         },
       ),

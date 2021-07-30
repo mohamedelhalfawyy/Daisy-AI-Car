@@ -69,6 +69,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
               fit: BoxFit.contain,
               animate: true,
               onLoaded: (value) async {
+                //todo change picture and name here
                 await Future.delayed(const Duration(seconds: 5), () {
                   // Navigator.push(
                   //     context,
