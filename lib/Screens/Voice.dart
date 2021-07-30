@@ -43,7 +43,7 @@ class Home extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            title: Text('con'),
+            title: Text('Connection'),
           ),
           body: SelectBondedDevicePage(
             onChatPage: (device1) {

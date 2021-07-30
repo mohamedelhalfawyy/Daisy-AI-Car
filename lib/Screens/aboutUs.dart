@@ -39,7 +39,7 @@ class _AboutUsState extends State<AboutUs> {
           if(i == 0){
             Navigator.pushReplacementNamed(context, DashBoard.id);
           }
-          else if(i == 2){
+          else if(i == 1){
             // Navigator.push(
             //     context,
             //     MaterialPageRoute(
@@ -48,7 +48,7 @@ class _AboutUsState extends State<AboutUs> {
             //           imagePath: _cameraService.imagePath,
             //         )));
           }
-          else if(i == 4){
+          else if(i == 3){
             Navigator.pushReplacementNamed(context, DashBoard.id);
           }
         },
