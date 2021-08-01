@@ -3,8 +3,8 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation_project/Screens/navbar.dart';
 import 'package:rive_splash_screen/rive_splash_screen.dart';
-import 'DashBoard.dart';
 
 
 
@@ -46,7 +46,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         fit: BoxFit.cover,
         name: riveFile,
         onSuccess: (data) {
-          Navigator.pushReplacementNamed(context, DashBoard.id);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => NavBar()));
         },
         onError: (err, stack) {},
         startAnimation: 'Animation',

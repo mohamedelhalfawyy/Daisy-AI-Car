@@ -2,9 +2,7 @@ import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:camera/camera.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project/Screens/control_room.dart';
 import 'package:graduation_project/Services/facenet.service.dart';
 import 'package:graduation_project/Services/ml_kit_service.dart';
 import 'package:graduation_project/db/database.dart';
@@ -14,8 +12,6 @@ import 'aboutUs.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({Key key}) : super(key: key);
-
-  static const String id = 'DashBoard';
 
   @override
   _DashBoardState createState() => _DashBoardState();
@@ -29,7 +25,7 @@ class _DashBoardState extends State<DashBoard> {
   CameraDescription cameraDescription;
   bool loading = false;
   StreamSubscription<ConnectivityResult> subscription;
-  bool isLoaded = false;
+  bool _isLoaded = false;
 
   @override
   void initState() {
@@ -134,12 +130,12 @@ class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: Colors.blueGrey,
       appBar: AppBar(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
           centerTitle: true,
-          title: !isLoaded ? Row(
+          title: !_isLoaded ? Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               const SizedBox(width: 20.0, height: 100.0),
@@ -153,7 +149,7 @@ class _DashBoardState extends State<DashBoard> {
                     isRepeatingAnimation: false,
                     onFinished: (){
                       setState(() {
-                        isLoaded = true;
+                        _isLoaded = true;
                       });
                     },
                     animatedTexts: [
@@ -167,36 +163,6 @@ class _DashBoardState extends State<DashBoard> {
             fontSize: 40.0,
             fontFamily: 'Horizon',
           ),)),
-      //todo make all in one navBar!
-      bottomNavigationBar: ConvexAppBar(
-        style: TabStyle.react,
-        items: [
-          TabItem(icon: Icons.home, title: 'Home'),
-          TabItem(icon: Icons.videogame_asset, title: 'Control'),
-          TabItem(
-            icon: Icons.assignment_late_outlined,
-            title: 'About Us',
-          ),
-        ],
-        initialActiveIndex: 0,
-        backgroundColor: Colors.blueGrey,
-        onTap: (int i) {
-          if(i == 1){
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (BuildContext context) => ControlRoom()));
-          }
-          else if(i == 2){
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => AboutUs(),
-                )
-            );
-          }
-        },
-      ),
     );
   }
 }

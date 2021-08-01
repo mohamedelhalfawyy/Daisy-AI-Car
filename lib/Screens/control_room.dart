@@ -151,42 +151,6 @@ class ControlRoom extends StatelessWidget {
                     ),
                   ),
                 ),
-                bottomNavigationBar: ConvexAppBar(
-                  style: TabStyle.react,
-                  items: [
-                    TabItem(icon: Icons.home, title: 'Home'),
-                    TabItem(icon: Icons.videogame_asset, title: 'Control'),
-                    TabItem(icon: Icons.assignment_late_outlined, title: 'About Us'),
-                    TabItem(icon: Icons.logout, title: 'Log Out'),
-                  ],
-                  initialActiveIndex: 1,
-                  backgroundColor: Colors.blueGrey,
-                  onTap: (int i) {
-                    if(i == 0){
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) => DashBoard(),
-                          )
-                      );
-                    }
-                    else if(i == 2){
-                      Navigator.pushReplacement(context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) => AboutUs(),
-                        ),
-                      );
-                    }
-                    else if(i == 3){
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) => DashBoard(),
-                          )
-                      );
-                    }
-                  },
-                ),
               ),
             );
           } else {
@@ -211,42 +175,6 @@ class Home extends StatelessWidget {
             color: Colors.blue,
           ),
         ),
-      ),
-      bottomNavigationBar: ConvexAppBar(
-        style: TabStyle.react,
-        items: [
-          TabItem(icon: Icons.home, title: 'Home'),
-          TabItem(icon: Icons.videogame_asset, title: 'Control'),
-          TabItem(icon: Icons.assignment_late_outlined, title: 'About Us'),
-          TabItem(icon: Icons.logout, title: 'Log Out'),
-        ],
-        initialActiveIndex: 1,
-        backgroundColor: Colors.blueGrey,
-        onTap: (int i) {
-          if(i == 0){
-            Navigator.push(
-              context,
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => DashBoard(),
-              )
-            );
-          }
-          else if(i == 2){
-            Navigator.pushReplacement(context,
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => AboutUs(),
-              ),
-            );
-          }
-          else if(i == 3){
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => DashBoard(),
-                )
-            );
-          }
-        },
       ),
     );
   }

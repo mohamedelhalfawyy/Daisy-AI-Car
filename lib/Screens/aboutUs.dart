@@ -1,8 +1,4 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
-
-import 'DashBoard.dart';
-import 'control_room.dart';
 
 class AboutUs extends StatefulWidget {
   const AboutUs({key}) : super(key: key);
@@ -24,44 +20,6 @@ class _AboutUsState extends State<AboutUs> {
       body: Container(
         height: double.infinity,
         // write here the about us page
-      ),
-      bottomNavigationBar: ConvexAppBar(
-        style: TabStyle.react,
-        items: [
-          TabItem(icon: Icons.home, title: 'Home'),
-          TabItem(icon: Icons.videogame_asset, title: 'Control'),
-          TabItem(icon: Icons.assignment_late_outlined, title: 'About Us'),
-          TabItem(icon: Icons.logout, title: 'Log Out'),
-        ],
-        initialActiveIndex: 2,
-        backgroundColor: Colors.blueGrey,
-        onTap: (int i) {
-          if(i == 0){
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => DashBoard(),
-                )
-            );
-          }
-          else if(i == 1){
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => ControlRoom(
-                      // this.predictedUser.user,
-                      // imagePath: _cameraService.imagePath,
-                    )));
-          }
-          else if(i == 3){
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => DashBoard(),
-                )
-            );
-          }
-        },
       ),
     );
   }
