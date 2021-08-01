@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,31 +27,24 @@ class _Message {
 class _ChatPage extends State<VoiceControl> {
 
   final Map<String, HighlightedWord> _highlights = {
-    'move forward': HighlightedWord(
+    'flutter': HighlightedWord(
       onTap: () => print('flutter'),
       textStyle: const TextStyle(
         color: Colors.blue,
         fontWeight: FontWeight.bold,
       ),
     ),
-    'move right': HighlightedWord(
+    'right': HighlightedWord(
       onTap: () => print('right'),
       textStyle: const TextStyle(
         color: Colors.green,
         fontWeight: FontWeight.bold,
       ),
     ),
-    'move left': HighlightedWord(
+    'left': HighlightedWord(
       onTap: () => print('left'),
       textStyle: const TextStyle(
         color: Colors.red,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    'move backward': HighlightedWord(
-      onTap: () => print('flutter'),
-      textStyle: const TextStyle(
-        color: Colors.blue,
         fontWeight: FontWeight.bold,
       ),
     ),
@@ -266,13 +258,6 @@ class _ChatPage extends State<VoiceControl> {
         leading: ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (BuildContext context) => ControlRoom(
-            //           this.predictedUser.user,
-            //           imagePath: _cameraService.imagePath,
-            //         )));
           },
           child: Icon(Icons.arrow_back_ios),
         ),
@@ -293,8 +278,9 @@ class _ChatPage extends State<VoiceControl> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            //todo render error is here
             Container(
+              height: 100,
+              width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 150.0),
               child: TextHighlight(
                 text: _text == '' ? "listening.." : _text,

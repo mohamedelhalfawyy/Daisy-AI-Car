@@ -69,14 +69,32 @@ class _AuthActionButtonState extends State<AuthActionButton> {
               fit: BoxFit.contain,
               animate: true,
               onLoaded: (value) async {
-                //todo change picture and name here
+                var _name = this.predictedUser.user;
+                var _imagePath;
+
+                if (_name.startsWith('s|S')) {
+                  _imagePath = 'assets/Images/Seby.jpeg';
+                }
+                else if (_name.startsWith('h|H')) {
+                  _imagePath = 'assets/Images/Halfawy.jpeg';
+                }
+                else if (_name.startsWith('m|M')) {
+                  _imagePath = 'assets/Images/Marwan.jpeg';
+                }
+                else if (_name.startsWith('f|F')) {
+                  _imagePath = 'assets/Images/Farida.jpeg';
+                }
+                else
+                  _imagePath = _cameraService.imagePath;
+                
                 await Future.delayed(const Duration(seconds: 5), () {
+
                   // Navigator.push(
                   //     context,
                   //     MaterialPageRoute(
                   //         builder: (BuildContext context) => ControlRoom(
                   //               this.predictedUser.user,
-                  //               imagePath: _cameraService.imagePath,
+                  //               imagePath: _imagePath,
                   //             )));
                 });
               },

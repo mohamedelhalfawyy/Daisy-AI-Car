@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:graduation_project/Screens/DashBoard.dart';
 import 'package:graduation_project/Screens/LoadingScreen.dart';
-import 'package:graduation_project/Screens/aboutUs.dart';
-
-import 'Screens/Voice.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,11 +31,6 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
           ),
           title: 'Daisy',
           home: LoadingScreen(),
-          routes: {
-             DashBoard.id : (context) => DashBoard(),
-             AboutUs.id : (context) => AboutUs(),
-             Voice.id : (context) => Voice(),
-          },
           debugShowCheckedModeBanner: false,
         );
   }
