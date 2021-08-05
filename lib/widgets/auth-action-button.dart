@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/Models/user.model.dart';
 import 'package:graduation_project/Screens/DashBoard.dart';
 import 'package:graduation_project/Screens/control_room.dart';
+import 'package:graduation_project/Screens/navbar.dart';
 import 'package:graduation_project/Services/camera.service.dart';
 import 'package:graduation_project/Services/facenet.service.dart';
 import 'package:graduation_project/db/database.dart';
@@ -88,14 +89,17 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                   _imagePath = _cameraService.imagePath;
                 
                 await Future.delayed(const Duration(seconds: 5), () {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => NavBar.Info(
+                            username: this.predictedUser.user,
+                            index: 1,
 
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (BuildContext context) => ControlRoom(
-                  //               this.predictedUser.user,
-                  //               imagePath: _imagePath,
-                  //             )));
+                            //imagePath: _imagePath,
+                          )
+                      ),(Route<dynamic> route) => false
+                  );
                 });
               },
               alignment: Alignment.center,

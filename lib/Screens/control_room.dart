@@ -8,7 +8,11 @@ import 'aboutUs.dart';
 
 class ControlRoom extends StatelessWidget {
 
-  const ControlRoom({Key key}) : super(key: key);
+  const ControlRoom(this.username, {Key key}) : super(key: key);
+
+  static const String id = 'ControlRoomScreen';
+
+  final String username ;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +48,7 @@ class ControlRoom extends StatelessWidget {
                             // ),
                             AnimatedTextKit(
                               animatedTexts: [
-                                TypewriterAnimatedText('Welcome Test!',
+                                TypewriterAnimatedText('Welcome $username!',
                                     textStyle: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,

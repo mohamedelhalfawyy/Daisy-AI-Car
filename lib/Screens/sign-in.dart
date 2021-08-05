@@ -22,6 +22,8 @@ class SignIn extends StatefulWidget {
     @required this.cameraDescription,
   }) : super(key: key);
 
+  static const String id = 'SignIn';
+
   @override
   SignInState createState() => SignInState();
 }
@@ -144,9 +146,9 @@ class SignInState extends State<SignIn> {
     } else {
       _saving = true;
 
-      await Future.delayed(Duration(milliseconds: 500));
+      //await Future.delayed(Duration(milliseconds: 500));
       await _cameraService.cameraController.stopImageStream();
-      await Future.delayed(Duration(milliseconds: 200));
+      //await Future.delayed(Duration(milliseconds: 200));
       XFile file = await _cameraService.takePicture();
 
       setState(() {

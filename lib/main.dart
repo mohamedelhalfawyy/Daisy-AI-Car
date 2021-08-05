@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:graduation_project/Screens/DashBoard.dart';
 import 'package:graduation_project/Screens/LoadingScreen.dart';
+import 'package:graduation_project/Screens/aboutUs.dart';
+import 'package:graduation_project/Screens/control_room.dart';
+import 'package:graduation_project/Screens/sign-in.dart';
+import 'package:graduation_project/Screens/voiceControl.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +35,14 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           title: 'Daisy',
-          home: LoadingScreen(),
+          initialRoute: '/',
+          routes: {
+            '/' : (context) => LoadingScreen(),
+            DashBoard.id : (context) => DashBoard(),
+            SignIn.id : (context) => SignIn(),
+            AboutUs.id : (context) => AboutUs(),
+            VoiceControl.id : (context) => VoiceControl(),
+          },
           debugShowCheckedModeBanner: false,
         );
   }
