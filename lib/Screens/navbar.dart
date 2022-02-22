@@ -42,7 +42,6 @@ class _NavBarState extends State<NavBar> {
 
 void checkScreen (){
   if (index == 1){
-    print('am in');
     _screens2 = [DashBoard(), ControlRoom(username), AboutUs()];
     _selectedScreen = 1;
   }
@@ -62,7 +61,7 @@ void checkScreen (){
           ),
         ],
         initialActiveIndex: index,
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.blue[800],
         onTap: (int value) {
           setState(() {
             _selectedScreen = value;

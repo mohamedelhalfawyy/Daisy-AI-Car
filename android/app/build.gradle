@@ -32,10 +32,14 @@ android {
         noCompress "lite"
     }
 
-    compileSdkVersion 28
+    compileSdkVersion 31
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    task wrapper(type: Wrapper){
+        gradleVersion = '7.2'
     }
 
     defaultConfig {
@@ -63,7 +67,7 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation platform('com.google.firebase:firebase-bom:28.2.1')
+    implementation platform('com.google.firebase:firebase-bom:29.1.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation("androidx.multidex:multidex:2.0.1")
     implementation 'com.google.mlkit:face-detection:16.1.2'

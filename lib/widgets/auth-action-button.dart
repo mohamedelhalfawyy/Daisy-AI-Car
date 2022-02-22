@@ -242,20 +242,10 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                           style: TextStyle(fontSize: 20),
                         )),
                         SizedBox(height: 15,),
-                        SplashScreen.callback(
-                          backgroundColor: Colors.white,
-                          fit: BoxFit.cover,
-                          name: 'assets/er.riv',
-                          height: 150,
-                          width: 200,
-                          onSuccess: (data) {},
-                          onError: (err, stack) {},
-                          startAnimation: 'Manatime 404 Error',
-                          endAnimation: 'Manatime 404 Error',
-                          until: () =>
-                              Future.delayed(Duration(milliseconds: 100)),
-                          loopAnimation: 'Manatime 404 Error',
-                        )
+                        Lottie.asset(
+                          "assets/faceError.json",
+                          height: 100,
+                        ),
                       ],
                     )
                   : Container(),

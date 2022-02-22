@@ -43,7 +43,7 @@ class _DashBoardState extends State<DashBoard> {
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) async {
-      if (result != ConnectivityResult.mobile ||
+      if (result != ConnectivityResult.mobile &&
           result != ConnectivityResult.wifi) {
         ShowSnackBar(
             context: context,
