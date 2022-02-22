@@ -62,7 +62,7 @@ void checkScreen (){
           ),
         ],
         initialActiveIndex: index,
-        backgroundColor: Colors.indigoAccent,
+        backgroundColor: Colors.blue,
         onTap: (int value) {
           setState(() {
             _selectedScreen = value;
