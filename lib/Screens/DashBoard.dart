@@ -5,9 +5,6 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project/Services/facenet.service.dart';
-import 'package:graduation_project/Services/ml_kit_service.dart';
-import 'package:graduation_project/db/database.dart';
 import 'package:graduation_project/widgets/SnackBar.dart';
 import 'package:page_flip_builder/page_flip_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,17 +12,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 class DashBoard extends StatefulWidget {
   const DashBoard({Key key}) : super(key: key);
 
+  static const String id = 'DashBoardScreen' ;
+
   @override
   _DashBoardState createState() => _DashBoardState();
 }
 
 class _DashBoardState extends State<DashBoard> {
-  FaceNetService _faceNetService = FaceNetService();
-  MLKitService _mlKitService = MLKitService();
-  DataBaseService _dataBaseService = DataBaseService();
-
-  CameraDescription cameraDescription;
-  bool loading = false;
   StreamSubscription<ConnectivityResult> subscription;
   bool _isLoaded = false;
 
@@ -33,7 +26,6 @@ class _DashBoardState extends State<DashBoard> {
   void initState() {
     super.initState();
 
-    _startUp();
     checkConnection();
   }
 
@@ -54,17 +46,8 @@ class _DashBoardState extends State<DashBoard> {
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) async {
-      if (result == ConnectivityResult.mobile ||
-          result == ConnectivityResult.wifi) {
-        ShowSnackBar(
-            context: context,
-            text: 'Connection Restored',
-            color: Colors.green,
-            isWifi: true,
-            icon: Icons.wifi)
-            .show();
-        await Future.delayed(Duration(seconds: 5));
-      } else
+      if (result != ConnectivityResult.mobile ||
+          result != ConnectivityResult.wifi) {
         ShowSnackBar(
             context: context,
             text: 'No Connection',
@@ -72,31 +55,7 @@ class _DashBoardState extends State<DashBoard> {
             isWifi: true,
             icon: Icons.wifi_off)
             .show();
-    });
-  }
-
-  _startUp() async {
-    _setLoading(true);
-
-    List<CameraDescription> cameras = await availableCameras();
-
-    /// takes the front camera
-    cameraDescription = cameras.firstWhere(
-          (CameraDescription camera) =>
-      camera.lensDirection == CameraLensDirection.front,
-    );
-
-    // start the services
-    await _faceNetService.loadModel();
-    await _dataBaseService.loadDB();
-    _mlKitService.initialize();
-
-    _setLoading(false);
-  }
-
-  _setLoading(bool value) {
-    setState(() {
-      loading = value;
+      }
     });
   }
 
@@ -157,6 +116,7 @@ class _DashBoardState extends State<DashBoard> {
                       });
                     },
                     animatedTexts: [
+                      RotateAnimatedText(''),
                       RotateAnimatedText('BE UNIQUE'),
                       RotateAnimatedText('BE CREATIVE'),
                       RotateAnimatedText('BE DIFFERENT'),
@@ -172,12 +132,14 @@ class _DashBoardState extends State<DashBoard> {
       body: ListView(
         children: [
           Container(
-            height: 200,
+            height: 300,
             width: double.infinity,
             child: Carousel(
+              showIndicator: false,
               dotColor: Colors.transparent,
               dotBgColor: Colors.transparent,
-              autoplayDuration: Duration(seconds: 2),
+              autoplay: true,
+              autoplayDuration: Duration(seconds: 7),
               images: [
                 Image.asset('assets/Images/car1.jpeg', fit: BoxFit.cover),
                 Image.asset('assets/Images/car2.jpeg', fit: BoxFit.cover),
@@ -197,11 +159,11 @@ class _DashBoardState extends State<DashBoard> {
                   child: PageFlipBuilder(
                     key: pageFlipKey,
                     frontBuilder: (_) => LightHomePage(
-                      image: 'assets/Images/arduinoUno1.jpeg',
+                      image: 'assets/Images/car4.jpeg',
                       onFlip: () => pageFlipKey.currentState?.flip(),
                     ),
                     backBuilder: (_) => DarkHomePage(
-                      image: 'assets/Images/arduinoUno2.jpeg',
+                      image: 'assets/Images/car3.jpeg',
                       onFlip: () => pageFlipKey.currentState?.flip(),
                     ),
                     maxTilt: 0.003,
@@ -211,231 +173,231 @@ class _DashBoardState extends State<DashBoard> {
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(left:10, top:20, right:10),
-            child: Row(
-              children: [
-                Container(
-                  color: Colors.black,
-                  width: 180,
-                  height: 200,
-                  child: PageFlipBuilder(
-                    key: pageFlipKey,
-                    frontBuilder: (_) => LightHomePage(
-                      image: 'assets/Images/dcGearedMotor1.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    backBuilder: (_) => DarkHomePage(
-                      image: 'assets/Images/dcGearedMotor2.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    maxTilt: 0.003,
-                    maxScale: 0.2,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left:10, top:20, right:10),
-            child: Row(
-              children: [
-                Container(
-                  color: Colors.black,
-                  width: 180,
-                  height: 200,
-                  child: PageFlipBuilder(
-                    key: pageFlipKey,
-                    frontBuilder: (_) => LightHomePage(
-                      image: 'assets/Images/microServoMotor1.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    backBuilder: (_) => DarkHomePage(
-                      image: 'assets/Images/microServoMotor2.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    maxTilt: 0.003,
-                    maxScale: 0.2,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left:10, top:20, right:10),
-            child: Row(
-              children: [
-                Container(
-                  color: Colors.black,
-                  width: 180,
-                  height: 200,
-                  child: PageFlipBuilder(
-                    key: pageFlipKey,
-                    frontBuilder: (_) => LightHomePage(
-                      image: 'assets/Images/motorDriverShield1.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    backBuilder: (_) => DarkHomePage(
-                      image: 'assets/Images/motorDriverShield2.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    maxTilt: 0.003,
-                    maxScale: 0.2,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left:10, top:20, right:10),
-            child: Row(
-              children: [
-                Container(
-                  color: Colors.black,
-                  width: 180,
-                  height: 200,
-                  child: PageFlipBuilder(
-                    key: pageFlipKey,
-                    frontBuilder: (_) => LightHomePage(
-                      image: 'assets/Images/ultrasonicSensor1.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    backBuilder: (_) => DarkHomePage(
-                      image: 'assets/Images/ultrasonicSensor2.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    maxTilt: 0.003,
-                    maxScale: 0.2,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left:10, top:20, right:10),
-            child: Row(
-              children: [
-                Container(
-                  color: Colors.black,
-                  width: 180,
-                  height: 200,
-                  child: PageFlipBuilder(
-                    key: pageFlipKey,
-                    frontBuilder: (_) => LightHomePage(
-                      image: 'assets/Images/serialBluetoothModule1.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    backBuilder: (_) => DarkHomePage(
-                      image: 'assets/Images/serialBluetoothModule2.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    maxTilt: 0.003,
-                    maxScale: 0.2,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left:10, top:20, right:10),
-            child: Row(
-              children: [
-                Container(
-                  color: Colors.black,
-                  width: 180,
-                  height: 200,
-                  child: PageFlipBuilder(
-                    key: pageFlipKey,
-                    frontBuilder: (_) => LightHomePage(
-                      image: 'assets/Images/batteryHolderBox1.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    backBuilder: (_) => DarkHomePage(
-                      image: 'assets/Images/batteryHolderBox2.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    maxTilt: 0.003,
-                    maxScale: 0.2,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left:10, top:20, right:10),
-            child: Row(
-              children: [
-                Container(
-                  color: Colors.black,
-                  width: 180,
-                  height: 200,
-                  child: PageFlipBuilder(
-                    key: pageFlipKey,
-                    frontBuilder: (_) => LightHomePage(
-                      image: 'assets/Images/maleAndFemaleJumperWire1.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    backBuilder: (_) => DarkHomePage(
-                      image: 'assets/Images/maleAndFemaleJumperWire2.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    maxTilt: 0.003,
-                    maxScale: 0.2,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left:10, top:20, right:10),
-            child: Row(
-              children: [
-                Container(
-                  color: Colors.black,
-                  width: 180,
-                  height: 200,
-                  child: PageFlipBuilder(
-                    key: pageFlipKey,
-                    frontBuilder: (_) => LightHomePage(
-                      image: 'assets/Images/wheel1.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    backBuilder: (_) => DarkHomePage(
-                      image: 'assets/Images/wheel2.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    maxTilt: 0.003,
-                    maxScale: 0.2,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left:10, top:20, right:10),
-            child: Row(
-              children: [
-                Container(
-                  color: Colors.black,
-                  width: 180,
-                  height: 200,
-                  child: PageFlipBuilder(
-                    key: pageFlipKey,
-                    frontBuilder: (_) => LightHomePage(
-                      image: 'assets/Images/maleAndFemaleJumperWire1.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    backBuilder: (_) => DarkHomePage(
-                      image: 'assets/Images/maleAndFemaleJumperWire2.jpeg',
-                      onFlip: () => pageFlipKey.currentState?.flip(),
-                    ),
-                    maxTilt: 0.003,
-                    maxScale: 0.2,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.only(left:10, top:20, right:10),
+          //   child: Row(
+          //     children: [
+          //       Container(
+          //         color: Colors.black,
+          //         width: 180,
+          //         height: 200,
+          //         child: PageFlipBuilder(
+          //           key: pageFlipKey,
+          //           frontBuilder: (_) => LightHomePage(
+          //             image: 'assets/Images/dcGearedMotor1.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           backBuilder: (_) => DarkHomePage(
+          //             image: 'assets/Images/dcGearedMotor2.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           maxTilt: 0.003,
+          //           maxScale: 0.2,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.only(left:10, top:20, right:10),
+          //   child: Row(
+          //     children: [
+          //       Container(
+          //         color: Colors.black,
+          //         width: 180,
+          //         height: 200,
+          //         child: PageFlipBuilder(
+          //           key: pageFlipKey,
+          //           frontBuilder: (_) => LightHomePage(
+          //             image: 'assets/Images/microServoMotor1.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           backBuilder: (_) => DarkHomePage(
+          //             image: 'assets/Images/microServoMotor2.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           maxTilt: 0.003,
+          //           maxScale: 0.2,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.only(left:10, top:20, right:10),
+          //   child: Row(
+          //     children: [
+          //       Container(
+          //         color: Colors.black,
+          //         width: 180,
+          //         height: 200,
+          //         child: PageFlipBuilder(
+          //           key: pageFlipKey,
+          //           frontBuilder: (_) => LightHomePage(
+          //             image: 'assets/Images/motorDriverShield1.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           backBuilder: (_) => DarkHomePage(
+          //             image: 'assets/Images/motorDriverShield2.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           maxTilt: 0.003,
+          //           maxScale: 0.2,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.only(left:10, top:20, right:10),
+          //   child: Row(
+          //     children: [
+          //       Container(
+          //         color: Colors.black,
+          //         width: 180,
+          //         height: 200,
+          //         child: PageFlipBuilder(
+          //           key: pageFlipKey,
+          //           frontBuilder: (_) => LightHomePage(
+          //             image: 'assets/Images/ultrasonicSensor1.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           backBuilder: (_) => DarkHomePage(
+          //             image: 'assets/Images/ultrasonicSensor2.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           maxTilt: 0.003,
+          //           maxScale: 0.2,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.only(left:10, top:20, right:10),
+          //   child: Row(
+          //     children: [
+          //       Container(
+          //         color: Colors.black,
+          //         width: 180,
+          //         height: 200,
+          //         child: PageFlipBuilder(
+          //           key: pageFlipKey,
+          //           frontBuilder: (_) => LightHomePage(
+          //             image: 'assets/Images/serialBluetoothModule1.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           backBuilder: (_) => DarkHomePage(
+          //             image: 'assets/Images/serialBluetoothModule2.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           maxTilt: 0.003,
+          //           maxScale: 0.2,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.only(left:10, top:20, right:10),
+          //   child: Row(
+          //     children: [
+          //       Container(
+          //         color: Colors.black,
+          //         width: 180,
+          //         height: 200,
+          //         child: PageFlipBuilder(
+          //           key: pageFlipKey,
+          //           frontBuilder: (_) => LightHomePage(
+          //             image: 'assets/Images/batteryHolderBox1.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           backBuilder: (_) => DarkHomePage(
+          //             image: 'assets/Images/batteryHolderBox2.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           maxTilt: 0.003,
+          //           maxScale: 0.2,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.only(left:10, top:20, right:10),
+          //   child: Row(
+          //     children: [
+          //       Container(
+          //         color: Colors.black,
+          //         width: 180,
+          //         height: 200,
+          //         child: PageFlipBuilder(
+          //           key: pageFlipKey,
+          //           frontBuilder: (_) => LightHomePage(
+          //             image: 'assets/Images/maleAndFemaleJumperWire1.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           backBuilder: (_) => DarkHomePage(
+          //             image: 'assets/Images/maleAndFemaleJumperWire2.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           maxTilt: 0.003,
+          //           maxScale: 0.2,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.only(left:10, top:20, right:10),
+          //   child: Row(
+          //     children: [
+          //       Container(
+          //         color: Colors.black,
+          //         width: 180,
+          //         height: 200,
+          //         child: PageFlipBuilder(
+          //           key: pageFlipKey,
+          //           frontBuilder: (_) => LightHomePage(
+          //             image: 'assets/Images/wheel1.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           backBuilder: (_) => DarkHomePage(
+          //             image: 'assets/Images/wheel2.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           maxTilt: 0.003,
+          //           maxScale: 0.2,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.only(left:10, top:20, right:10),
+          //   child: Row(
+          //     children: [
+          //       Container(
+          //         color: Colors.black,
+          //         width: 180,
+          //         height: 200,
+          //         child: PageFlipBuilder(
+          //           key: pageFlipKey,
+          //           frontBuilder: (_) => LightHomePage(
+          //             image: 'assets/Images/maleAndFemaleJumperWire1.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           backBuilder: (_) => DarkHomePage(
+          //             image: 'assets/Images/maleAndFemaleJumperWire2.jpeg',
+          //             onFlip: () => pageFlipKey.currentState?.flip(),
+          //           ),
+          //           maxTilt: 0.003,
+          //           maxScale: 0.2,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );

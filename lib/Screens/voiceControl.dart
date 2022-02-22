@@ -13,6 +13,8 @@ class VoiceControl extends StatefulWidget {
 
   const VoiceControl({this.server});
 
+  static const String id = 'VoiceControl';
+
   @override
   _ChatPage createState() => new _ChatPage();
 }

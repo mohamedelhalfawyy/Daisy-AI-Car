@@ -1,21 +1,52 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation_project/Screens/control_room.dart';
+import 'package:graduation_project/Screens/scan_screen.dart';
 
 import 'DashBoard.dart';
 import 'aboutUs.dart';
-import 'control_room.dart';
 
 class NavBar extends StatefulWidget {
-  const NavBar({Key key}) : super(key: key);
+  NavBar({Key key}) : super(key: key);
+
+  NavBar.Info({
+    this.username,
+    this.index,
+  });
+
+  String username = '';
+  int index = 0;
 
   @override
-  _NavBarState createState() => _NavBarState();
+  _NavBarState createState() => _NavBarState(username,index);
 }
 
 class _NavBarState extends State<NavBar> {
   int _selectedScreen = 0;
-  var _screens = [DashBoard(),ControlRoom(),AboutUs()];
+  String username;
+  int index;
 
+  _NavBarState(this.username, this.index);
+
+  var _screens = [DashBoard(), ScanScreen(), AboutUs()];
+  var _screens2 ;
+
+
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkScreen();
+  }
+
+
+void checkScreen (){
+  if (index == 1){
+    print('am in');
+    _screens2 = [DashBoard(), ControlRoom(username), AboutUs()];
+    _selectedScreen = 1;
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +61,15 @@ class _NavBarState extends State<NavBar> {
             title: 'About Us',
           ),
         ],
-        initialActiveIndex: 0,
-        backgroundColor: Colors.indigo,
-        onTap: (int index) {
+        initialActiveIndex: index,
+        backgroundColor: Colors.indigoAccent,
+        onTap: (int value) {
           setState(() {
-            _selectedScreen = index;
+            _selectedScreen = value;
           });
         },
       ),
-      body: _screens[_selectedScreen],
+      body: index == 1 ? _screens2[_selectedScreen]: _screens[_selectedScreen],
     );
   }
 }
