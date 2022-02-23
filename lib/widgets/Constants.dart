@@ -170,3 +170,6 @@ class Validations {
 List<BoxShadow> shadowList = [
   BoxShadow(color: Colors.grey[300], blurRadius: 30.0, offset: Offset(0, 10))
 ];
+
+const Color mainColor = Color(0xff4A7FE4);
+

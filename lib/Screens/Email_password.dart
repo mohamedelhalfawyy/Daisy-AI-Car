@@ -118,7 +118,7 @@ class _Email_PasswordState extends State<Email_Password> {
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(60),
                               topLeft: Radius.circular(60)),
-                          color: Colors.blue,
+                          color: mainColor,
                           boxShadow: [
                             BoxShadow(
                               blurRadius: 20,
