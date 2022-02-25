@@ -133,7 +133,7 @@ class _DashBoardState extends State<DashBoard> {
                 _buildCard(
                     config: CustomConfig(
                       colors: [
-                        Colors.blue[600],
+                        Colors.blueAccent.shade200,
                       ],
                       durations: [102000],
                       heightPercentages: [0.65],

@@ -4,6 +4,8 @@ import 'dart:math' as math;
 import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation_project/Screens/Email_password.dart';
+import 'package:graduation_project/Screens/navbar.dart';
 import 'package:graduation_project/Services/camera.service.dart';
 import 'package:graduation_project/Services/facenet.service.dart';
 import 'package:graduation_project/Services/ml_kit_service.dart';
@@ -87,7 +89,7 @@ class SignUpState extends State<SignUp> {
             backgroundColor: Colors.white,
             elevation: 11,
             title: Lottie.asset(
-              'assets/faceError.json',
+              'assets/noFace.json',
               width: 200,
               height: 150,
             ),
@@ -154,7 +156,12 @@ class SignUpState extends State<SignUp> {
   }
 
   _onBackPressed() {
-    Navigator.of(context).pop();
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) => NavBar.ind(index: 1,isUser: false,)
+        ),(Route<dynamic> route) => false
+    );
   }
 
   _reload() {

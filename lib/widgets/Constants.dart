@@ -3,6 +3,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:page_transition/page_transition.dart';
 
 class LTextField extends StatelessWidget {
   final IconData icon;
@@ -165,11 +166,41 @@ class Validations {
     RequiredValidator(errorText: 'Email is required'),
     EmailValidator(errorText: 'Enter a valid email address')
   ]);
+
+  final nameValidator = MultiValidator([
+    RequiredValidator(errorText: 'Name is required'),
+    MinLengthValidator(6, errorText: 'name must be at least 6 characters long'),
+  ]);
 }
 
 List<BoxShadow> shadowList = [
   BoxShadow(color: Colors.grey[300], blurRadius: 30.0, offset: Offset(0, 10))
 ];
+
+class Navigation {
+  final Widget widget;
+  final screen;
+  final context;
+  final PageTransitionType type;
+
+
+  Navigation(
+      {this.widget,
+        this.screen,
+        this.context,
+        this.type
+      });
+
+    void navigate(){
+      Navigator.of(context).push(PageTransition(
+          type: type,
+          duration: Duration(milliseconds: 800),
+          reverseDuration: Duration(milliseconds: 600),
+          childCurrent: widget,
+          child: screen
+      ));
+    }
+}
 
 const Color mainColor = Color(0xff4A7FE4);
 

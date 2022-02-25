@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:graduation_project/Services/FirebaseApi.dart';
+import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 class DataBaseService {
@@ -15,6 +18,7 @@ class DataBaseService {
 
   /// file that stores the data on filesystem
   File jsonFile;
+  UploadTask task;
 
   /// Data learned on memory
   Map<String, dynamic> _db = Map<String, dynamic>();
@@ -38,6 +42,21 @@ class DataBaseService {
     String userAndPass = user + ':' + password;
     _db[userAndPass] = modelData;
     jsonFile.writeAsStringSync(json.encode(_db));
+
+      if (jsonFile == null) return;
+
+      final fileName = basename(jsonFile.path);
+      final destination = 'files/$fileName';
+
+      task = FirebaseApi.uploadFile(destination, jsonFile);
+
+      if (task == null) return;
+
+      final snapshot = await task.whenComplete(() {});
+      final urlDownload = await snapshot.ref.getDownloadURL();
+
+      print('Download-Link: $urlDownload');
+
   }
 
   /// deletes the created users

@@ -3,11 +3,15 @@ import 'package:graduation_project/Models/user.model.dart';
 import 'package:graduation_project/Screens/DashBoard.dart';
 import 'package:graduation_project/Screens/control_room.dart';
 import 'package:graduation_project/Screens/navbar.dart';
+import 'package:graduation_project/Services/AuthServices.dart';
+import 'package:graduation_project/Services/Firestore_Services.dart';
 import 'package:graduation_project/Services/camera.service.dart';
 import 'package:graduation_project/Services/facenet.service.dart';
 import 'package:graduation_project/db/database.dart';
 import 'package:lottie/lottie.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:rive_splash_screen/rive_splash_screen.dart';
+import 'Constants.dart';
 import 'app_button.dart';
 import 'app_text_field.dart';
 
@@ -34,24 +38,45 @@ class _AuthActionButtonState extends State<AuthActionButton> {
       TextEditingController(text: '');
   final TextEditingController _passwordTextEditingController =
       TextEditingController(text: '');
+  final TextEditingController _emailTextEditingController =
+      TextEditingController(text: '');
 
   final _formKey = GlobalKey<FormState>();
 
   User predictedUser;
 
+  bool _isSecure = true;
+  AutovalidateMode _validate = AutovalidateMode.onUserInteraction;
+
   Future _signUp(context) async {
     /// gets predicted data from facenet service (user face detected)
     List predictedData = _faceNetService.predictedData;
-    String user = _userTextEditingController.text;
-    String password = _passwordTextEditingController.text;
+    String _email = _emailTextEditingController.text;
+    String _name = _userTextEditingController.text;
+    String _password = _passwordTextEditingController.text;
+
+    await FireStoreServices().addUser(_email, _password, _name);
+    await AuthServices().createUserWithEmail(_email, _password);
 
     /// creates a new user in the 'database'
-    await _dataBaseService.saveData(user, password, predictedData);
+    await _dataBaseService.saveData(_name, _password, predictedData);
 
     /// resets the face stored in the face net sevice
     this._faceNetService.setPredictedData(null);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
+
+
+    await Future.delayed(const Duration(seconds: 5), () {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => NavBar.Info(
+                    username: _name,
+                    index: 1,
+
+                    //imagePath: _imagePath,
+                  )),
+          (Route<dynamic> route) => false);
+    });
   }
 
   Future _signIn(context) async {
@@ -75,31 +100,26 @@ class _AuthActionButtonState extends State<AuthActionButton> {
 
                 if (_name.startsWith('s|S')) {
                   _imagePath = 'assets/Images/Seby.jpeg';
-                }
-                else if (_name.startsWith('h|H')) {
+                } else if (_name.startsWith('h|H')) {
                   _imagePath = 'assets/Images/Halfawy.jpeg';
-                }
-                else if (_name.startsWith('m|M')) {
+                } else if (_name.startsWith('m|M')) {
                   _imagePath = 'assets/Images/Marwan.jpeg';
-                }
-                else if (_name.startsWith('f|F')) {
+                } else if (_name.startsWith('f|F')) {
                   _imagePath = 'assets/Images/Farida.jpeg';
-                }
-                else
+                } else
                   _imagePath = _cameraService.imagePath;
-                
+
                 await Future.delayed(const Duration(seconds: 5), () {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
                           builder: (context) => NavBar.Info(
-                            username: this.predictedUser.user,
-                            index: 1,
+                                username: this.predictedUser.user,
+                                index: 1,
 
-                            //imagePath: _imagePath,
-                          )
-                      ),(Route<dynamic> route) => false
-                  );
+                                //imagePath: _imagePath,
+                              )),
+                      (Route<dynamic> route) => false);
                 });
               },
               alignment: Alignment.center,
@@ -159,6 +179,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
     return userAndPass ?? null;
   }
 
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -189,7 +210,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Color(0xFF0F0BDB),
+          color: Color(0xFF1B50B7),
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: Colors.blue.withOpacity(0.1),
@@ -207,7 +228,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
           children: [
             Text(
               'CAPTURE',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             SizedBox(
               width: 10,
@@ -241,7 +262,9 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                           'User not found 😞',
                           style: TextStyle(fontSize: 20),
                         )),
-                        SizedBox(height: 15,),
+                        SizedBox(
+                          height: 15,
+                        ),
                         Lottie.asset(
                           "assets/faceError.json",
                           height: 100,
@@ -257,19 +280,48 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                   child: Column(
                     children: [
                       !widget.isLogin
-                          ? AppTextField(
+                          ? LTextField(
+                              icon: Icons.person,
+                              isSecured: false,
+                              hintText:
+                                  'Enter your Full Name'.trim().toString(),
+                              labelText: 'Full Name'.trim().toString(),
+                              keyboardType: TextInputType.name,
+                              maxLength: 20,
+                              validator: Validations().nameValidator,
                               controller: _userTextEditingController,
-                              labelText: "Your Name",
+                              isAutoValidate: _validate,
                             )
                           : Container(),
-                      SizedBox(height: 10),
+                      SizedBox(height: 15),
                       widget.isLogin && predictedUser == null
                           ? Container()
-                          : AppTextField(
+                          : LTextField(
+                              icon: Icons.lock,
+                              isSecured: _isSecure,
+                              hintText: 'Enter your Password'.trim().toString(),
+                              labelText: 'Password'.trim().toString(),
+                              keyboardType: TextInputType.visiblePassword,
+                              maxLength: 20,
+                              validator: Validations().passwordValidator,
                               controller: _passwordTextEditingController,
-                              labelText: "Password",
-                              isPassword: true,
+                              isAutoValidate: _validate,
                             ),
+                      SizedBox(height: 15),
+
+                      !widget.isLogin
+                          ? LTextField(
+                              icon: Icons.email,
+                              isSecured: false,
+                              hintText: 'Enter your Email'.trim().toString(),
+                              labelText: 'Email'.trim().toString(),
+                              keyboardType: TextInputType.emailAddress,
+                              maxLength: 30,
+                              validator: Validations().emailValidator,
+                              controller: _emailTextEditingController,
+                              isAutoValidate: _validate,
+                            )
+                          : Container(),
                     ],
                   ),
                 ),
@@ -277,26 +329,82 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                 Divider(),
                 SizedBox(height: 10),
                 widget.isLogin && predictedUser != null
-                    ? AppButton(
-                        text: 'LOGIN',
-                        onPressed: () async {
-                          _signIn(context);
+                    ? InkWell(
+                        onTap: () async {
+                          await _signIn(context);
                         },
-                        icon: Icon(
-                          Icons.login,
-                          color: Colors.white,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xFF1B50B7),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                color: Colors.blue.withOpacity(0.1),
+                                blurRadius: 1,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 14, horizontal: 16),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: 60,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'LOGIN',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Icon(Icons.person_add, color: Colors.white)
+                            ],
+                          ),
                         ),
                       )
+                //Todo make it loading button
                     : !widget.isLogin
-                        ? AppButton(
-                            text: 'SIGN UP',
-                            onPressed: () async {
-                              if (_formKey.currentState.validate())
+                        ? InkWell(
+                            onTap: () async {
+                              if (_formKey.currentState.validate()){
                                 await _signUp(context);
+                              }
                             },
-                            icon: Icon(
-                              Icons.person_add,
-                              color: Colors.white,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Color(0xFF1B50B7),
+                                boxShadow: <BoxShadow>[
+                                  BoxShadow(
+                                    color: Colors.blue.withOpacity(0.1),
+                                    blurRadius: 1,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 14, horizontal: 16),
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              height: 60,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'SIGN UP',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Icon(Icons.person_add, color: Colors.white)
+                                ],
+                              ),
                             ),
                           )
                         : Container(),

@@ -14,19 +14,26 @@ class NavBar extends StatefulWidget {
     this.index,
   });
 
+  NavBar.ind({
+    this.index,
+    this.isUser
+  });
+
   String username = '';
   int index = 0;
+  bool isUser = true;
 
   @override
-  _NavBarState createState() => _NavBarState(username,index);
+  _NavBarState createState() => _NavBarState(username,index,isUser);
 }
 
 class _NavBarState extends State<NavBar> {
   int _selectedScreen = 0;
   String username;
   int index;
+  bool isUser;
 
-  _NavBarState(this.username, this.index);
+  _NavBarState(this.username, this.index,this.isUser);
 
   var _screens = [DashBoard(), ScanScreen(), AboutUs()];
   var _screens2 ;
@@ -41,8 +48,10 @@ class _NavBarState extends State<NavBar> {
 
 
 void checkScreen (){
-  if (index == 1){
+  if (index == 1 && isUser){
     _screens2 = [DashBoard(), ControlRoom(username), AboutUs()];
+    _selectedScreen = 1;
+  }else if(!isUser){
     _selectedScreen = 1;
   }
 }
@@ -61,14 +70,14 @@ void checkScreen (){
           ),
         ],
         initialActiveIndex: index,
-        backgroundColor: Colors.blue[800],
+        backgroundColor: Color(0xff17305F),
         onTap: (int value) {
           setState(() {
             _selectedScreen = value;
           });
         },
       ),
-      body: index == 1 ? _screens2[_selectedScreen]: _screens[_selectedScreen],
+      body: index == 1  && isUser ? _screens2[_selectedScreen]: _screens[_selectedScreen],
     );
   }
 }

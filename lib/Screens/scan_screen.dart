@@ -1,16 +1,14 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:camera/camera.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project/Screens/Email_password.dart';
+import 'package:graduation_project/Screens/OTPScreen.dart';
 import 'package:graduation_project/Screens/sign-in.dart';
-import 'package:graduation_project/Screens/sign-up.dart';
 import 'package:graduation_project/Services/facenet.service.dart';
 import 'package:graduation_project/Services/ml_kit_service.dart';
 import 'package:graduation_project/db/database.dart';
 import 'package:graduation_project/widgets/Constants.dart';
 import 'package:graduation_project/widgets/FadeAnimation.dart';
-import 'package:lottie/lottie.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ScanScreen extends StatefulWidget {
   const ScanScreen({Key key}) : super(key: key);
@@ -19,7 +17,8 @@ class ScanScreen extends StatefulWidget {
   State<ScanScreen> createState() => _ScanScreenState();
 }
 
-class _ScanScreenState extends State<ScanScreen> with SingleTickerProviderStateMixin{
+class _ScanScreenState extends State<ScanScreen> {
+
   final lottieFile = 'assets/faceError.json';
 
   FaceNetService _faceNetService = FaceNetService();
@@ -34,24 +33,6 @@ class _ScanScreenState extends State<ScanScreen> with SingleTickerProviderStateM
 
   bool isDone = false;
 
-  AnimationController controller;
-
-  bool isPlaying = false;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 1000),
-    );
-
-    controller.forward().then((_) async{
-      await Future.delayed(Duration(seconds: 1));
-      controller.reverse();
-    });
-    _startUp();
-  }
 
   _startUp() async {
     _setLoading(true);
@@ -79,94 +60,78 @@ class _ScanScreenState extends State<ScanScreen> with SingleTickerProviderStateM
   }
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-
-    void toggleIcon() => setState(() {
-      isPlaying = !isPlaying;
-      isPlaying ? controller.forward() : controller.reverse();
-    });
-
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         tooltip: "SignUp Button",
         backgroundColor: Color(0xff0E4EC9),
-        onPressed: () {  },
+        onPressed: () {},
         child: IconButton(
           iconSize: 40,
-          onPressed: (){
-            toggleIcon();
+          onPressed: () {
+            Navigation(widget: widget, context: context, type: PageTransitionType.topToBottomJoined, screen: OTPScreen()).navigate();
           },
-          icon: AnimatedIcon(
-            icon: AnimatedIcons.add_event,
-            progress: controller,
-            color: Colors.white,
-          ),
+          icon: Icon(Icons.add),
         ),
       ),
       appBar: AppBar(
-        backgroundColor: Colors.blue[900],
+        elevation: 2,
+        backgroundColor: Colors.white,
         centerTitle: true,
-        title: !isDone ? Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const SizedBox(width: 20.0, height: 100.0),
-            DefaultTextStyle(
-              style: const TextStyle(
-                fontSize: 40.0,
-                fontFamily: 'Horizon',
-              ),
-              child: AnimatedTextKit(
-                animatedTexts: [
-                  RotateAnimatedText('KEEP'),
-                  RotateAnimatedText('STAY'),
+        title: !isDone
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const SizedBox(width: 20.0, height: 100.0),
+                  DefaultTextStyle(
+                    style: const TextStyle(
+                      fontSize: 40.0,
+                      fontFamily: 'Horizon',
+                      color: Colors.black
+                    ),
+                    child: AnimatedTextKit(
+                      animatedTexts: [
+                        RotateAnimatedText('KEEP'),
+                        RotateAnimatedText('STAY'),
+                      ],
+                      isRepeatingAnimation: false,
+                      onFinished: () {
+                        setState(() {
+                          isDone = true;
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 20.0, height: 100.0),
+                  DefaultTextStyle(
+                    style: const TextStyle(
+                      fontSize: 40.0,
+                      fontFamily: 'Horizon',
+                        color: Colors.black
+                    ),
+                    child: AnimatedTextKit(
+                      animatedTexts: [
+                        RotateAnimatedText('DISTANCE'),
+                        RotateAnimatedText('SAFE'),
+                      ],
+                      isRepeatingAnimation: false,
+                      onFinished: () {
+                        setState(() {
+                          isDone = true;
+                        });
+                      },
+                    ),
+                  ),
                 ],
-                isRepeatingAnimation: false,
-                onFinished: (){
-                  setState(() {
-                    isDone = true;
-                  });
-                },
+              )
+            : DefaultTextStyle(
+                style: const TextStyle(
+                  fontSize: 40.0,
+                  fontFamily: 'Horizon',
+                  color: Colors.black
+                ),
+                child: FadeAnimation(1, Text("DAISY")),
               ),
-            ),
-            const SizedBox(width: 20.0, height: 100.0),
-            DefaultTextStyle(
-              style: const TextStyle(
-                fontSize: 40.0,
-                fontFamily: 'Horizon',
-              ),
-              child: AnimatedTextKit(
-                animatedTexts: [
-                  RotateAnimatedText('DISTANCE'),
-                  RotateAnimatedText('SAFE'),
-                ],
-                isRepeatingAnimation: false,
-                onFinished: (){
-                  setState(() {
-                    isDone = true;
-                  });
-                },
-              ),
-            ),
-          ],
-        ): DefaultTextStyle(
-            style: const TextStyle(
-              fontSize: 40.0,
-              fontFamily: 'Horizon',
-        ),
-          child: FadeAnimation(
-            1,
-            Text(
-              "DAISY"
-            )
-          ),
-        ),
       ),
       backgroundColor: Colors.white,
       body: Center(
@@ -198,36 +163,37 @@ class _ScanScreenState extends State<ScanScreen> with SingleTickerProviderStateM
                 ),
                 textAlign: TextAlign.center,
               ),
-              Hero(
-                tag: 'logo',
-                child: Container(
-                  height: 150.0,
-                  width: 150.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/Images/daisy.png'),
-                      fit: BoxFit.fill,
-                    ),
-                    shape: BoxShape.circle,
+              Container(
+                height: 250.0,
+                width: 250.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/Images/daisy.png'),
+                    fit: BoxFit.fill,
                   ),
+                  shape: BoxShape.circle,
                 ),
               ),
               ElevatedButton(
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(mainColor,),
+                    backgroundColor: MaterialStateProperty.all(
+                      mainColor,
+                    ),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ))),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => SignIn(
-                        cameraDescription: cameraDescription,
-                      ),
-                    ),
-                  );
+                      borderRadius: BorderRadius.circular(20),
+                    ))),
+                onPressed: () async {
+                  await _startUp();
+
+                  Navigation(
+                          context: context,
+                          screen: SignIn(
+                            cameraDescription: cameraDescription,
+                          ),
+                          widget: widget,
+                          type: PageTransitionType.rightToLeftWithFade)
+                      .navigate();
                 },
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
@@ -242,19 +208,21 @@ class _ScanScreenState extends State<ScanScreen> with SingleTickerProviderStateM
               ),
               ElevatedButton(
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(mainColor,),
+                    backgroundColor: MaterialStateProperty.all(
+                      mainColor,
+                    ),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ))),
+                      borderRadius: BorderRadius.circular(20),
+                    ))),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          transitionDuration: Duration(seconds: 2),
-                          reverseTransitionDuration:
-                              Duration(milliseconds: 50),
-                          pageBuilder: (_, __, ___) => Email_Password()));
+                  DataBaseService().cleanDB();
+/*                  Navigation(
+                          context: context,
+                          screen: Email_Password(),
+                          widget: widget,
+                          type: PageTransitionType.bottomToTopJoined)
+                      .navigate();*/
                 },
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),

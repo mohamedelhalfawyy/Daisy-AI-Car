@@ -134,7 +134,7 @@ class SignInState extends State<SignIn> {
             backgroundColor: Colors.white,
             elevation: 11,
             title: Lottie.asset(
-              'assets/faceError.json',
+              'assets/noFace.json',
               width: 200,
               height: 150,
             ),

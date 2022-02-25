@@ -68,7 +68,7 @@ class _Email_PasswordState extends State<Email_Password> {
               child: SingleChildScrollView(
                 child: Container(
                   width: double.infinity,
-                  color: Color(0xFFd4ebe8),
+                  color: Colors.white,
                   child: Column(
                     children: [
                       Container(
@@ -81,7 +81,7 @@ class _Email_PasswordState extends State<Email_Password> {
                                 child: Container(
                                   margin: EdgeInsets.all(20),
                                   decoration: BoxDecoration(
-                                    color: Colors.white30,
+                                    color: Colors.white70,
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   height: 50,
@@ -92,15 +92,11 @@ class _Email_PasswordState extends State<Email_Password> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 20),
-                              child: Hero(
-                                transitionOnUserGestures: true,
-                                tag: 'logo',
-                                child: Image(
-                                  image: AssetImage('assets/Images/daisy.png'),
-                                  fit: BoxFit.cover,
-                                  width: 170,
-                                  height: 150,
-                                ),
+                              child: Image(
+                                image: AssetImage('assets/Images/daisy.png'),
+                                fit: BoxFit.cover,
+                                width: 170,
+                                height: 150,
                               ),
                             ),
                             SizedBox(
@@ -200,31 +196,13 @@ class _Email_PasswordState extends State<Email_Password> {
                                 SizedBox(
                                   height: 30,
                                 ),
-/*                                FadeAnimation(
-                                  1.4,
-                                  FlatButton(
-                                    onPressed: () async {
-                                      Navigator.pushNamed(
-                                          context, ForgetPassScreen.id);
-                                    },
-                                    child: Text(
-                                      'Forgot Password?'.tr().toString(),
-                                      textAlign: TextAlign.end,
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height: 20),*/
                                 FadeAnimation(
                                   1.6,
                                   loadingButtons(
                                     loadingType: SpinKitDualRing(
                                       color: Colors.white,
                                     ),
-                                    colour: Colors.lightBlueAccent,
+                                    colour: Color(0xff466DB9),
                                     text: 'Login'.trim().toString(),
                                     width: 350,
                                     textColor: Colors.white,
@@ -286,6 +264,22 @@ class _Email_PasswordState extends State<Email_Password> {
                                     },
                                   ),
                                 ),
+/*                                SizedBox(height: 20),
+                                FadeAnimation(
+                                  1.4,
+                                  FlatButton(
+                                    onPressed: () async {
+                                    },
+                                    child: Text(
+                                      'Forgot Password?'.trim().toString(),
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),*/
                               ],
                             ),
                           ),
