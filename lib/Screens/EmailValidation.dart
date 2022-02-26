@@ -4,7 +4,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:pin_code_fields/pin_code_fields.dart' as pinCode;
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../widgets/Constants.dart';
 import 'ResetPassword.dart';

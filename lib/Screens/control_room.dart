@@ -1,10 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import 'DashBoard.dart';
 import 'Voice.dart';
-import 'aboutUs.dart';
 
 class ControlRoom extends StatelessWidget {
 

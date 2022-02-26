@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:date_format/date_format.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:graduation_project/Services/AuthServices.dart';
@@ -9,8 +8,6 @@ import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'dart:math';
-import 'package:google_sign_in/google_sign_in.dart';
-
 import '../Services/Firestore_Services.dart';
 import '../widgets/Constants.dart';
 import '../widgets/FadeAnimation.dart';

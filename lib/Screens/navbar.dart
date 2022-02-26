@@ -2,6 +2,7 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project/Screens/control_room.dart';
 import 'package:graduation_project/Screens/scan_screen.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'DashBoard.dart';
 import 'aboutUs.dart';

@@ -1,19 +1,14 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:graduation_project/Screens/ForgotPassword.dart';
-import 'package:graduation_project/Screens/control_room.dart';
 import 'package:graduation_project/Services/Firestore_Services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:rive_splash_screen/rive_splash_screen.dart';
 import '../Services/AuthServices.dart';
 import '../widgets/Constants.dart';
 import '../widgets/FadeAnimation.dart';
-import '../widgets/camera_header.dart';
 import 'navbar.dart';
-import 'package:rive/rive.dart';
 
 class Email_Password extends StatefulWidget {
   const Email_Password({Key key}) : super(key: key);

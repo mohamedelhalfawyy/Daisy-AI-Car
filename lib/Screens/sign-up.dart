@@ -4,7 +4,6 @@ import 'dart:math' as math;
 import 'package:camera/camera.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation_project/Screens/Email_password.dart';
 import 'package:graduation_project/Screens/navbar.dart';
 import 'package:graduation_project/Services/camera.service.dart';
 import 'package:graduation_project/Services/facenet.service.dart';
