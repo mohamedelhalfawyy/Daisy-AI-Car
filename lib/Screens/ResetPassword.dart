@@ -41,49 +41,6 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   final _formKey = GlobalKey<FormState>();
 
-  Random random = new Random();
-  final _colors = [
-    Colors.blue.shade200,
-    Colors.blue.shade300,
-    Colors.blue.shade400,
-    Colors.blue.shade500,
-    Colors.cyan.shade300,
-    Colors.cyan.shade400,
-    Colors.cyan.shade500,
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-
-    _passController.addListener(() {
-      setState(() {
-        updateColors();
-      });
-    });
-
-    _confirmController.addListener(() {
-      setState(() {
-        updateColors();
-      });
-    });
-  }
-
-  updateColors() {
-// For random color change, use this
-    index = random.nextInt(_colors.length - 1);
-
-// If you like a color train, use this instead
-// rotateColors(_colors);
-  }
-
-  rotateColors(List<Color> arr) {
-    var last = arr[arr.length - 1];
-    for (var i = arr.length - 1; i > 0; i--) {
-      arr[i] = arr[i - 1];
-    }
-    arr[0] = last;
-  }
 
   @override
   void dispose() {
@@ -98,7 +55,7 @@ class _ResetPasswordState extends State<ResetPassword> {
     return Directionality(
       textDirection: ui.TextDirection.ltr,
       child: Scaffold(
-          backgroundColor: Colors.blue,
+          backgroundColor: Color(0xff4A7FE4),
           body: ModalProgressHUD(
             inAsyncCall: showSpinner,
             opacity: 0.5,
@@ -119,16 +76,12 @@ class _ResetPasswordState extends State<ResetPassword> {
                     ]),
                     Column(
                       children: [
-                        SizedBox(
-                          height: 20,
-                        ),
                         Container(
                           decoration: BoxDecoration(
+                            color: Colors.white,
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(60),
                                 topLeft: Radius.circular(60)),
-                            gradient: LinearGradient(
-                                colors: [_colors[index], _colors[index + 1]]),
                             boxShadow: [
                               BoxShadow(
                                 blurRadius: 20,

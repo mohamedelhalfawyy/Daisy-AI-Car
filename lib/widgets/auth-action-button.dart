@@ -425,7 +425,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                             padding: EdgeInsets.symmetric(
                                 vertical: 14, horizontal: 16),
                             elevation: 5,
-                            loader: SpinKitRotatingCircle(
+                            loader: SpinKitSquareCircle(
                               color: Colors.white,
                             ),
                             onTap: (startLoading, stopLoading, btnState) async {

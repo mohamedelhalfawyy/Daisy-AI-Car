@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
@@ -85,8 +86,19 @@ class _EmailValidationState extends State<EmailValidation> {
                 Column(
                   children: [
                     Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 100),
+                      padding: const EdgeInsets.only(left: 10,right: 10,top: 50,bottom: 50),
+                      child: Text(
+                          "Enter the Code sent to your Email.",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.only(left: 8,right: 8,top: 20,bottom: 20),
                         child: pinCode.PinCodeTextField(
                           controller: _controller,
                           errorAnimationController: _errorController,
@@ -122,9 +134,11 @@ class _EmailValidationState extends State<EmailValidation> {
                             color: Colors.white,
                           ),
                           width: 300,
+                          height: 100,
                           colour: Colors.green,
                           text: 'VERIFY',
                           textColor: Colors.white,
+                          fontsize: 30,
                           onTap: (startLoading, stopLoading, btnState) async {
                             startLoading();
                             setState(() {

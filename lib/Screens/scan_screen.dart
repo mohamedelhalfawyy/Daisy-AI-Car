@@ -1,7 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation_project/Screens/EmailValidation.dart';
 import 'package:graduation_project/Screens/OTPScreen.dart';
+import 'package:graduation_project/Screens/ResetPassword.dart';
 import 'package:graduation_project/Screens/sign-in.dart';
 import 'package:graduation_project/Services/facenet.service.dart';
 import 'package:graduation_project/Services/ml_kit_service.dart';

@@ -69,7 +69,7 @@ class _Email_PasswordState extends State<Email_Password> {
               child: SingleChildScrollView(
                 child: Container(
                   width: double.infinity,
-                  color: Color(0xffD6E2EA),
+                  color: Colors.white,
                   child: Column(
                     children: [
                       Container(
