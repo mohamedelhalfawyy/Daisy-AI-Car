@@ -85,7 +85,6 @@ class _ScanScreenState extends State<ScanScreen> {
           overlayOpacity: 0.4,
           spacing: 12,
           tooltip: 'Menu Options',
-          animationSpeed: 500,
           childrenButtonSize: Size(65,65),
           children: [
             SpeedDialChild(

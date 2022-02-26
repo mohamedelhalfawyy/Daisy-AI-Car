@@ -11,7 +11,6 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'dart:math';
 import 'package:google_sign_in/google_sign_in.dart';
 
-
 import '../Services/Firestore_Services.dart';
 import '../widgets/Constants.dart';
 import '../widgets/FadeAnimation.dart';
@@ -80,7 +79,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           'Your Daisy Support Team.';
 
     try {
-      final sendReport = await send(message, smtpServer,timeout: Duration(seconds: 15));
+      final sendReport =
+          await send(message, smtpServer, timeout: Duration(seconds: 15));
 
       print('Message sent: ' + sendReport.toString());
 
@@ -89,9 +89,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         ResetPassword.userEmail = _email;
       });
 
-      Navigator.pushNamed(
-          context, EmailValidation.id);
-
+      Navigator.pushNamed(context, EmailValidation.id);
     } on MailerException catch (e) {
       print('Message not sent.');
       for (var p in e.problems) {
@@ -127,24 +125,24 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           child: SafeArea(
               child: Column(
             children: [
-              Container(
-                height: 400,
-                child: FlareActor(
-                  'assets/read.flr',
-                  animation: 'read',
+              Lottie.asset("assets/read.json",
+                  alignment: Alignment.center,
                   fit: BoxFit.cover,
-                ),
-              ),
+                  animate: true,
+                  repeat: true),
               SizedBox(
                 height: 15,
               ),
               FadeAnimation(
                 1.2,
-                AutoSizeText(
-                  'We will send you an email\n to reset your password',
-                  style: TextStyle(fontSize: 20),
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: AutoSizeText(
+                    'We will send you an email to reset your password',
+                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
               SizedBox(
