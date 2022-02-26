@@ -1,15 +1,19 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:graduation_project/Screens/ForgotPassword.dart';
 import 'package:graduation_project/Screens/control_room.dart';
+import 'package:graduation_project/Services/Firestore_Services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:rive_splash_screen/rive_splash_screen.dart';
 import '../Services/AuthServices.dart';
 import '../widgets/Constants.dart';
 import '../widgets/FadeAnimation.dart';
 import '../widgets/camera_header.dart';
 import 'navbar.dart';
+import 'package:rive/rive.dart';
 
 class Email_Password extends StatefulWidget {
   const Email_Password({Key key}) : super(key: key);
@@ -49,6 +53,8 @@ class _Email_PasswordState extends State<Email_Password> {
     Navigator.of(context).pop();
   }
 
+  String change = 'idle';
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -68,12 +74,12 @@ class _Email_PasswordState extends State<Email_Password> {
               child: SingleChildScrollView(
                 child: Container(
                   width: double.infinity,
-                  color: Colors.white,
+                  color: Color(0xffD6E2EA),
                   child: Column(
                     children: [
                       Container(
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
                               child: InkWell(
@@ -105,7 +111,6 @@ class _Email_PasswordState extends State<Email_Password> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 15,),
                       AnimatedContainer(
                         height: MediaQuery.of(context).size.height,
                         duration: Duration(seconds: 50),
@@ -151,7 +156,12 @@ class _Email_PasswordState extends State<Email_Password> {
                                     keyboardType: TextInputType.emailAddress,
                                     maxLength: 30,
                                     validator: Validations().emailValidator,
-                                    onChanged: (String val) => _email = val,
+                                    onChanged: (String val) {
+                                      _email = val;
+                                      setState(() {
+                                        change = 'success';
+                                      });
+                                    },
                                     controller: _emailController,
                                     isAutoValidate: _validate,
                                   ),
@@ -219,13 +229,16 @@ class _Email_PasswordState extends State<Email_Password> {
                                           try {
                                             final user = await AuthServices()
                                                 .signInWithEmail(_email, _password);
+
+                                            final name = await FireStoreServices().getName(_email);
+
                                             if (user != null) {
                                               await Future.delayed(const Duration(seconds: 5), () {
                                                 Navigator.pushAndRemoveUntil(
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) => NavBar.Info(
-                                                          username: "Halfawy",
+                                                          username: name,
                                                           index: 1,
 
                                                           //imagePath: _imagePath,
@@ -264,11 +277,13 @@ class _Email_PasswordState extends State<Email_Password> {
                                     },
                                   ),
                                 ),
-/*                                SizedBox(height: 20),
+                                SizedBox(height: 20),
                                 FadeAnimation(
-                                  1.4,
+                                  1.7,
                                   FlatButton(
                                     onPressed: () async {
+                                      Navigator.pushNamed(
+                                          context, ForgotPassword.id);
                                     },
                                     child: Text(
                                       'Forgot Password?'.trim().toString(),
@@ -279,7 +294,7 @@ class _Email_PasswordState extends State<Email_Password> {
                                       ),
                                     ),
                                   ),
-                                ),*/
+                                ),
                               ],
                             ),
                           ),

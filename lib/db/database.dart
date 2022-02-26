@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:graduation_project/Services/FirebaseApi.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+
 
 class DataBaseService {
   // singleton boilerplate
@@ -31,9 +33,16 @@ class DataBaseService {
 
     jsonFile = new File(_embPath);
 
+    try{
+      await FirebaseStorage.instance.ref('files/emb.json').writeToFile(jsonFile);
+    } catch(e){
+      log("file not uploaded yet");
+    }
+
     if (jsonFile.existsSync()) {
       _db = json.decode(jsonFile.readAsStringSync());
     }
+
   }
 
   /// [Name]: name of the new user

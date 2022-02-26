@@ -54,6 +54,24 @@ class FireStoreServices {
     return password;
   }
 
+  Future<String> getName(String email) async {
+    String name;
+
+    await _fireStore
+        .collection('Users')
+        .where('Email', isEqualTo: email)
+        .get()
+        .then((value) {
+      if (value.docs.isNotEmpty) {
+        name = value.docs.first.get('Name');
+      } else {
+        log('something wrong happened');
+      }
+    });
+
+    return name;
+  }
+
   Future<void> updatePassword(String email, String password, String uid) async {
     await _users.doc(uid).update({'Password': password}).then(
             (value) => log('Client password changed successfully'));

@@ -1,4 +1,6 @@
+import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:graduation_project/Models/user.model.dart';
 import 'package:graduation_project/Screens/DashBoard.dart';
 import 'package:graduation_project/Screens/control_room.dart';
@@ -48,6 +50,8 @@ class _AuthActionButtonState extends State<AuthActionButton> {
   bool _isSecure = true;
   AutovalidateMode _validate = AutovalidateMode.onUserInteraction;
 
+  bool _isTaken;
+
   Future _signUp(context) async {
     /// gets predicted data from facenet service (user face detected)
     List predictedData = _faceNetService.predictedData;
@@ -55,28 +59,62 @@ class _AuthActionButtonState extends State<AuthActionButton> {
     String _name = _userTextEditingController.text;
     String _password = _passwordTextEditingController.text;
 
-    await FireStoreServices().addUser(_email, _password, _name);
-    await AuthServices().createUserWithEmail(_email, _password);
+    _isTaken = await FireStoreServices().checkEmail(_email);
 
-    /// creates a new user in the 'database'
-    await _dataBaseService.saveData(_name, _password, predictedData);
+    if (_isTaken) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              content: Text(
+                'Email Address Already Exists!',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 24),
+                textAlign: TextAlign.center,
+              ),
+              backgroundColor: Colors.white,
+              elevation: 11,
+              title: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Lottie.asset(
+                    'assets/emailTaken.json',
+                    height: 130,
+                    fit: BoxFit.cover,
+                    animate: true,
+                    repeat: false,
+                ),
+              )
+          );
+        },
+      );
 
-    /// resets the face stored in the face net sevice
-    this._faceNetService.setPredictedData(null);
+      _emailTextEditingController.clear();
+      _passwordTextEditingController.clear();
+    } else {
+      await FireStoreServices().addUser(_email, _password, _name);
+      await AuthServices().createUserWithEmail(_email, _password);
 
+      /// creates a new user in the 'database'
+      await _dataBaseService.saveData(_name, _password, predictedData);
 
-    await Future.delayed(const Duration(seconds: 5), () {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => NavBar.Info(
-                    username: _name,
-                    index: 1,
+      /// resets the face stored in the face net sevice
+      this._faceNetService.setPredictedData(null);
 
-                    //imagePath: _imagePath,
-                  )),
-          (Route<dynamic> route) => false);
-    });
+      await Future.delayed(const Duration(seconds: 5), () {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) => NavBar.Info(
+                      username: _name,
+                      index: 1,
+
+                      //imagePath: _imagePath,
+                    )),
+            (Route<dynamic> route) => false);
+      });
+    }
   }
 
   Future _signIn(context) async {
@@ -178,7 +216,6 @@ class _AuthActionButtonState extends State<AuthActionButton> {
     String userAndPass = _faceNetService.predict();
     return userAndPass ?? null;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -308,7 +345,6 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                               isAutoValidate: _validate,
                             ),
                       SizedBox(height: 15),
-
                       !widget.isLogin
                           ? LTextField(
                               icon: Icons.email,
@@ -366,46 +402,41 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                           ),
                         ),
                       )
-                //Todo make it loading button
                     : !widget.isLogin
-                        ? InkWell(
-                            onTap: () async {
-                              if (_formKey.currentState.validate()){
+                        ? ArgonButton(
+                            height: 60,
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'SIGN UP',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Icon(Icons.person_add, color: Colors.white)
+                              ],
+                            ),
+                            color: Color(0xFF1B50B7),
+                            borderRadius: 12,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 14, horizontal: 16),
+                            elevation: 5,
+                            loader: SpinKitRotatingCircle(
+                              color: Colors.white,
+                            ),
+                            onTap: (startLoading, stopLoading, btnState) async {
+                              startLoading();
+
+                              if (_formKey.currentState.validate()) {
                                 await _signUp(context);
                               }
+
+                              stopLoading();
                             },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color(0xFF1B50B7),
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                    color: Colors.blue.withOpacity(0.1),
-                                    blurRadius: 1,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 14, horizontal: 16),
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              height: 60,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'SIGN UP',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Icon(Icons.person_add, color: Colors.white)
-                                ],
-                              ),
-                            ),
                           )
                         : Container(),
               ],

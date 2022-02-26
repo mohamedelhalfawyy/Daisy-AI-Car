@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graduation_project/Screens/DashBoard.dart';
+import 'package:graduation_project/Screens/EmailValidation.dart';
 import 'package:graduation_project/Screens/Email_password.dart';
+import 'package:graduation_project/Screens/ForgotPassword.dart';
 import 'package:graduation_project/Screens/LoadingScreen.dart';
+import 'package:graduation_project/Screens/ResetPassword.dart';
 import 'package:graduation_project/Screens/aboutUs.dart';
 import 'package:graduation_project/Screens/control_room.dart';
 import 'package:graduation_project/Screens/sign-in.dart';
@@ -44,6 +47,9 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
             AboutUs.id : (context) => AboutUs(),
             VoiceControl.id : (context) => VoiceControl(),
             Email_Password.id : (context) => Email_Password(),
+            ForgotPassword.id : (context) => ForgotPassword(),
+            EmailValidation.id : (context) => EmailValidation(),
+            ResetPassword.id : (context) => ResetPassword(),
           },
           debugShowCheckedModeBanner: true,
         );
