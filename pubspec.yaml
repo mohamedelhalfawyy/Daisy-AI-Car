@@ -68,7 +68,6 @@ dependencies:
   date_format: ^2.0.5
   auto_size_text: ^3.0.0
   google_sign_in: ^5.0.4
-  rive: ^0.8.1
 
 dev_dependencies:
   flutter_test:

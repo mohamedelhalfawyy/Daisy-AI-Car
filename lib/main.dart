@@ -14,9 +14,7 @@ import 'package:graduation_project/Screens/voiceControl.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(
-      MyApp()
-  );
+  runApp(MyApp());
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -30,28 +28,27 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
-
   @override
   Widget build(BuildContext context) {
-        return MaterialApp(
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
-          title: 'Daisy',
-          initialRoute: '/',
-          routes: {
-            '/' : (context) => LoadingScreen(),
-            DashBoard.id : (context) => DashBoard(),
-            SignIn.id : (context) => SignIn(),
-            AboutUs.id : (context) => AboutUs(),
-            VoiceControl.id : (context) => VoiceControl(),
-            Email_Password.id : (context) => Email_Password(),
-            ForgotPassword.id : (context) => ForgotPassword(),
-            EmailValidation.id : (context) => EmailValidation(),
-            ResetPassword.id : (context) => ResetPassword(),
-          },
-          debugShowCheckedModeBanner: true,
-        );
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      title: 'Daisy',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => LoadingScreen(),
+        DashBoard.id: (context) => DashBoard(),
+        SignIn.id: (context) => SignIn(),
+        AboutUs.id: (context) => AboutUs(),
+        VoiceControl.id: (context) => VoiceControl(),
+        Email_Password.id: (context) => Email_Password(),
+        ForgotPassword.id: (context) => ForgotPassword(),
+        EmailValidation.id: (context) => EmailValidation(),
+        ResetPassword.id: (context) => ResetPassword(),
+      },
+      debugShowCheckedModeBanner: true,
+    );
   }
 }
