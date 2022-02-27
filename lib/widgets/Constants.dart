@@ -196,7 +196,6 @@ class Navigation {
           type: type,
           duration: Duration(milliseconds: 800),
           reverseDuration: Duration(milliseconds: 600),
-          childCurrent: widget,
           child: screen
       ));
     }

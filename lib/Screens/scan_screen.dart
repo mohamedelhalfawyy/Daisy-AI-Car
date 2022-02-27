@@ -97,7 +97,7 @@ class _ScanScreenState extends State<ScanScreen> {
               backgroundColor: Color(0xff0E4EC9),
               label: 'SIGN UP',
               onTap: (){
-                Navigation(widget: widget, context: context, type: PageTransitionType.topToBottomJoined, screen: OTPScreen()).navigate();
+                Navigation(widget: widget, context: context, type: PageTransitionType.topToBottom, screen: OTPScreen()).navigate();
               }
             )
           ],
@@ -244,7 +244,7 @@ class _ScanScreenState extends State<ScanScreen> {
                                 context: context,
                                 screen: Email_Password(),
                                 widget: widget,
-                                type: PageTransitionType.bottomToTopJoined)
+                                type: PageTransitionType.bottomToTop)
                             .navigate();
                       },
                       child: Padding(
