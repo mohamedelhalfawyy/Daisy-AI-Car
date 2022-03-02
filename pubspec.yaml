@@ -69,7 +69,6 @@ dependencies:
   auto_size_text: ^3.0.0
   google_sign_in: ^5.0.4
   intl: ^0.17.0
-  provider: ^6.0.2
   easy_localization: ^3.0.0
   flutter_staggered_animations: ^1.0.0
 

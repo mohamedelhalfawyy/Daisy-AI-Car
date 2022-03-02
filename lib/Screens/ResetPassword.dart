@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -103,7 +104,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                         icon: Icons.lock,
                                         isSecured: _isSecure,
                                         hintText: 'Enter your Password'
-                                            .trim()
+                                            .tr()
                                             .toString(),
                                         labelText: 'Password'.trim().toString(),
                                         keyboardType:
@@ -143,10 +144,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                                           icon: Icons.lock,
                                           isSecured: _isSecure,
                                           hintText: 'Enter your Password'
-                                              .trim()
+                                              .tr()
                                               .toString(),
                                           labelText: 'ConfirmPassword'
-                                              .trim()
+                                              .tr()
                                               .toString(),
                                           keyboardType:
                                               TextInputType.visiblePassword,
@@ -154,7 +155,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                           validator: (val) => MatchValidator(
                                                 errorText:
                                                     'passwords do not match'
-                                                        .trim()
+                                                        .tr()
                                                         .toString(),
                                               ).validateMatch(val, _password),
                                           controller: _confirmController,
@@ -185,7 +186,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                         ),
                                         width: 350,
                                         textColor: Colors.white,
-                                        text: 'Reset'.trim().toString(),
+                                        text: 'Reset'.tr().toString(),
                                         colour: Color(0xFF051D6D),
                                         onTap: (startLoading, stopLoading,
                                             btnState) async {
@@ -206,10 +207,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                                                 _passController.text) {
                                               alertFlutter(
                                                   'You are trying to change to same Password'
-                                                      .trim()
+                                                      .tr()
                                                       .toString(),
                                                   'Try another Password'
-                                                      .trim()
+                                                      .tr()
                                                       .toString(),
                                                   AlertType.error);
                                             }
@@ -256,7 +257,7 @@ class _ResetPasswordState extends State<ResetPassword> {
       buttons: [
         DialogButton(
           child: Text(
-            'Confirm'.trim().toString(),
+            'Confirm'.tr().toString(),
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () => null,

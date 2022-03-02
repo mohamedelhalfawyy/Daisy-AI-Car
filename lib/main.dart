@@ -10,7 +10,6 @@ import 'package:graduation_project/Screens/ResetPassword.dart';
 import 'package:graduation_project/Screens/aboutUs.dart';
 import 'package:graduation_project/Screens/sign-in.dart';
 import 'package:graduation_project/Screens/voiceControl.dart';
-import 'package:provider/provider.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

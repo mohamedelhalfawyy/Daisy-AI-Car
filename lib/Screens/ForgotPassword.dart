@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:date_format/date_format.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:graduation_project/Services/AuthServices.dart';
@@ -135,7 +136,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: AutoSizeText(
-                    'We will send you an email to reset your password',
+                    'We will send you an email to reset your password'.tr().toString(),
                     style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                     maxLines: 2,
                     textAlign: TextAlign.center,
@@ -154,8 +155,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     LTextField(
                       icon: Icons.email,
                       isSecured: false,
-                      hintText: "Enter your email address",
-                      labelText: 'Email',
+                      hintText: "Enter your email address".tr().toString(),
+                      labelText: 'Email'.tr().toString(),
                       keyboardType: TextInputType.emailAddress,
                       maxLength: 30,
                       validator: Validations().emailValidator,
@@ -178,7 +179,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         color: Colors.white,
                       ),
                       colour: Colors.green,
-                      text: 'Send',
+                      text: 'Send'.tr().toString(),
                       width: 350,
                       textColor: Colors.white,
                       onTap: (startLoading, stopLoading, btnState) async {
@@ -206,7 +207,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 _emailController.clear();
                               } else {
                                 showSnackBar(_scaffoldKey,
-                                        "Email address does not exist!\n please try again")
+                                        "Email address does not exist!\n please try again".tr().toString())
                                     .show();
 
                                 setState(() {
@@ -225,11 +226,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 _emailController.clear();
                               });
                               showSnackBar(_scaffoldKey,
-                                      "Email address does not exist!\n please try again")
+                                      "Email address does not exist!\n please try again".tr().toString())
                                   .show();
                             }
                           } else {
-                            showSnackBar(_scaffoldKey, 'No internet connection')
+                            showSnackBar(_scaffoldKey, 'No internet connection'.tr().toString())
                                 .show();
                             stopLoading();
                             setState(() {

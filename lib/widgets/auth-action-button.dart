@@ -1,4 +1,5 @@
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:graduation_project/Models/user.model.dart';
@@ -67,7 +68,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
         builder: (context) {
           return AlertDialog(
               content: Text(
-                'Email Address Already Exists!',
+                'Email Address Already Exists!'.tr().toString(),
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -169,7 +170,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
             backgroundColor: Colors.black,
             elevation: 11,
             title: Text(
-              'Checking Credentials\n Please Wait...',
+              'Checking Credentials\n Please Wait...'.tr().toString(),
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.italic,
@@ -186,7 +187,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
         builder: (context) {
           return AlertDialog(
             content: Text(
-              'Incorrect Password',
+              'Incorrect Password'.tr().toString(),
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
@@ -264,7 +265,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'CAPTURE',
+              'CAPTURE'.tr().toString(),
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             SizedBox(
@@ -296,7 +297,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                       children: [
                         Container(
                             child: Text(
-                          'User not found 😞',
+                          'User not found 😞'.tr().toString(),
                           style: TextStyle(fontSize: 20),
                         )),
                         SizedBox(
@@ -321,8 +322,8 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                               icon: Icons.person,
                               isSecured: false,
                               hintText:
-                                  'Enter your Full Name'.trim().toString(),
-                              labelText: 'Full Name'.trim().toString(),
+                                  'Enter your Full Name'.tr().toString(),
+                              labelText: 'Full Name'.tr().toString(),
                               keyboardType: TextInputType.name,
                               maxLength: 20,
                               validator: Validations().nameValidator,
@@ -336,8 +337,8 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                           : LTextField(
                               icon: Icons.lock,
                               isSecured: _isSecure,
-                              hintText: 'Enter your Password'.trim().toString(),
-                              labelText: 'Password'.trim().toString(),
+                              hintText: 'Enter your Password'.tr().toString(),
+                              labelText: 'Password'.tr().toString(),
                               keyboardType: TextInputType.visiblePassword,
                               maxLength: 20,
                               validator: Validations().passwordValidator,
@@ -349,8 +350,8 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                           ? LTextField(
                               icon: Icons.email,
                               isSecured: false,
-                              hintText: 'Enter your Email'.trim().toString(),
-                              labelText: 'Email'.trim().toString(),
+                              hintText: 'Enter your Email'.tr().toString(),
+                              labelText: 'Email'.tr().toString(),
                               keyboardType: TextInputType.emailAddress,
                               maxLength: 30,
                               validator: Validations().emailValidator,
@@ -390,7 +391,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'LOGIN',
+                                'LOGIN'.tr().toString(),
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 20),
                               ),
@@ -410,7 +411,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'SIGN UP',
+                                  'SIGN UP'.tr().toString(),
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 20),
                                 ),

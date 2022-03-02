@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:camera/camera.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -91,7 +92,7 @@ class _OTPScreenState extends State<OTPScreen> {
   void showError() {
     _errorController.add(
         pinCode.ErrorAnimationType.shake); // Triggering error shake animation
-    showSnackBar(_scaffoldKey, 'Wrong code! please try again').show();
+    showSnackBar(_scaffoldKey, 'Wrong code! please try again'.tr().toString()).show();
   }
 
   @override
@@ -116,7 +117,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 child: Column(
                   children: [
                     Text(
-                        "Please enter the Security Code",
+                        "Please enter the Security Code".tr().toString(),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 22,
@@ -171,7 +172,7 @@ class _OTPScreenState extends State<OTPScreen> {
                               ),
                               width: 300,
                               colour: Color(0xff32C8A2),
-                              text: 'VERIFY',
+                              text: 'VERIFY'.tr().toString(),
                               textColor: Colors.white,
                               onTap: (startLoading, stopLoading, btnState) async {
                                 startLoading();
@@ -207,7 +208,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                             )),
                                         type: AlertType.success,
                                         context: context,
-                                        title: "Validation Successful",
+                                        title: "Verification Successful".tr().toString(),
                                         buttons: [
                                           DialogButton(
                                             gradient: LinearGradient(colors: [
@@ -215,7 +216,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                               Color.fromRGBO(52, 138, 199, 1.0)
                                             ]),
                                             child: Text(
-                                              "Sign Up!",
+                                              "Sign Up!".tr().toString(),
                                               style: TextStyle(
                                                   color: Colors.white, fontSize: 16),
                                             ),

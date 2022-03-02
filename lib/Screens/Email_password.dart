@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project/Screens/ForgotPassword.dart';
 import 'package:graduation_project/Services/Firestore_Services.dart';
@@ -131,7 +132,7 @@ class _Email_PasswordState extends State<Email_Password> {
                                   alignment: Alignment.center,
                                   padding: EdgeInsets.fromLTRB(4, 0, 0, 20),
                                   child: Text(
-                                    'Sign In',
+                                    'Sign In'.tr().toString(),
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 30,
@@ -146,8 +147,8 @@ class _Email_PasswordState extends State<Email_Password> {
                                   LTextField(
                                     icon: Icons.email,
                                     isSecured: false,
-                                    hintText: 'Enter your Email'.trim().toString(),
-                                    labelText: 'Email'.trim().toString(),
+                                    hintText: 'Enter your Email'.tr().toString(),
+                                    labelText: 'Email'.tr().toString(),
                                     keyboardType: TextInputType.emailAddress,
                                     maxLength: 30,
                                     validator: Validations().emailValidator,
@@ -170,8 +171,8 @@ class _Email_PasswordState extends State<Email_Password> {
                                     icon: Icons.lock,
                                     isSecured: _isSecure,
                                     hintText:
-                                    'Enter your Password'.trim().toString(),
-                                    labelText: 'Password'.trim().toString(),
+                                    'Enter your Password'.tr().toString(),
+                                    labelText: 'Password'.tr().toString(),
                                     keyboardType: TextInputType.visiblePassword,
                                     maxLength: 20,
                                     validator: Validations().passwordValidator,
@@ -208,7 +209,7 @@ class _Email_PasswordState extends State<Email_Password> {
                                       color: Colors.white,
                                     ),
                                     colour: Color(0xff466DB9),
-                                    text: 'Login'.trim().toString(),
+                                    text: 'Login'.tr().toString(),
                                     width: 350,
                                     textColor: Colors.white,
                                     onTap:
@@ -249,7 +250,7 @@ class _Email_PasswordState extends State<Email_Password> {
                                             showSnackBar(
                                                 _scaffoldKey,
                                                 'Wrong email or password!'
-                                                    .trim()
+                                                    .tr()
                                                     .toString())
                                                 .show();
                                             _passController.clear();
@@ -262,7 +263,7 @@ class _Email_PasswordState extends State<Email_Password> {
                                           showSnackBar(
                                               _scaffoldKey,
                                               'No internet connection'
-                                                  .trim()
+                                                  .tr()
                                                   .toString())
                                               .show();
                                           _passController.clear();
@@ -281,7 +282,7 @@ class _Email_PasswordState extends State<Email_Password> {
                                           context, ForgotPassword.id);
                                     },
                                     child: Text(
-                                      'Forgot Password?'.trim().toString(),
+                                      'Forgot Password?'.tr().toString(),
                                       textAlign: TextAlign.end,
                                       style: TextStyle(
                                         fontSize: 18,

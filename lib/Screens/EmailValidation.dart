@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -40,7 +41,7 @@ class _EmailValidationState extends State<EmailValidation> {
   void showError() {
     _errorController.add(
         pinCode.ErrorAnimationType.shake); // Triggering error shake animation
-    showSnackBar(_scaffoldKey, 'Wrong code! please try again').show();
+    showSnackBar(_scaffoldKey, 'Wrong code! please try again'.tr().toString()).show();
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -88,7 +89,7 @@ class _EmailValidationState extends State<EmailValidation> {
                     Padding(
                       padding: const EdgeInsets.only(left: 10,right: 10,top: 50,bottom: 50),
                       child: Text(
-                          "Enter the Code sent to your Email.",
+                          "Enter the Code sent to your Email.".tr().toString(),
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -136,7 +137,7 @@ class _EmailValidationState extends State<EmailValidation> {
                           width: 300,
                           height: 100,
                           colour: Colors.green,
-                          text: 'VERIFY',
+                          text: 'VERIFY'.tr().toString(),
                           textColor: Colors.white,
                           fontsize: 30,
                           onTap: (startLoading, stopLoading, btnState) async {

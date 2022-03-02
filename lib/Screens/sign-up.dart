@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
 import 'package:camera/camera.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project/Screens/navbar.dart';
@@ -78,7 +79,7 @@ class SignUpState extends State<SignUp> {
         builder: (context) {
           return AlertDialog(
             content: Text(
-              'No face detected!',
+              'No face detected!'.tr().toString(),
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
@@ -234,7 +235,7 @@ class SignUpState extends State<SignUp> {
               },
             ),
             CameraHeader(
-              "SIGN UP",
+              "SIGN UP".tr().toString(),
               onBackPressed: _onBackPressed,
             )
           ],
