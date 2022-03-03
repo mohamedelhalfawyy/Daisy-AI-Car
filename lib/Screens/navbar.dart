@@ -64,6 +64,8 @@ void checkScreen (){
       textDirection: ui.TextDirection.ltr,
       child: Scaffold(
         bottomNavigationBar: ConvexAppBar(
+          elevation: 2,
+          height: 52,
           style: TabStyle.reactCircle,
           items: [
             TabItem(icon: Icons.home, title: 'Home'.tr().toString()),
