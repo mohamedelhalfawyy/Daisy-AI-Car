@@ -71,6 +71,7 @@ dependencies:
   intl: ^0.17.0
   easy_localization: ^3.0.0
   flutter_staggered_animations: ^1.0.0
+  image_picker: ^0.8.4+10
 
 
 dev_dependencies:

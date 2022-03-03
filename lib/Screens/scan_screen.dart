@@ -151,42 +151,45 @@ class _ScanScreenState extends State<ScanScreen> {
                                 )),
                             context: context,
                             title: "Choose Language".tr().toString(),
-                            content: DropdownButton(
-                              hint: Text("Change Language".tr().toString(),style: TextStyle(
-                                color: Colors.blue,
-                              ),
-                              ),
-                              onChanged: (Language language) {
-                                _changeLanguage(language);
-                                Navigator.pop(context);
-                              },
-                              dropdownColor: Colors.white,
-                              items: Language.languageList()
-                                  .map<DropdownMenuItem<Language>>(
-                                      (lang) => DropdownMenuItem(
-                                    value: lang,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                      children: <Widget>[
-                                        Text(
-                                          lang.flag,
-                                          style: TextStyle(fontSize: 23),
-                                        ),
-                                        Text(
-                                          lang.name,
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.black),
-                                        )
-                                      ],
-                                    ),
-                                  ))
-                                  .toList(),
-                              icon: Icon(
-                                Icons.language,
-                                size: 35,
-                                color: Colors.grey[700],
+                            content: Directionality(
+                              textDirection: ui.TextDirection.ltr,
+                              child: DropdownButton(
+                                hint: Text("Change Language".tr().toString(),style: TextStyle(
+                                  color: Colors.blue,
+                                ),
+                                ),
+                                onChanged: (Language language) {
+                                  _changeLanguage(language);
+                                  Navigator.pop(context);
+                                },
+                                dropdownColor: Colors.white,
+                                items: Language.languageList()
+                                    .map<DropdownMenuItem<Language>>(
+                                        (lang) => DropdownMenuItem(
+                                      value: lang,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text(
+                                            lang.flag,
+                                            style: TextStyle(fontSize: 23),
+                                          ),
+                                          Text(
+                                            lang.name,
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.black),
+                                          )
+                                        ],
+                                      ),
+                                    ))
+                                    .toList(),
+                                icon: Icon(
+                                  Icons.language,
+                                  size: 35,
+                                  color: Colors.grey[700],
+                                ),
                               ),
                             ),
                         ).show();

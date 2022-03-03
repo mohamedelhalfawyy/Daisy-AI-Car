@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation_project/Screens/control_room.dart';
 import 'dart:math' as math;
 
 import 'package:graduation_project/Services/camera.service.dart';

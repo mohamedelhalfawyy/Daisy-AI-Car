@@ -103,16 +103,14 @@ class _AuthActionButtonState extends State<AuthActionButton> {
       /// resets the face stored in the face net sevice
       this._faceNetService.setPredictedData(null);
 
-      await Future.delayed(const Duration(seconds: 5), () {
+    await Future.delayed(const Duration(seconds: 5), () {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
                 builder: (context) => NavBar.Info(
                       username: _name,
                       index: 1,
-
-                      //imagePath: _imagePath,
-                    )),
+                 )),
             (Route<dynamic> route) => false);
       });
     }
