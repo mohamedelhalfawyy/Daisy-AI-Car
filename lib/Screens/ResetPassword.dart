@@ -106,7 +106,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                         hintText: 'Enter your Password'
                                             .tr()
                                             .toString(),
-                                        labelText: 'Password'.trim().toString(),
+                                        labelText: 'Password'.tr().toString(),
                                         keyboardType:
                                             TextInputType.visiblePassword,
                                         maxLength: 20,
@@ -154,7 +154,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                           maxLength: 20,
                                           validator: (val) => MatchValidator(
                                                 errorText:
-                                                    'passwords do not match'
+                                                    'Passwords do not match'
                                                         .tr()
                                                         .toString(),
                                               ).validateMatch(val, _password),

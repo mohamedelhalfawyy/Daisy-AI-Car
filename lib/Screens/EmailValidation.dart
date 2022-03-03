@@ -6,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:pin_code_fields/pin_code_fields.dart' as pinCode;
+import 'dart:ui' as ui;
 
 import '../widgets/Constants.dart';
 import 'ResetPassword.dart';
@@ -98,35 +99,38 @@ class _EmailValidationState extends State<EmailValidation> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 8,right: 8,top: 20,bottom: 20),
-                        child: pinCode.PinCodeTextField(
-                          controller: _controller,
-                          errorAnimationController: _errorController,
-                          animationType: pinCode.AnimationType.fade,
-                          appContext: context,
-                          obscureText: false,
-                          autoDisposeControllers: false,
-                          length: 6,
-                          onChanged: (value) {
-                            setState(() {
-                              _code = value;
-                            });
-                          },
-                          pinTheme: pinCode.PinTheme(
-                              inactiveFillColor: Colors.grey,
-                              shape: pinCode.PinCodeFieldShape.box,
-                              borderRadius: BorderRadius.circular(20),
-                              fieldHeight: 50,
-                              fieldWidth: 45,
-                              activeFillColor: Colors.white,
-                              selectedFillColor: Colors.grey),
-                          animationDuration: Duration(milliseconds: 300),
-                          backgroundColor: Colors.transparent,
-                          enableActiveFill: true,
-                          autoDismissKeyboard: true,
-                          keyboardType: TextInputType.number,
-                        )),
+                    Directionality(
+                      textDirection: ui.TextDirection.ltr,
+                      child: Padding(
+                          padding: const EdgeInsets.only(left: 8,right: 8,top: 20,bottom: 20),
+                          child: pinCode.PinCodeTextField(
+                            controller: _controller,
+                            errorAnimationController: _errorController,
+                            animationType: pinCode.AnimationType.fade,
+                            appContext: context,
+                            obscureText: false,
+                            autoDisposeControllers: false,
+                            length: 6,
+                            onChanged: (value) {
+                              setState(() {
+                                _code = value;
+                              });
+                            },
+                            pinTheme: pinCode.PinTheme(
+                                inactiveFillColor: Colors.grey,
+                                shape: pinCode.PinCodeFieldShape.box,
+                                borderRadius: BorderRadius.circular(20),
+                                fieldHeight: 50,
+                                fieldWidth: 45,
+                                activeFillColor: Colors.white,
+                                selectedFillColor: Colors.grey),
+                            animationDuration: Duration(milliseconds: 300),
+                            backgroundColor: Colors.transparent,
+                            enableActiveFill: true,
+                            autoDismissKeyboard: true,
+                            keyboardType: TextInputType.number,
+                          )),
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 0),

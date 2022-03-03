@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/Screens/control_room.dart';
 import 'package:graduation_project/Screens/scan_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
+import 'dart:ui' as ui;
 import 'DashBoard.dart';
 import 'aboutUs.dart';
 
@@ -59,26 +59,29 @@ void checkScreen (){
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: ConvexAppBar(
-        style: TabStyle.reactCircle,
-        items: [
-          TabItem(icon: Icons.home, title: 'Home'),
-          TabItem(icon: Icons.videogame_asset, title: 'Control'),
-          TabItem(
-            icon: Icons.assignment_late_outlined,
-            title: 'About Us',
-          ),
-        ],
-        initialActiveIndex: index,
-        backgroundColor: Color(0xff17305F),
-        onTap: (int value) {
-          setState(() {
-            _selectedScreen = value;
-          });
-        },
+    return Directionality(
+      textDirection: ui.TextDirection.ltr,
+      child: Scaffold(
+        bottomNavigationBar: ConvexAppBar(
+          style: TabStyle.reactCircle,
+          items: [
+            TabItem(icon: Icons.home, title: 'Home'),
+            TabItem(icon: Icons.videogame_asset, title: 'Control'),
+            TabItem(
+              icon: Icons.assignment_late_outlined,
+              title: 'About Us',
+            ),
+          ],
+          initialActiveIndex: index,
+          backgroundColor: Color(0xff17305F),
+          onTap: (int value) {
+            setState(() {
+              _selectedScreen = value;
+            });
+          },
+        ),
+        body: index == 1  && isUser ? _screens2[_selectedScreen]: _screens[_selectedScreen],
       ),
-      body: index == 1  && isUser ? _screens2[_selectedScreen]: _screens[_selectedScreen],
     );
   }
 }

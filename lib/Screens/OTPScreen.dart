@@ -15,6 +15,8 @@ import '../Services/facenet.service.dart';
 import '../Services/ml_kit_service.dart';
 import '../db/database.dart';
 import '../widgets/Constants.dart';
+import 'dart:ui' as ui;
+
 
 // ignore: must_be_immutable
 class OTPScreen extends StatefulWidget {
@@ -135,35 +137,38 @@ class _OTPScreenState extends State<OTPScreen> {
                     ),
                     Column(
                       children: [
-                        Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: pinCode.PinCodeTextField(
-                              controller: _controller,
-                              errorAnimationController: _errorController,
-                              animationType: pinCode.AnimationType.fade,
-                              appContext: context,
-                              obscureText: false,
-                              autoDisposeControllers: false,
-                              length: 6,
-                              onChanged: (value) {
-                                setState(() {
-                                  _code = value;
-                                });
-                              },
-                              pinTheme: pinCode.PinTheme(
-                                  inactiveFillColor: Colors.grey,
-                                  shape: pinCode.PinCodeFieldShape.box,
-                                  borderRadius: BorderRadius.circular(20),
-                                  fieldHeight: 50,
-                                  fieldWidth: 45,
-                                  activeFillColor: Colors.white,
-                                  selectedFillColor: Colors.grey),
-                              animationDuration: Duration(milliseconds: 300),
-                              backgroundColor: Colors.transparent,
-                              enableActiveFill: true,
-                              autoDismissKeyboard: true,
-                              keyboardType: TextInputType.number,
-                            )),
+                        Directionality(
+                          textDirection: ui.TextDirection.ltr,
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: pinCode.PinCodeTextField(
+                                controller: _controller,
+                                errorAnimationController: _errorController,
+                                animationType: pinCode.AnimationType.fade,
+                                appContext: context,
+                                obscureText: false,
+                                autoDisposeControllers: false,
+                                length: 6,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _code = value;
+                                  });
+                                },
+                                pinTheme: pinCode.PinTheme(
+                                    inactiveFillColor: Colors.grey,
+                                    shape: pinCode.PinCodeFieldShape.box,
+                                    borderRadius: BorderRadius.circular(20),
+                                    fieldHeight: 50,
+                                    fieldWidth: 45,
+                                    activeFillColor: Colors.white,
+                                    selectedFillColor: Colors.grey),
+                                animationDuration: Duration(milliseconds: 300),
+                                backgroundColor: Colors.transparent,
+                                enableActiveFill: true,
+                                autoDismissKeyboard: true,
+                                keyboardType: TextInputType.number,
+                              )),
+                        ),
                         Padding(
                           padding: const EdgeInsets.all(15),
                           child: loadingButtons(
@@ -216,7 +221,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                               Color.fromRGBO(52, 138, 199, 1.0)
                                             ]),
                                             child: Text(
-                                              "Sign Up!".tr().toString(),
+                                              "Sign Up".tr().toString(),
                                               style: TextStyle(
                                                   color: Colors.white, fontSize: 16),
                                             ),

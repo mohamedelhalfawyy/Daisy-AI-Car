@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -154,22 +155,22 @@ class showSnackBar {
 
 class Validations {
   final passwordValidator = MultiValidator([
-    RequiredValidator(errorText: 'password is required'.trim().toString()),
-    MinLengthValidator(8, errorText: 'password must be at least 8 digits long'),
+    RequiredValidator(errorText: 'Password is required'.tr().toString()),
+    MinLengthValidator(8, errorText: 'Password must be at least 8 digits long'.tr().toString()),
     PatternValidator(r'(?=.*?[#?!@$%^&*-])',
-        errorText: 'passwords must have at least one special character'),
+        errorText: 'Password must have at least one special character'.tr().toString()),
     PatternValidator(r'(?=.*?[A-Z])',
-        errorText: 'passwords must have at least one uppercase character'),
+        errorText: 'Password must have at least one uppercase character'.tr().toString()),
   ]);
 
   final emailValidator = MultiValidator([
-    RequiredValidator(errorText: 'Email is required'),
-    EmailValidator(errorText: 'Enter a valid email address')
+    RequiredValidator(errorText: 'Email is required'.tr().toString()),
+    EmailValidator(errorText: 'Enter a valid Email address'.tr().toString())
   ]);
 
   final nameValidator = MultiValidator([
-    RequiredValidator(errorText: 'Name is required'),
-    MinLengthValidator(6, errorText: 'name must be at least 6 characters long'),
+    RequiredValidator(errorText: 'Name is required'.tr().toString()),
+    MinLengthValidator(6, errorText: 'Name must be at least 6 characters long'.tr().toString()),
   ]);
 }
 

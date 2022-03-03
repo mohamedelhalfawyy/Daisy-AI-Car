@@ -14,6 +14,7 @@ import '../widgets/Constants.dart';
 import '../widgets/FadeAnimation.dart';
 import 'EmailValidation.dart';
 import 'ResetPassword.dart';
+import 'dart:developer' as dev;
 
 class ForgotPassword extends StatefulWidget {
   static const String id = 'ForgetScreen';
@@ -155,7 +156,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     LTextField(
                       icon: Icons.email,
                       isSecured: false,
-                      hintText: "Enter your email address".tr().toString(),
+                      hintText: "Enter your Email".tr().toString(),
                       labelText: 'Email'.tr().toString(),
                       keyboardType: TextInputType.emailAddress,
                       maxLength: 30,
@@ -200,6 +201,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               if (isValid) {
                                 await sendEmail(_email);
 
+                                dev.log(_code.toString());
+
                                 stopLoading();
                                 setState(() {
                                   showSpinner = false;
@@ -207,7 +210,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 _emailController.clear();
                               } else {
                                 showSnackBar(_scaffoldKey,
-                                        "Email address does not exist!\n please try again".tr().toString())
+                                        "Email address does not exist! Please try again".tr().toString())
                                     .show();
 
                                 setState(() {
@@ -226,7 +229,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 _emailController.clear();
                               });
                               showSnackBar(_scaffoldKey,
-                                      "Email address does not exist!\n please try again".tr().toString())
+                                      "Email address does not exist! Please try again".tr().toString())
                                   .show();
                             }
                           } else {
