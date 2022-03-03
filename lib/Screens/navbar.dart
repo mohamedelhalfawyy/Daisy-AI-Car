@@ -64,8 +64,17 @@ void checkScreen (){
       textDirection: ui.TextDirection.ltr,
       child: Scaffold(
         bottomNavigationBar: ConvexAppBar(
-          elevation: 2,
+          elevation: 3,
           height: 52,
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end:
+            Alignment.centerRight,
+            colors: <Color>[
+              Colors.blue[800],
+              Colors.blue[900],
+            ], // red to yellow
+          ),
           style: TabStyle.reactCircle,
           items: [
             TabItem(icon: Icons.home, title: 'Home'.tr().toString()),
