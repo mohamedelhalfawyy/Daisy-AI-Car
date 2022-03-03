@@ -1,4 +1,5 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation_project/Screens/control_room.dart';
 import 'package:graduation_project/Screens/scan_screen.dart';
@@ -65,11 +66,11 @@ void checkScreen (){
         bottomNavigationBar: ConvexAppBar(
           style: TabStyle.reactCircle,
           items: [
-            TabItem(icon: Icons.home, title: 'Home'),
-            TabItem(icon: Icons.videogame_asset, title: 'Control'),
+            TabItem(icon: Icons.home, title: 'Home'.tr().toString()),
+            TabItem(icon: Icons.videogame_asset, title: 'Control'.tr().toString()),
             TabItem(
               icon: Icons.assignment_late_outlined,
-              title: 'About Us',
+              title: 'About Us'.tr().toString(),
             ),
           ],
           initialActiveIndex: index,
