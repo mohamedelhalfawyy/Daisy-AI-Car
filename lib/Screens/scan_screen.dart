@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graduation_project/Screens/Chatbot.dart';
 import 'package:graduation_project/Screens/EmailValidation.dart';
 import 'package:graduation_project/Screens/OTPScreen.dart';
+import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 import 'package:graduation_project/Screens/ResetPassword.dart';
 import 'package:graduation_project/Screens/sign-in.dart';
 import 'package:graduation_project/Services/facenet.service.dart';
@@ -198,12 +199,15 @@ class _ScanScreenState extends State<ScanScreen> {
                       });
                     }),
                 SpeedDialChild(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8.0,bottom: 5,right: 2),
-                      child: Icon(
-                        FontAwesomeIcons.robot,
-                        color: Colors.white,
-                        size: 25,
+                    child: Directionality(
+                      textDirection: ui.TextDirection.ltr,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 0.0,bottom: 5,right: 5),
+                        child: Icon(
+                          FontAwesomeIcons.robot,
+                          color: Colors.white,
+                          size: 25,
+                        ),
                       ),
                     ),
                     backgroundColor: Color(0xff0E4EC9),
@@ -217,9 +221,9 @@ class _ScanScreenState extends State<ScanScreen> {
                     }),
               ],
             ),
-            appBar: AppBar(
+            appBar: NewGradientAppBar(
               elevation: 2,
-              backgroundColor: Colors.white,
+              gradient: backgroundGradientColor,
               centerTitle: true,
               title: !isDone
                   ? Directionality(
@@ -287,114 +291,118 @@ class _ScanScreenState extends State<ScanScreen> {
                       ),
                   ),
             ),
-            backgroundColor: Colors.white,
             body: Directionality(
               textDirection:
               EasyLocalization.of(context).locale ==
                   Locale('ar', 'EG')
                   ? ui.TextDirection.rtl
                   : ui.TextDirection.ltr,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 0, 20, 30),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        'Scan your face to log in.'.tr().toString(),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        'Press on the button whenever you are ready.'.tr().toString(),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 22,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      Container(
-                        height: 220.0,
-                        width: 220.0,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/Images/daisy.png'),
-                            fit: BoxFit.fill,
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: backgroundGradientColor,
+                ),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(30, 0, 20, 30),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'Scan your face to log in.'.tr().toString(),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
                           ),
-                          shape: BoxShape.circle,
+                          textAlign: TextAlign.center,
                         ),
-                      ),
-                      ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                              mainColor,
+                        Text(
+                          'Press on the button whenever you are ready.'.tr().toString(),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 22,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Container(
+                          height: 220.0,
+                          width: 220.0,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('assets/Images/daisy.png'),
+                              fit: BoxFit.fill,
                             ),
-                            shape:
-                                MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ))),
-                        onPressed: () async {
-                          await _startUp();
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                buttonsColor,
+                              ),
+                              shape:
+                                  MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ))),
+                          onPressed: () async {
+                            await _startUp();
 
-                          Navigation(
-                                  context: context,
-                                  screen: SignIn(
-                                    cameraDescription: cameraDescription,
-                                  ),
-                                  widget: widget,
-                                  type: PageTransitionType.rightToLeftWithFade)
-                              .navigate();
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                          child: Text(
-                            "Scan Face To Authenticate".tr().toString(),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
+                            Navigation(
+                                    context: context,
+                                    screen: SignIn(
+                                      cameraDescription: cameraDescription,
+                                    ),
+                                    widget: widget,
+                                    type: PageTransitionType.rightToLeftWithFade)
+                                .navigate();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                            child: Text(
+                              "Scan Face To Authenticate".tr().toString(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 22,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                              mainColor,
-                            ),
-                            shape:
-                                MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ))),
-                        onPressed: () {
-                          Navigation(
-                                  context: context,
-                                  screen: Email_Password(),
-                                  widget: widget,
-                                  type: PageTransitionType.bottomToTop)
-                              .navigate();
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                          child: Text(
-                            'Email/Password'.tr().toString(),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
+                        SizedBox(
+                          height: 5,
+                        ),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                buttonsColor,
+                              ),
+                              shape:
+                                  MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ))),
+                          onPressed: () {
+                            Navigation(
+                                    context: context,
+                                    screen: Email_Password(),
+                                    widget: widget,
+                                    type: PageTransitionType.bottomToTop)
+                                .navigate();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                            child: Text(
+                              'Email/Password'.tr().toString(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 22,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

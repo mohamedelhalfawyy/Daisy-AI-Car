@@ -66,16 +66,21 @@ void checkScreen (){
         bottomNavigationBar: ConvexAppBar(
           elevation: 3,
           height: 52,
+          activeColor: Colors.lightBlue[50],
           gradient: LinearGradient(
             begin: Alignment.centerLeft,
             end:
             Alignment.centerRight,
             colors: <Color>[
-              Colors.blue[800],
-              Colors.blue[900],
+              Color(0xff138def),
+              Color(0xff478DC1),
+              Color(0xff5062AE),
+              Color(0xff593D99),
+              Color(0xff91447E),
+              Color(0xffD95662),
             ], // red to yellow
           ),
-          style: TabStyle.reactCircle,
+          style: TabStyle.titled,
           items: [
             TabItem(icon: Icons.home, title: 'Home'.tr().toString()),
             TabItem(icon: Icons.videogame_asset, title: 'Control'.tr().toString()),
