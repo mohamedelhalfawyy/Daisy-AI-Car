@@ -198,10 +198,13 @@ class _ScanScreenState extends State<ScanScreen> {
                       });
                     }),
                 SpeedDialChild(
-                    child: Icon(
-                      FontAwesomeIcons.robot,
-                      color: Colors.white,
-                      size: 30,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0,bottom: 5,right: 2),
+                      child: Icon(
+                        FontAwesomeIcons.robot,
+                        color: Colors.white,
+                        size: 25,
+                      ),
                     ),
                     backgroundColor: Color(0xff0E4EC9),
                     onTap: () {

@@ -64,7 +64,6 @@ dependencies:
   flare_flutter: ^3.0.2
   cloud_firestore: ^3.1.10
   firebase_storage: ^10.2.9
-<<<<<<< Updated upstream
   mailer: ^5.1.0
   date_format: ^2.0.5
   auto_size_text: ^3.0.0
@@ -73,9 +72,6 @@ dependencies:
   easy_localization: ^3.0.0
   flutter_staggered_animations: ^1.0.0
   dialog_flowtter: ^0.3.3
-
-=======
->>>>>>> Stashed changes
 
 dev_dependencies:
   flutter_test:
