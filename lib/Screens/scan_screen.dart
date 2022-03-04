@@ -4,6 +4,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:graduation_project/Screens/Chatbot.dart';
 import 'package:graduation_project/Screens/EmailValidation.dart';
 import 'package:graduation_project/Screens/OTPScreen.dart';
 import 'package:graduation_project/Screens/ResetPassword.dart';
@@ -152,7 +154,7 @@ class _ScanScreenState extends State<ScanScreen> {
                             context: context,
                             title: "Choose Language".tr().toString(),
                             content: Directionality(
-                              textDirection: ui.TextDirection.ltr,
+                              textDirection: ui.TextDirection.ltr    ,
                               child: DropdownButton(
                                 hint: Text("Change Language".tr().toString(),style: TextStyle(
                                   color: Colors.blue,
@@ -194,7 +196,22 @@ class _ScanScreenState extends State<ScanScreen> {
                             ),
                         ).show();
                       });
-                    })
+                    }),
+                SpeedDialChild(
+                    child: Icon(
+                      FontAwesomeIcons.robot,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    backgroundColor: Color(0xff0E4EC9),
+                    onTap: () {
+                      Navigation(
+                          widget: widget,
+                          context: context,
+                          type: PageTransitionType.fade,
+                          screen: ChatBot())
+                          .navigate();
+                    }),
               ],
             ),
             appBar: AppBar(

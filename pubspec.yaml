@@ -72,6 +72,7 @@ dependencies:
   intl: ^0.17.0
   easy_localization: ^3.0.0
   flutter_staggered_animations: ^1.0.0
+  dialog_flowtter: ^0.3.3
 
 =======
 >>>>>>> Stashed changes
