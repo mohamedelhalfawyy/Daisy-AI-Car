@@ -34,14 +34,6 @@ class ScanScreen extends StatefulWidget {
 }
 
 class _ScanScreenState extends State<ScanScreen> {
-  /*
-  *                       Navigation(
-                              widget: widget,
-                              context: context,
-                              type: PageTransitionType.rightToLeft,
-                              screen: OTPScreen())
-                          .navigate();
-  * */
 
   final lottieFile = 'assets/faceError.json';
 

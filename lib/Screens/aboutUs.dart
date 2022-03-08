@@ -1,8 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation_project/widgets/Constants.dart';
+import 'package:graduation_project/widgets/FadeAnimation.dart';
 import 'package:page_flip_builder/page_flip_builder.dart';
+import 'dart:ui' as ui;
+
 
 class AboutUs extends StatefulWidget {
   const AboutUs({key}) : super(key: key);
@@ -30,36 +35,36 @@ class _AboutUsState extends State<AboutUs> {
     final pageFlipKey10 = GlobalKey<PageFlipBuilderState>();
 
     return Scaffold(
+      appBar: AppBar(
+        elevation: 2,
+        centerTitle: true,
+        title: Directionality(
+          textDirection: EasyLocalization.of(context).locale ==
+              Locale('ar', 'EG')
+              ? ui.TextDirection.rtl
+              : ui.TextDirection.ltr,
+          child: DefaultTextStyle(
+            style: const TextStyle(
+                fontSize: 40.0,
+                fontFamily: 'Horizon',
+                fontWeight: FontWeight.bold,
+                color: Colors.white),
+            child: FadeAnimation(0, Text("DAISY".tr().toString())),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.only(bottom: 50.0),
           children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                SizedBox(width: 10.0),
-                Container(
-                  height: 70,
-                  width: 120,
-                  child: Image.asset('assets/Images/daisy.png'),
-                ),
-                SizedBox(width: 20.0),
-                Text('Daisy', style: TextStyle(
-                  fontSize: 40.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Horizon',
-                ),
-                ),
-              ],
-            ),
             Container(
               height: 300,
               width: 300,
               margin: const EdgeInsets.all(15.0),
               padding: const EdgeInsets.all(20.0),
               child: Carousel(
-                showIndicator: false,
-                dotColor: Colors.transparent,
+                showIndicator: true,
+                dotColor: Colors.red,
                 dotBgColor: Colors.transparent,
                 autoplay: true,
                 autoplayDuration: Duration(seconds: 5),
@@ -131,16 +136,14 @@ class _AboutUsState extends State<AboutUs> {
                       ),
                     ),
                   ),
-                  SizedBox(width:20),
                   Expanded(
                     flex: 2,
                     child: Container(
                       width: 200,
-                      height: 140,
+                      height: 120,
                       padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
-                        color: Colors.blueAccent.shade100,
-                        borderRadius: BorderRadius.circular(30),
+                        color: buttonsColor,
                       ),
                       child: Column(
                         children: [
@@ -175,36 +178,13 @@ class _AboutUsState extends State<AboutUs> {
               child: Row(
                 children: [
                   Expanded(
-                    flex: 1,
-                    child: Container(
-                      color: Colors.black,
-                      width: 120,
-                      height: 120,
-                      child: PageFlipBuilder(
-                        key: pageFlipKey2,
-                        frontBuilder: (_) => LightHomePage(
-                          image: 'assets/Images/dcGearedMotor1.jpeg',
-                          onFlip: () => pageFlipKey2.currentState?.flip(),
-                        ),
-                        backBuilder: (_) => DarkHomePage(
-                          image: 'assets/Images/dcGearedMotor2.jpeg',
-                          onFlip: () => pageFlipKey2.currentState?.flip(),
-                        ),
-                        maxTilt: 0.003,
-                        maxScale: 0.2,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width:20),
-                  Expanded(
                     flex: 2,
                     child: Container(
                       width: 200,
-                      height: 140,
+                      height: 120,
                       padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
-                        color: Colors.blueAccent.shade100,
-                        borderRadius: BorderRadius.circular(30),
+                        color: buttonsColor,
                       ),
                       child: Column(
                         children: [
@@ -229,6 +209,27 @@ class _AboutUsState extends State<AboutUs> {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      color: Colors.black,
+                      width: 120,
+                      height: 120,
+                      child: PageFlipBuilder(
+                        key: pageFlipKey2,
+                        frontBuilder: (_) => LightHomePage(
+                          image: 'assets/Images/dcGearedMotor1.jpeg',
+                          onFlip: () => pageFlipKey2.currentState?.flip(),
+                        ),
+                        backBuilder: (_) => DarkHomePage(
+                          image: 'assets/Images/dcGearedMotor2.jpeg',
+                          onFlip: () => pageFlipKey2.currentState?.flip(),
+                        ),
+                        maxTilt: 0.003,
+                        maxScale: 0.2,
                       ),
                     ),
                   ),
@@ -260,16 +261,14 @@ class _AboutUsState extends State<AboutUs> {
                       ),
                     ),
                   ),
-                  SizedBox(width:20),
                   Expanded(
                     flex: 2,
                     child: Container(
                       width: 200,
-                      height: 140,
+                      height: 120,
                       padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
-                        color: Colors.blueAccent.shade100,
-                        borderRadius: BorderRadius.circular(30),
+                        color: buttonsColor,
                       ),
                       child: Column(
                         children: [
@@ -304,36 +303,13 @@ class _AboutUsState extends State<AboutUs> {
               child: Row(
                 children: [
                   Expanded(
-                    flex: 1,
-                    child: Container(
-                      color: Colors.black,
-                      width: 120,
-                      height: 120,
-                      child: PageFlipBuilder(
-                        key: pageFlipKey4,
-                        frontBuilder: (_) => LightHomePage(
-                          image: 'assets/Images/motorDriverShield1.jpeg',
-                          onFlip: () => pageFlipKey4.currentState?.flip(),
-                        ),
-                        backBuilder: (_) => DarkHomePage(
-                          image: 'assets/Images/motorDriverShield2.jpeg',
-                          onFlip: () => pageFlipKey4.currentState?.flip(),
-                        ),
-                        maxTilt: 0.003,
-                        maxScale: 0.2,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width:20),
-                  Expanded(
                     flex: 2,
                     child: Container(
                       width: 200,
-                      height: 140,
+                      height: 120,
                       padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
-                        color: Colors.blueAccent.shade100,
-                        borderRadius: BorderRadius.circular(30),
+                        color: buttonsColor,
                       ),
                       child: Column(
                         children: [
@@ -357,6 +333,27 @@ class _AboutUsState extends State<AboutUs> {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      color: Colors.black,
+                      width: 120,
+                      height: 120,
+                      child: PageFlipBuilder(
+                        key: pageFlipKey4,
+                        frontBuilder: (_) => LightHomePage(
+                          image: 'assets/Images/motorDriverShield1.jpeg',
+                          onFlip: () => pageFlipKey4.currentState?.flip(),
+                        ),
+                        backBuilder: (_) => DarkHomePage(
+                          image: 'assets/Images/motorDriverShield2.jpeg',
+                          onFlip: () => pageFlipKey4.currentState?.flip(),
+                        ),
+                        maxTilt: 0.003,
+                        maxScale: 0.2,
                       ),
                     ),
                   ),
@@ -388,16 +385,14 @@ class _AboutUsState extends State<AboutUs> {
                       ),
                     ),
                   ),
-                  SizedBox(width:20),
                   Expanded(
                     flex: 2,
                     child: Container(
                       width: 200,
-                      height: 140,
+                      height: 120,
                       padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
-                        color: Colors.blueAccent.shade100,
-                        borderRadius: BorderRadius.circular(30),
+                        color: buttonsColor,
                       ),
                       child: Column(
                         children: [
@@ -432,6 +427,40 @@ class _AboutUsState extends State<AboutUs> {
               child: Row(
                 children: [
                   Expanded(
+                    flex: 2,
+                    child: Container(
+                      width: 200,
+                      height: 120,
+                      padding: const EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        color: buttonsColor,
+                      ),
+                      child: Column(
+                        children: [
+                          Text('HC-05 Bluetooth Module',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(height:5),
+                          AutoSizeText('HC-05 Bluetooth module provides switching mode between master and '
+                              'slave mode which means it able to use neither receiving nor transmitting data.',
+                            maxFontSize: 16,
+                            minFontSize: 12,
+                            maxLines: 2,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
                     flex: 1,
                     child: Container(
                       color: Colors.black,
@@ -449,42 +478,6 @@ class _AboutUsState extends State<AboutUs> {
                         ),
                         maxTilt: 0.003,
                         maxScale: 0.2,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width:20),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      width: 200,
-                      height: 140,
-                      padding: const EdgeInsets.all(20.0),
-                      decoration: BoxDecoration(
-                        color: Colors.blueAccent.shade100,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Column(
-                        children: [
-                          Text('HC-05 Bluetooth Module',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(height:5),
-                          AutoSizeText('HC-05 Bluetooth module provides switching mode between master and '
-                              'slave mode which means it able to use neither receiving nor transmitting data.',
-                            maxFontSize: 16,
-                            minFontSize: 12,
-                            maxLines: 3,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14
-                            ),
-                          ),
-                        ],
                       ),
                     ),
                   ),
@@ -516,16 +509,14 @@ class _AboutUsState extends State<AboutUs> {
                       ),
                     ),
                   ),
-                  SizedBox(width:20),
                   Expanded(
                     flex: 2,
                     child: Container(
                       width: 200,
-                      height: 140,
+                      height: 120,
                       padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
-                        color: Colors.blueAccent.shade100,
-                        borderRadius: BorderRadius.circular(30),
+                        color: buttonsColor,
                       ),
                       child: Column(
                         children: [
@@ -560,36 +551,13 @@ class _AboutUsState extends State<AboutUs> {
               child: Row(
                 children: [
                   Expanded(
-                    flex: 1,
-                    child: Container(
-                      color: Colors.black,
-                      width: 120,
-                      height: 120,
-                      child: PageFlipBuilder(
-                        key: pageFlipKey8,
-                        frontBuilder: (_) => LightHomePage(
-                          image: 'assets/Images/maleAndFemaleJumperWire1.jpeg',
-                          onFlip: () => pageFlipKey8.currentState?.flip(),
-                        ),
-                        backBuilder: (_) => DarkHomePage(
-                          image: 'assets/Images/maleAndFemaleJumperWire2.jpeg',
-                          onFlip: () => pageFlipKey8.currentState?.flip(),
-                        ),
-                        maxTilt: 0.003,
-                        maxScale: 0.2,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width:20),
-                  Expanded(
                     flex: 2,
                     child: Container(
                       width: 200,
-                      height: 140,
+                      height: 120,
                       padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
-                        color: Colors.blueAccent.shade100,
-                        borderRadius: BorderRadius.circular(30),
+                        color: buttonsColor,
                       ),
                       child: Column(
                         children: [
@@ -607,13 +575,34 @@ class _AboutUsState extends State<AboutUs> {
                               'while female ends do not and are used to plug things into.',
                             maxFontSize: 16,
                             minFontSize: 12,
-                            maxLines: 3,
+                            maxLines: 2,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      color: Colors.black,
+                      width: 120,
+                      height: 120,
+                      child: PageFlipBuilder(
+                        key: pageFlipKey8,
+                        frontBuilder: (_) => LightHomePage(
+                          image: 'assets/Images/maleAndFemaleJumperWire1.jpeg',
+                          onFlip: () => pageFlipKey8.currentState?.flip(),
+                        ),
+                        backBuilder: (_) => DarkHomePage(
+                          image: 'assets/Images/maleAndFemaleJumperWire2.jpeg',
+                          onFlip: () => pageFlipKey8.currentState?.flip(),
+                        ),
+                        maxTilt: 0.003,
+                        maxScale: 0.2,
                       ),
                     ),
                   ),
@@ -645,16 +634,14 @@ class _AboutUsState extends State<AboutUs> {
                       ),
                     ),
                   ),
-                  SizedBox(width:20),
                   Expanded(
                     flex: 2,
                     child: Container(
                       width: 200,
-                      height: 140,
+                      height: 120,
                       padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
-                        color: Colors.blueAccent.shade100,
-                        borderRadius: BorderRadius.circular(30),
+                        color: buttonsColor,
                       ),
                       child: Column(
                         children: [
@@ -672,7 +659,7 @@ class _AboutUsState extends State<AboutUs> {
                               'voltage of 4.2 volts per cell',
                             maxFontSize: 16,
                             minFontSize: 12,
-                            maxLines: 3,
+                            maxLines: 2,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14
@@ -690,36 +677,13 @@ class _AboutUsState extends State<AboutUs> {
               child: Row(
                 children: [
                   Expanded(
-                    flex: 1,
-                    child: Container(
-                      color: Colors.black,
-                      width: 120,
-                      height: 120,
-                      child: PageFlipBuilder(
-                        key: pageFlipKey10,
-                        frontBuilder: (_) => LightHomePage(
-                          image: 'assets/Images/wheel1.jpeg',
-                          onFlip: () => pageFlipKey10.currentState?.flip(),
-                        ),
-                        backBuilder: (_) => DarkHomePage(
-                          image: 'assets/Images/wheel2.jpeg',
-                          onFlip: () => pageFlipKey10.currentState?.flip(),
-                        ),
-                        maxTilt: 0.003,
-                        maxScale: 0.2,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width:20),
-                  Expanded(
                     flex: 2,
                     child: Container(
                       width: 200,
-                      height: 140,
+                      height: 120,
                       padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
-                        color: Colors.blueAccent.shade100,
-                        borderRadius: BorderRadius.circular(30),
+                        color: buttonsColor,
                       ),
                       child: Column(
                         children: [
@@ -743,6 +707,27 @@ class _AboutUsState extends State<AboutUs> {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      color: Colors.black,
+                      width: 120,
+                      height: 120,
+                      child: PageFlipBuilder(
+                        key: pageFlipKey10,
+                        frontBuilder: (_) => LightHomePage(
+                          image: 'assets/Images/wheel1.jpeg',
+                          onFlip: () => pageFlipKey10.currentState?.flip(),
+                        ),
+                        backBuilder: (_) => DarkHomePage(
+                          image: 'assets/Images/wheel2.jpeg',
+                          onFlip: () => pageFlipKey10.currentState?.flip(),
+                        ),
+                        maxTilt: 0.003,
+                        maxScale: 0.2,
                       ),
                     ),
                   ),

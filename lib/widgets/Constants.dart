@@ -202,6 +202,7 @@ class Navigation {
     }
 }
 
-const Color buttonsColor = Color(0xff138def);
+const Color backColor = Color(0xff138def);
+const Color buttonsColor = Color(0xFF1E90FF);
 const Color chatBotColor = Color(0xff030e45);
 

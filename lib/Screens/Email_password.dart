@@ -115,7 +115,7 @@ class _Email_PasswordState extends State<Email_Password> {
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(60),
                               topLeft: Radius.circular(60)),
-                          color: buttonsColor,
+                          color: backColor,
                           boxShadow: [
                             BoxShadow(
                               blurRadius: 20,
@@ -208,10 +208,10 @@ class _Email_PasswordState extends State<Email_Password> {
                                     loadingType: SpinKitDualRing(
                                       color: Colors.white,
                                     ),
-                                    colour: Color(0xff466DB9),
+                                    colour: Colors.white,
                                     text: 'Login'.tr().toString(),
                                     width: 350,
-                                    textColor: Colors.white,
+                                    textColor: Colors.black,
                                     onTap:
                                         (startLoading, stopLoading, btnState) async {
                                       if (_formKey.currentState.validate()) {

@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:graduation_project/Models/user.model.dart';
@@ -11,12 +13,19 @@ import 'package:graduation_project/Services/Firestore_Services.dart';
 import 'package:graduation_project/Services/camera.service.dart';
 import 'package:graduation_project/Services/facenet.service.dart';
 import 'package:graduation_project/db/database.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:rive_splash_screen/rive_splash_screen.dart';
 import 'Constants.dart';
 import 'app_button.dart';
 import 'app_text_field.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:async';
+
+
+
 
 class AuthActionButton extends StatefulWidget {
   AuthActionButton(this._initializeControllerFuture,
@@ -52,6 +61,49 @@ class _AuthActionButtonState extends State<AuthActionButton> {
   AutovalidateMode _validate = AutovalidateMode.onUserInteraction;
 
   bool _isTaken;
+
+
+  final ImagePicker _picker = ImagePicker();
+  dynamic _pickImageError;
+  List<XFile> _imageFileList;
+
+  set _imageFile(XFile value) {
+    _imageFileList = value == null ? null : <XFile>[value];
+  }
+
+  Future<void> saveImage() async {
+    try {
+      var _imagePath = _imageFileList.last.path.split("/").last;
+
+      firebase_storage.FirebaseStorage _storage =
+          firebase_storage.FirebaseStorage.instance;
+
+      Reference db = _storage.ref("users/$_imagePath");
+
+      await db.putFile(File(_imageFileList.last.path));
+
+      return await db.getDownloadURL();
+    } catch (e) {
+      print('$e +10');
+    }
+  }
+
+  Future<void> loadAssets(ImageSource source,
+      {BuildContext context, bool isMultiImage = false}) async {
+    try {
+      final XFile pickedFile = await _picker.pickImage(
+        source: source,
+      );
+      setState(() {
+        _imageFile = pickedFile;
+      });
+      saveImage();
+    } catch (e) {
+      setState(() {
+        _pickImageError = e;
+      });
+    }
+  }
 
   Future _signUp(context) async {
     /// gets predicted data from facenet service (user face detected)
@@ -246,7 +298,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Color(0xFF1B50B7),
+          color: buttonsColor,
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: Colors.blue.withOpacity(0.1),
@@ -357,6 +409,47 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                               isAutoValidate: _validate,
                             )
                           : Container(),
+                      SizedBox(height: 15),
+                      InkWell(
+                        onTap: () {
+                          loadAssets(ImageSource.gallery, context: context);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey[350],
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                color: Colors.blue.withOpacity(0.1),
+                                blurRadius: 1,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 14, horizontal: 16),
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: 60,
+                          child: Row(
+                            children: [
+                              Icon(Icons.photo, color: Colors.blueGrey),
+                              SizedBox(width: 10,),
+                              Text(
+                                'Pick Image'.tr().toString(),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -371,7 +464,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Color(0xFF1B50B7),
+                            color: buttonsColor,
                             boxShadow: <BoxShadow>[
                               BoxShadow(
                                 color: Colors.blue.withOpacity(0.1),
@@ -419,7 +512,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                                 Icon(Icons.person_add, color: Colors.white)
                               ],
                             ),
-                            color: Color(0xFF1B50B7),
+                            color: buttonsColor,
                             borderRadius: 12,
                             padding: EdgeInsets.symmetric(
                                 vertical: 14, horizontal: 16),
