@@ -151,7 +151,7 @@ class _DashBoardState extends State<DashBoard> {
               ),
               ),
             ),
-            SizedBox(height: 10.0),
+            SizedBox(height: 15.0),
             Center(
               child: AutoSizeText('Lets get you started \n'
                   'and deliver on time',
@@ -168,8 +168,8 @@ class _DashBoardState extends State<DashBoard> {
             Center(
               child: Lottie.asset(
                 'assets/medicals.json',
-                width: MediaQueryData().size.width*0.9,
-                height: MediaQueryData().size.height*0.3,
+                width: MediaQuery.of(context).size.width*0.9,
+                height: MediaQuery.of(context).size.height*0.42,
                 fit: BoxFit.fill,
               ),
             ),
@@ -178,7 +178,7 @@ class _DashBoardState extends State<DashBoard> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: MediaQueryData().size.width*0.6,
+                  width: MediaQuery.of(context).size.width*0.6,
                   height: 80,
                   decoration: BoxDecoration(
                     color: Colors.white,
