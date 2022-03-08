@@ -73,12 +73,15 @@ dependencies:
   flutter_staggered_animations: ^1.0.0
   dialog_flowtter: ^0.3.3
   new_gradient_app_bar: ^0.2.0
+  bubble: ^1.2.1
+  shared_preferences: ^2.0.13
+  audioplayers: ^0.20.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_native_splash: ^2.0.5
+  flutter_native_splash: ^2.1.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

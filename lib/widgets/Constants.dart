@@ -204,6 +204,7 @@ class Navigation {
 
 const Color buttonsColor = Color(0xff138def);
 const Color backgroundColor = Color(0xffe4efe9);
+const Color chatBotColor = Color(0xff030e45);
 const backgroundGradientColor = LinearGradient(
     begin: Alignment.bottomRight,
     end: Alignment.topLeft,

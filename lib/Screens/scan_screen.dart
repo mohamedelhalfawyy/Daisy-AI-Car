@@ -24,6 +24,20 @@ import '../widgets/languages.dart';
 import 'Email_password.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'dart:ui' as ui;
+import 'dart:developer' as dev;
+import 'dart:math';
+
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:camera/camera.dart';
+import 'package:easy_localization/easy_localization.dart';
+
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../widgets/languages.dart';
+import 'Email_password.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 
 
@@ -31,11 +45,22 @@ import 'dart:ui' as ui;
 class ScanScreen extends StatefulWidget {
   const ScanScreen({Key key}) : super(key: key);
 
+  //final String username;
+
   @override
   State<ScanScreen> createState() => _ScanScreenState();
 }
 
 class _ScanScreenState extends State<ScanScreen> {
+  /*
+  *                       Navigation(
+                              widget: widget,
+                              context: context,
+                              type: PageTransitionType.rightToLeft,
+                              screen: OTPScreen())
+                          .navigate();
+  * */
+
   final lottieFile = 'assets/faceError.json';
 
   FaceNetService _faceNetService = FaceNetService();
@@ -49,6 +74,92 @@ class _ScanScreenState extends State<ScanScreen> {
   bool loading = false;
 
   bool isDone = false;
+
+  List<String> bot = [];
+  List<String> commands = [];
+
+  String welcomeMessage;
+  String description;
+  String note;
+  String forwardCommand = "Enter the command equivalent to Forward.";
+
+  String username = "Halfawy";
+
+  //_ScanScreenState(this.username);
+
+  Future<void> load() async{
+    bot.clear();
+
+    final prefs = await SharedPreferences.getInstance();
+
+    int status;
+
+    int temp = 0 + Random().nextInt(4 - 0);
+
+
+    try{
+      status = prefs.getInt("status");
+      if(status == null){
+        status = 0;
+      }
+    }catch(e){
+      dev.log(e.toString());
+    }
+
+    try{
+      commands = prefs.getStringList("commands");
+      if(commands == null){
+        commands = ["forward", "backward", "right", "left","stop"];
+      }
+    }catch(e){
+      dev.log(e.toString());
+    }
+
+
+    switch(status){
+      case 0:{
+        welcomeMessage = "BEEB POOP\nHello, I am Daisy Learning Bot.";
+        description = "I am here to help you add commands in your own language to make you control the vehicle in an easier and more comfortable way.\n\nLets Get Started!";
+        note = "Please Note that the Application is still in the Beta phase.\nSo we only support English and Arabic for now.";
+        prefs.setInt("status", 1);
+        break;
+      }
+      case 1:{
+        welcomeMessage = "BEEB POOP\nI see we meet again Hello, I am Daisy Learning Bot.";
+        description = "Don't forget I am here to make it easier for you to control your vehicle by adding your own commands.\n\nLets Get Started!";
+        note = "We are doing our best to add more languages but for now we only support English and Arabic.";
+        prefs.setInt("status", 2);
+        break;
+      }
+      case 2: {
+        welcomeMessage = "BEEP POOP\nLet me try and guess your name is it... ammm...\nI will remember it next time.";
+        description = "You should already know but i will say it again\nI am here to make it easier for you to control your vehicle by adding your own commands.\n\nLets Get Started!";
+        note = "No we still did not add new languages we will notify you once it's added so only type in English and Arabic";
+        prefs.setInt("status", 3);
+        break;
+      }
+      case 3: {
+        welcomeMessage = "BEEP POOP\nAHAA I told you i will remember your name it is $username";
+        description = "You should already know but i will say it again\nI am here to make it easier for you to control your vehicle by adding your own commands.\n\nLets Get Started!";
+        note = "Supportiamo solo inglese e arabo\nThat means we only support English and Arabic in italian";
+        prefs.setInt("status", 4);
+        break;
+      }
+      case 4:{
+        welcomeMessage = "BEEP POOP\nWelcome back my dear Friend $username";
+        description = "You should already know but i will say it again\nI am here to make it easier for you to control your vehicle by adding your own commands.\n\nLets Get Started!";
+        note = "We are working hard to add as many languages as we could but we only support English and Arabic for now.";
+
+        prefs.setInt("status", temp);
+        break;
+      }
+    }
+
+    bot.add(welcomeMessage);
+    bot.add(description);
+    bot.add(note);
+    bot.add(forwardCommand);
+  }
 
   void _changeLanguage(Language language) {
     Locale _temp;
@@ -115,21 +226,6 @@ class _ScanScreenState extends State<ScanScreen> {
               tooltip: 'Menu Options'.tr().toString(),
               childrenButtonSize: Size(65, 65),
               children: [
-                SpeedDialChild(
-                    child: Icon(
-                      Icons.person_add,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                    backgroundColor: Color(0xff0E4EC9),
-                    onTap: () {
-                      Navigation(
-                              widget: widget,
-                              context: context,
-                              type: PageTransitionType.topToBottom,
-                              screen: OTPScreen())
-                          .navigate();
-                    }),
                 SpeedDialChild(
                     child: Icon(
                       Icons.language,
@@ -211,12 +307,15 @@ class _ScanScreenState extends State<ScanScreen> {
                       ),
                     ),
                     backgroundColor: Color(0xff0E4EC9),
-                    onTap: () {
+                    onTap: () async{
+
+                      await load();
+
                       Navigation(
                           widget: widget,
                           context: context,
                           type: PageTransitionType.fade,
-                          screen: ChatBot())
+                          screen: ChatBot(bot: bot,commands: commands,))
                           .navigate();
                     }),
               ],
