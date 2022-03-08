@@ -51,6 +51,8 @@
   "Name must be at least 6 characters long": "يجب ألا يقل الاسم عن 6 أحرف",
   "CAPTURE": "التقط الصورة",
   "VERIFY": "تحقق",
+  "Scan Face": "مسح الوجه",
+  "Please choose your login method": "الرجاء اختيار طريقة تسجيل الدخول الخاصة بك",
   "Password must be at least 8 digits long": "يجب أن تتكون كلمة المرور من 8 أرقام على الأقل",
   "Verification Successful": "تم التحقق بنجاح",
   "Please enter the Security Code": "الرجاء إدخال رمز الحماية",
