@@ -75,6 +75,7 @@ dependencies:
   bubble: ^1.2.1
   shared_preferences: ^2.0.13
   audioplayers: ^0.20.1
+  image_picker: ^0.8.4+10
 
 dev_dependencies:
   flutter_test:
