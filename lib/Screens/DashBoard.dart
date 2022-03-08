@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:graduation_project/widgets/SnackBar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
-import 'package:wave/config.dart';
-import 'package:wave/wave.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({Key key}) : super(key: key);
@@ -89,27 +87,6 @@ class _DashBoardState extends State<DashBoard> {
   // ),
   // );
 
-  _buildCard({
-    Config config,
-    Color backgroundColor = Colors.transparent,
-    DecorationImage backgroundImage,
-    double height = 820,
-  }) {
-    return Container(
-      height: height,
-      width: double.infinity,
-      child: WaveWidget(
-        config: config,
-        backgroundColor: backgroundColor,
-        backgroundImage: backgroundImage,
-        size: Size(double.infinity, double.infinity),
-        waveAmplitude: 0,
-      ),
-    );
-  }
-
-  MaskFilter _blur;
-
   final ImagePicker _picker = ImagePicker();
   dynamic _pickImageError;
   List<XFile> _imageFileList;
@@ -156,17 +133,15 @@ class _DashBoardState extends State<DashBoard> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Color(0x3C73E1),
+      backgroundColor: Color(0XFF3C73E1),
       body: SafeArea(
         child: ListView(
           children: [
-            SizedBox(height: 10.0),
             Container(
               height: 150,
               width: 200,
               child: Image.asset('assets/Images/daisy.png'),
             ),
-            SizedBox(height: 10.0),
             Center(
               child: Text('Welcome to Daisy', style: TextStyle(
                 fontSize: 40.0,
@@ -176,7 +151,7 @@ class _DashBoardState extends State<DashBoard> {
               ),
               ),
             ),
-            SizedBox(height: 15.0),
+            SizedBox(height: 10.0),
             Center(
               child: AutoSizeText('Lets get you started \n'
                   'and deliver on time',
@@ -192,7 +167,7 @@ class _DashBoardState extends State<DashBoard> {
             SizedBox(height: 10.0),
             Center(
               child: Lottie.asset(
-                'assets/LottieLogo1.json',
+                'assets/medicals.json',
                 width: MediaQueryData().size.width*0.9,
                 height: MediaQueryData().size.height*0.3,
                 fit: BoxFit.fill,
