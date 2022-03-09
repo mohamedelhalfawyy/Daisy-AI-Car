@@ -71,7 +71,7 @@ void checkScreen (){
           style: TabStyle.titled,
           items: [
             TabItem(icon: Icons.home, title: 'Home'.tr().toString(),),
-            TabItem(icon: Icons.videogame_asset, title: 'Control'.tr().toString()),
+            TabItem(icon: Icons.gamepad, title: 'Control'.tr().toString()),
             TabItem(
               icon: Icons.assignment_late_outlined,
               title: 'About Us'.tr().toString(),

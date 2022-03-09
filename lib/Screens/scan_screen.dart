@@ -4,8 +4,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:graduation_project/Screens/Chatbot.dart';
 import 'package:graduation_project/Screens/sign-in.dart';
 import 'package:graduation_project/Services/facenet.service.dart';
 import 'package:graduation_project/Services/ml_kit_service.dart';
@@ -20,14 +18,9 @@ import '../widgets/languages.dart';
 import 'Email_password.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'dart:ui' as ui;
-import 'dart:developer' as dev;
-import 'dart:math';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ScanScreen extends StatefulWidget {
   const ScanScreen({Key key}) : super(key: key);
-
-  //final String username;
 
   @override
   State<ScanScreen> createState() => _ScanScreenState();
@@ -59,97 +52,6 @@ class _ScanScreenState extends State<ScanScreen> {
 
   String username = "Halfawy";
 
-  //_ScanScreenState(this.username);
-
-  Future<void> load() async {
-    bot.clear();
-
-    final prefs = await SharedPreferences.getInstance();
-
-    int status;
-
-    int temp = 0 + Random().nextInt(4 - 0);
-
-    try {
-      status = prefs.getInt("status");
-      if (status == null) {
-        status = 0;
-      }
-    } catch (e) {
-      dev.log(e.toString());
-    }
-
-    try {
-      commands = prefs.getStringList("commands");
-      if (commands == null) {
-        commands = ["forward", "backward", "right", "left", "stop"];
-      }
-    } catch (e) {
-      dev.log(e.toString());
-    }
-
-    switch (status) {
-      case 0:
-        {
-          welcomeMessage = "BEEB POOP\nHello, I am Daisy Learning Bot.";
-          description =
-              "I am here to help you add commands in your own language to make you control the vehicle in an easier and more comfortable way.\n\nLets Get Started!";
-          note =
-              "Please Note that the Application is still in the Beta phase.\nSo we only support English and Arabic for now.";
-          prefs.setInt("status", 1);
-          break;
-        }
-      case 1:
-        {
-          welcomeMessage =
-              "BEEB POOP\nI see we meet again Hello, I am Daisy Learning Bot.";
-          description =
-              "Don't forget I am here to make it easier for you to control your vehicle by adding your own commands.\n\nLets Get Started!";
-          note =
-              "We are doing our best to add more languages but for now we only support English and Arabic.";
-          prefs.setInt("status", 2);
-          break;
-        }
-      case 2:
-        {
-          welcomeMessage =
-              "BEEP POOP\nLet me try and guess your name is it... ammm...\nI will remember it next time.";
-          description =
-              "You should already know but i will say it again\nI am here to make it easier for you to control your vehicle by adding your own commands.\n\nLets Get Started!";
-          note =
-              "No we still did not add new languages we will notify you once it's added so only type in English and Arabic";
-          prefs.setInt("status", 3);
-          break;
-        }
-      case 3:
-        {
-          welcomeMessage =
-              "BEEP POOP\nAHAA I told you i will remember your name it is $username";
-          description =
-              "You should already know but i will say it again\nI am here to make it easier for you to control your vehicle by adding your own commands.\n\nLets Get Started!";
-          note =
-              "Supportiamo solo inglese e arabo\nThat means we only support English and Arabic in italian";
-          prefs.setInt("status", 4);
-          break;
-        }
-      case 4:
-        {
-          welcomeMessage = "BEEP POOP\nWelcome back my dear Friend $username";
-          description =
-              "You should already know but i will say it again\nI am here to make it easier for you to control your vehicle by adding your own commands.\n\nLets Get Started!";
-          note =
-              "We are working hard to add as many languages as we could but we only support English and Arabic for now.";
-
-          prefs.setInt("status", temp);
-          break;
-        }
-    }
-
-    bot.add(welcomeMessage);
-    bot.add(description);
-    bot.add(note);
-    bot.add(forwardCommand);
-  }
 
   void _changeLanguage(Language language) {
     Locale _temp;
@@ -286,32 +188,6 @@ class _ScanScreenState extends State<ScanScreen> {
                           ),
                         ).show();
                       });
-                    }),
-                SpeedDialChild(
-                    child: Directionality(
-                      textDirection: ui.TextDirection.ltr,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 0.0, bottom: 5, right: 5),
-                        child: Icon(
-                          FontAwesomeIcons.robot,
-                          color: Colors.white,
-                          size: 25,
-                        ),
-                      ),
-                    ),
-                    backgroundColor: Color(0xff0E4EC9),
-                    onTap: () async {
-                      await load();
-
-                      Navigation(
-                          widget: widget,
-                          context: context,
-                          type: PageTransitionType.fade,
-                          screen: ChatBot(
-                            bot: bot,
-                            commands: commands,
-                          )).navigate();
                     }),
               ],
             ),
