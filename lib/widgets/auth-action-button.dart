@@ -5,8 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:graduation_project/Models/user.model.dart';
-import 'package:graduation_project/Screens/DashBoard.dart';
-import 'package:graduation_project/Screens/control_room.dart';
 import 'package:graduation_project/Screens/navbar.dart';
 import 'package:graduation_project/Services/AuthServices.dart';
 import 'package:graduation_project/Services/Firestore_Services.dart';
@@ -15,17 +13,10 @@ import 'package:graduation_project/Services/facenet.service.dart';
 import 'package:graduation_project/db/database.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:rive_splash_screen/rive_splash_screen.dart';
 import 'Constants.dart';
-import 'app_button.dart';
-import 'app_text_field.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:async';
-
-
-
 
 class AuthActionButton extends StatefulWidget {
   AuthActionButton(this._initializeControllerFuture,
@@ -61,7 +52,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
   AutovalidateMode _validate = AutovalidateMode.onUserInteraction;
 
   bool _isTaken;
-
+  var _imagePa;
 
   final ImagePicker _picker = ImagePicker();
   dynamic _pickImageError;
@@ -73,12 +64,12 @@ class _AuthActionButtonState extends State<AuthActionButton> {
 
   Future<void> saveImage() async {
     try {
-      var _imagePath = _imageFileList.last.path.split("/").last;
+      _imagePa = _imageFileList.last.path.split("/").last;
 
       firebase_storage.FirebaseStorage _storage =
           firebase_storage.FirebaseStorage.instance;
 
-      Reference db = _storage.ref("users/$_imagePath");
+      Reference db = _storage.ref("users/$_imagePa");
 
       await db.putFile(File(_imageFileList.last.path));
 
@@ -146,7 +137,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
       _emailTextEditingController.clear();
       _passwordTextEditingController.clear();
     } else {
-      await FireStoreServices().addUser(_email, _password, _name);
+      await FireStoreServices().addUser(_email, _password, _name, _imagePa);
       await AuthServices().createUserWithEmail(_email, _password);
 
       /// creates a new user in the 'database'

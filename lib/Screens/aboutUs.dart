@@ -769,6 +769,8 @@ class LightHomePage extends StatelessWidget {
             onTap: onFlip,
             child: Image.asset(
                 image,
+                width: 120,
+                height: 120,
                 fit: BoxFit.fill,
             ),
           ),
@@ -804,9 +806,11 @@ class DarkHomePage extends StatelessWidget {
               : null,
           child: InkWell(
             onTap: onFlip,
-            child: FittedBox(
-                child: Image.asset(image),
-                fit: BoxFit.cover,
+            child: Image.asset(
+              image,
+              width: 120,
+              height: 120,
+              fit: BoxFit.fill,
             ),
           ),
         ),

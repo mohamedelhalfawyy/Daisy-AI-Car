@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -17,14 +16,15 @@ import 'Chatbot.dart';
 import 'Voice.dart';
 
 class ControlRoom extends StatefulWidget {
-  const ControlRoom(this.username, {Key key}) : super(key: key);
+  const ControlRoom(this.username,this.photo, {Key key}) : super(key: key);
 
   static const String id = 'ControlRoomScreen';
 
   final String username;
+  final String photo;
 
   @override
-  State<ControlRoom> createState() => _ControlRoomState(username);
+  State<ControlRoom> createState() => _ControlRoomState(username, photo);
 }
 
 class _ControlRoomState extends State<ControlRoom> {
@@ -38,8 +38,9 @@ class _ControlRoomState extends State<ControlRoom> {
   String forwardCommand = "Enter the command equivalent to Forward.";
 
   String username;
+  String photo;
 
-  _ControlRoomState(this.username);
+  _ControlRoomState(this.username, this.photo);
 
   Future<void> load() async {
     bot.clear();

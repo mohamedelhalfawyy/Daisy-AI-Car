@@ -8,11 +8,12 @@ class FireStoreServices {
 
   bool _isTaken;
 
-  Future<void> addUser(String email, String password, String name) async {
+  Future<void> addUser(String email, String password, String name, String photo) async {
     await _fireStore.collection('Users').add({
       'Email': email,
       'Name': name,
       'Password': password,
+      'Photo': photo
     });
 
     log('User added successfully!');
@@ -70,6 +71,24 @@ class FireStoreServices {
     });
 
     return name;
+  }
+
+  Future<String> getPhoto(String email) async {
+    String photo;
+
+    await _fireStore
+        .collection('Users')
+        .where('Email', isEqualTo: email)
+        .get()
+        .then((value) {
+      if (value.docs.isNotEmpty) {
+        photo = value.docs.first.get('Photo');
+      } else {
+        log('something wrong happened');
+      }
+    });
+
+    return photo;
   }
 
   Future<void> updatePassword(String email, String password, String uid) async {
