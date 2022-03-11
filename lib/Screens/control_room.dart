@@ -304,7 +304,12 @@ class _ControlRoomState extends State<ControlRoom> {
                         children: [
                           InkWell(
                             onTap: () {
-                              //manual page
+                              Navigation(
+                                  widget: widget,
+                                  context: context,
+                                  type: PageTransitionType.rightToLeft,
+                                  screen: Voice())
+                                  .navigate();
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.9,
@@ -355,14 +360,7 @@ class _ControlRoomState extends State<ControlRoom> {
                         children: [
                           InkWell(
                             onTap: () {
-/*                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return Voice();
-                                  },
-                                ),
-                              );*/
+
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.9,

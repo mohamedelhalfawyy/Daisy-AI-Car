@@ -410,6 +410,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                             )
                           : Container(),
                       SizedBox(height: 15),
+                      !widget.isLogin ?
                       InkWell(
                         onTap: () {
                           loadAssets(ImageSource.gallery, context: context);
@@ -450,6 +451,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                           ),
                         ),
                       )
+                          : Container(),
                     ],
                   ),
                 ),
