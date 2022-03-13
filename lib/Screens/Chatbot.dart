@@ -11,13 +11,14 @@ import 'navbar.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class ChatBot extends StatefulWidget {
-  const ChatBot({Key key, this.bot, this.commands}) : super(key: key);
+  const ChatBot({Key key,@required this.bot,@required this.commands, @required this.username}) : super(key: key);
 
   final List<String> bot;
   final List<String> commands;
+  final String username;
 
   @override
-  State<ChatBot> createState() => _ChatBotState(bot,commands);
+  State<ChatBot> createState() => _ChatBotState(bot,commands,username);
 }
 
 class _ChatBotState extends State<ChatBot> {
@@ -45,7 +46,7 @@ class _ChatBotState extends State<ChatBot> {
   String leftCommand = "Enter the command equivalent to Left.";
   String stopCommand = "Enter the command equivalent to Stop.";
 
-  _ChatBotState(this.bot, this.commands);
+  _ChatBotState(this.bot, this.commands, this.username);
 
   @override
   void initState() {
@@ -381,9 +382,13 @@ class _ChatBotState extends State<ChatBot> {
                                               Navigator.pushAndRemoveUntil(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          NavBar.ind(index: 1,isUser: false,)), (Route<dynamic> route) => false
-                                              );
+                                                      builder: (context) => NavBar.Info(
+                                                        username: username,
+                                                        index: 1,
+
+                                                        //imagePath: _imagePath,
+                                                      )),
+                                                      (Route<dynamic> route) => false);
                                             });
                                           },
                                           alignment: Alignment.center,

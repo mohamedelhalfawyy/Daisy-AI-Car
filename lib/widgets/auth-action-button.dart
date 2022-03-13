@@ -409,7 +409,8 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                               isAutoValidate: _validate,
                             )
                           : Container(),
-                      SizedBox(height: 15),
+                      !widget.isLogin ?
+                      SizedBox(height: 15) : Container(),
                       !widget.isLogin ?
                       InkWell(
                         onTap: () {

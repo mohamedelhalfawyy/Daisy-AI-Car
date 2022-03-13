@@ -257,6 +257,7 @@ class _ControlRoomState extends State<ControlRoom> {
                           screen: ChatBot(
                             bot: bot,
                             commands: commands,
+                            username: widget.username,
                           )).navigate();
                     }),
                 ],
