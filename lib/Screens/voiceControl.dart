@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:graduation_project/widgets/Constants.dart';
 import 'package:highlight_text/highlight_text.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
@@ -159,18 +160,22 @@ class _ChatPage extends State<VoiceControl> {
       return Row(
         children: <Widget>[
           Container(
-            child: Text(
-                    (text) {
-                  return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
-                }(_message.text.trim()),
-                style: TextStyle(color: Colors.black),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 5.0),
+              child: Text(
+                      (text) {
+                    return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
+                  }(_message.text.trim()),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
             ),
             padding: EdgeInsets.all(12.0),
             margin: EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
+            height: 50,
             width: 222.0,
             decoration: BoxDecoration(
                 color:
-                _message.whom == clientID ? Colors.blueAccent : Colors.grey,
+                _message.whom == clientID ? chatBotColor : Colors.grey,
                 borderRadius: BorderRadius.circular(7.0),
             ),
           ),
@@ -183,6 +188,7 @@ class _ChatPage extends State<VoiceControl> {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: (isConnecting
             ? Text('Connecting chat to ' + widget.server.name + '...')
             : isConnected
@@ -192,7 +198,7 @@ class _ChatPage extends State<VoiceControl> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: AvatarGlow(
         animate: _isListening,
-        glowColor: Theme.of(context).primaryColor,
+        glowColor: chatBotColor,
         endRadius: 75.0,
         duration: const Duration(milliseconds: 2000),
         repeatPauseDuration: const Duration(milliseconds: 100),
@@ -287,6 +293,19 @@ class _ChatPage extends State<VoiceControl> {
         connection.output.add(utf8.encode(text + "\r\n"));
         await connection.output.allSent;
 
+        switch(text) {
+          case '0': {text = 'Move Forward';
+          break;}
+          case '1': {text = 'Move Backaward';
+          break;}
+          case '2': {text = 'Move Right';
+          break;}
+          case '3': {text = 'Move Left';
+          break;}
+          case '4': {text = 'Stop';
+          break;}
+        }
+
         setState(() {
           messages.add(_Message(clientID, text));
         });
@@ -311,7 +330,6 @@ class _ChatPage extends State<VoiceControl> {
         onError: (val) => print('onError: $val'),
       );
       if (available) {
-        _sendMessage('4');
         setState(() => _isListening = true);
         _speech.listen(
           onResult: (val) => setState(() {
@@ -330,9 +348,11 @@ class _ChatPage extends State<VoiceControl> {
   }
 
   void moveServo() {
-    if (_text.contains('forward') || _text.contains('up') || _text.contains('front')) {
+    if (_text.contains('forward') || _text.contains('up') ||
+        _text.contains('front')) {
       _sendMessage('0');
-    } else if (_text.contains('backward') || _text.contains('back') || _text.contains('down')) {
+    } else if (_text.contains('backward') || _text.contains('back') ||
+        _text.contains('down')) {
       _sendMessage("1");
     } else if (_text.contains('right')) {
       _sendMessage('2');
@@ -340,14 +360,6 @@ class _ChatPage extends State<VoiceControl> {
       _sendMessage('3');
     } else if (_text.contains('stop')) {
       _sendMessage('4');
-    }else if (_text.contains('repeat')) {
-      _sendMessage('7');
-    }else if (_text.contains('save')) {
-      _sendMessage('5');
-    }else if (_text.contains('load')) {
-      _sendMessage('6');
-    }else if (_text.contains('reset')) {
-      _sendMessage('8');
     }
   }
 }

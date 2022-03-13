@@ -11,20 +11,16 @@ import '../widgets/Constants.dart';
 import 'OTPScreen.dart';
 
 class DashBoard extends StatefulWidget {
-  const DashBoard(this.isUser, {Key key}) : super(key: key);
+  const DashBoard({Key key}) : super(key: key);
 
   static const String id = 'DashBoardScreen';
 
-  final bool isUser;
-
   @override
-  _DashBoardState createState() => _DashBoardState(isUser);
+  _DashBoardState createState() => _DashBoardState();
 }
 
 class _DashBoardState extends State<DashBoard> {
   StreamSubscription<ConnectivityResult> subscription;
-
-  _DashBoardState(this.isUser);
 
   @override
   void initState() {
@@ -32,8 +28,6 @@ class _DashBoardState extends State<DashBoard> {
 
     checkConnection();
   }
-
-  bool isUser;
 
   // if (user != null) {
   // await Future.delayed(const Duration(seconds: 5), () {
@@ -157,7 +151,7 @@ class _DashBoardState extends State<DashBoard> {
               ),
             ),
             SizedBox(height: 10.0),
-            !isUser? Row(
+            Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 GestureDetector(
@@ -191,7 +185,7 @@ class _DashBoardState extends State<DashBoard> {
                   ),
                 ),
               ],
-            ) : Container(),
+            ),
           ],
         ),
       ),

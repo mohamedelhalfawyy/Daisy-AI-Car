@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:graduation_project/Screens/voiceControl.dart';
 import 'package:graduation_project/Services/connection.dart';
+import 'package:graduation_project/widgets/Constants.dart';
 
 class Voice extends StatelessWidget {
 
@@ -40,24 +41,25 @@ class Voice extends StatelessWidget {
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text('Connection'),
-          ),
-          body: SelectBondedDevicePage(
-            onChatPage: (device1) {
-              BluetoothDevice device = device1;
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return VoiceControl(server: device);
-                  },
-                ),
-              );
-            },
-          ),
-        ));
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: buttonsColor,
+        centerTitle: true,
+        title: Text('Connection'),
+      ),
+      body: SelectBondedDevicePage(
+        onChatPage: (device1) {
+          BluetoothDevice device = device1;
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return VoiceControl(server: device);
+              },
+            ),
+          );
+        },
+      ),
+    );
   }
 }

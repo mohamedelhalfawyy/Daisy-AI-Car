@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
               initialRoute: '/',
               routes: {
                 '/': (context) => LoadingScreen(),
-                DashBoard.id: (context) => DashBoard(false),
+                DashBoard.id: (context) => DashBoard(),
                 SignIn.id: (context) => SignIn(),
                 AboutUs.id: (context) => AboutUs(),
                 VoiceControl.id: (context) => VoiceControl(),

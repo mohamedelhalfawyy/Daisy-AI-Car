@@ -37,14 +37,13 @@ class _NavBarState extends State<NavBar> {
   int index;
   bool isUser;
 
-  _NavBarState(this.username,this.photo, this.index,this.isUser);
+  _NavBarState(this.username,this.photo, this.index, this.isUser);
 
-  var _screens;
+  var _screens = [DashBoard(), ScanScreen(), AboutUs()];
   var _screens2;
 
  @override
   void initState() {
-   var _screens = [DashBoard(isUser), ScanScreen(), AboutUs()];
     // TODO: implement initState
     super.initState();
     checkScreen();
@@ -52,7 +51,7 @@ class _NavBarState extends State<NavBar> {
 
 void checkScreen (){
   if (index == 1 && isUser){
-    _screens2 = [DashBoard(isUser), ControlRoom(username, photo), AboutUs()];
+    _screens2 = [DashBoard(), ControlRoom(username, photo), AboutUs()];
     _selectedScreen = 1;
   }else if(!isUser){
     _selectedScreen = 1;

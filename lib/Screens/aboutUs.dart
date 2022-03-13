@@ -150,13 +150,13 @@ class _AboutUsState extends State<AboutUs> {
                           Text('Arduino Uno'.tr().toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
                           ),
                           SizedBox(height:5),
-                          AutoSizeText('The Arduino Uno is an open-source microcontroller board based'
+                          AutoSizeText('The Arduino Uno is an open-source microcontroller board based '
                               'on the Microchip ATmega328P microcontroller and developed by Arduino'
                               .tr().toString(),
                             maxFontSize: 16,
@@ -192,7 +192,7 @@ class _AboutUsState extends State<AboutUs> {
                           Text('Dc Gearmotor'.tr().toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -276,7 +276,7 @@ class _AboutUsState extends State<AboutUs> {
                           Text('Micro Servomotor'.tr().toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -317,7 +317,7 @@ class _AboutUsState extends State<AboutUs> {
                           Text('Motor Driver'.tr().toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -400,7 +400,7 @@ class _AboutUsState extends State<AboutUs> {
                           Text('Ultrasonic Sensor'.tr().toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -442,7 +442,7 @@ class _AboutUsState extends State<AboutUs> {
                           Text('HC-05 Bluetooth Module'.tr().toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -526,7 +526,7 @@ class _AboutUsState extends State<AboutUs> {
                           Text('Battery Holder Box'.tr().toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -567,7 +567,7 @@ class _AboutUsState extends State<AboutUs> {
                           Text('Male and Female Jumper wires'.tr().toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -577,7 +577,7 @@ class _AboutUsState extends State<AboutUs> {
                               'and female-to-female. Male ends have a pin protruding and can plug into things, '
                               'while female ends do not and are used to plug things into.'.tr().toString(),
                             maxFontSize: 16,
-                            minFontSize: 12,
+                            minFontSize: 11,
                             maxLines: 2,
                             style: TextStyle(
                                 color: Colors.white,
@@ -651,7 +651,7 @@ class _AboutUsState extends State<AboutUs> {
                           Text('Protected Lithium-Ion Battery'.tr().toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -661,7 +661,7 @@ class _AboutUsState extends State<AboutUs> {
                               'integrated into the cell packaging. Most lithium ion batteries charge to a '
                               'voltage of 4.2 volts per cell.'.tr().toString(),
                             maxFontSize: 16,
-                            minFontSize: 12,
+                            minFontSize: 11,
                             maxLines: 2,
                             style: TextStyle(
                                 color: Colors.white,
@@ -693,7 +693,7 @@ class _AboutUsState extends State<AboutUs> {
                           Text('Wheels'.tr().toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -772,7 +772,7 @@ class LightHomePage extends StatelessWidget {
             onTap: onFlip,
             child: Image.asset(
                 image,
-                width: 120,
+                width: 125,
                 height: 120,
                 fit: BoxFit.fill,
             ),
@@ -811,7 +811,7 @@ class DarkHomePage extends StatelessWidget {
             onTap: onFlip,
             child: Image.asset(
               image,
-              width: 120,
+              width: 125,
               height: 120,
               fit: BoxFit.fill,
             ),
