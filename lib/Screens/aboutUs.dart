@@ -157,7 +157,7 @@ class _AboutUsState extends State<AboutUs> {
                           ),
                           SizedBox(height:5),
                           AutoSizeText('The Arduino Uno is an open-source microcontroller board based '
-                              'on the Microchip ATmega328P microcontroller and developed by Arduino'
+                              'on the Microchip ATmega328P microcontroller and developed by Arduino.'
                               .tr().toString(),
                             maxFontSize: 16,
                             minFontSize: 12,
@@ -453,7 +453,7 @@ class _AboutUsState extends State<AboutUs> {
                               .tr().toString(),
                             maxFontSize: 16,
                             minFontSize: 12,
-                            maxLines: 2,
+                            maxLines: 3,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12

@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation_project/Screens/navbar.dart';
 import 'package:graduation_project/widgets/SnackBar.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
@@ -15,12 +16,18 @@ class DashBoard extends StatefulWidget {
 
   static const String id = 'DashBoardScreen';
 
+  static bool isUser = false;
+
   @override
-  _DashBoardState createState() => _DashBoardState();
+  _DashBoardState createState() => _DashBoardState(isUser);
 }
 
 class _DashBoardState extends State<DashBoard> {
   StreamSubscription<ConnectivityResult> subscription;
+
+  bool _isUser;
+
+  _DashBoardState(this._isUser);
 
   @override
   void initState() {
@@ -151,16 +158,16 @@ class _DashBoardState extends State<DashBoard> {
               ),
             ),
             SizedBox(height: 10.0),
-            Row(
+            !_isUser? Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 GestureDetector(
                   onTap: () {
                     Navigation(
-                            widget: widget,
-                            context: context,
-                            type: PageTransitionType.leftToRight,
-                            screen: OTPScreen())
+                        widget: widget,
+                        context: context,
+                        type: PageTransitionType.leftToRight,
+                        screen: OTPScreen())
                         .navigate();
                   },
                   child: Container(
@@ -175,6 +182,42 @@ class _DashBoardState extends State<DashBoard> {
                     child: Center(
                       child: Text(
                         'Sign up'.tr().toString(),
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+            : Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    DashBoard.isUser = false;
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NavBar.ind(index: 1,isUser: false)
+                        ),(Route<dynamic> route) => false
+                    );
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Sign out'.tr().toString(),
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,

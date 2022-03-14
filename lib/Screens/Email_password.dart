@@ -238,7 +238,6 @@ class _Email_PasswordState extends State<Email_Password> {
                                                           username: name,
                                                           photo: photo,
                                                           index: 1,
-
                                                           //imagePath: _imagePath,
                                                         )
                                                     ),(Route<dynamic> route) => false

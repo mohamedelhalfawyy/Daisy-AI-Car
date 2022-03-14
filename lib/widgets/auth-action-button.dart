@@ -85,9 +85,11 @@ class _AuthActionButtonState extends State<AuthActionButton> {
       final XFile pickedFile = await _picker.pickImage(
         source: source,
       );
+
       setState(() {
         _imageFile = pickedFile;
       });
+
       saveImage();
     } catch (e) {
       setState(() {
@@ -152,6 +154,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
             MaterialPageRoute(
                 builder: (context) => NavBar.Info(
                       username: _name,
+                      photo: _imagePa,
                       index: 1,
                  )),
             (Route<dynamic> route) => false);
@@ -175,19 +178,11 @@ class _AuthActionButtonState extends State<AuthActionButton> {
               fit: BoxFit.contain,
               animate: true,
               onLoaded: (value) async {
-                var _name = this.predictedUser.user;
-                var _imagePath;
+                var _imagePath = await FireStoreServices().getPhotoWithPass(password);
 
-                if (_name.startsWith('s|S')) {
-                  _imagePath = 'assets/Images/Seby.jpeg';
-                } else if (_name.startsWith('h|H')) {
-                  _imagePath = 'assets/Images/Halfawy.jpeg';
-                } else if (_name.startsWith('m|M')) {
-                  _imagePath = 'assets/Images/Marwan.jpeg';
-                } else if (_name.startsWith('f|F')) {
-                  _imagePath = 'assets/Images/Farida.jpeg';
-                } else
+                if (_imagePath.isEmpty) {
                   _imagePath = _cameraService.imagePath;
+                }
 
                 await Future.delayed(const Duration(seconds: 5), () {
                   Navigator.pushAndRemoveUntil(
@@ -195,10 +190,10 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                       MaterialPageRoute(
                           builder: (context) => NavBar.Info(
                                 username: this.predictedUser.user,
+                                photo: _imagePath,
                                 index: 1,
-
-                                //imagePath: _imagePath,
-                              )),
+                              ),
+                      ),
                       (Route<dynamic> route) => false);
                 });
               },

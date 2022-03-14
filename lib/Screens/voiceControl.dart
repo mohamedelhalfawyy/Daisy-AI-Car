@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:graduation_project/widgets/Constants.dart';
 import 'package:highlight_text/highlight_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+
+import '../widgets/Constants.dart';
 
 class VoiceControl extends StatefulWidget {
   final BluetoothDevice server;
@@ -110,9 +113,12 @@ class _ChatPage extends State<VoiceControl> {
   final ScrollController listScrollController = new ScrollController();
 
   bool isConnecting = true;
+
   bool get isConnected => connection != null && connection.isConnected;
 
   bool isDisconnecting = false;
+
+  List<String> commands;
 
   @override
   void initState() {
@@ -140,11 +146,12 @@ class _ChatPage extends State<VoiceControl> {
       print('Cannot connect, exception occured');
       print(error);
     });
+
+    load();
   }
 
   @override
   void dispose() {
-    // Avoid memory leak (`setState` after dispose) and disconnect
     if (isConnected) {
       isDisconnecting = true;
       connection.dispose();
@@ -154,29 +161,38 @@ class _ChatPage extends State<VoiceControl> {
     super.dispose();
   }
 
+  Future<void> load() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    try {
+      commands = prefs.getStringList("commands");
+      if (commands == null) {
+        commands = ["forward", "backward", "right", "left", "stop"];
+      }
+    } catch (e) {
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Row> list = messages.map((_message) {
       return Row(
         children: <Widget>[
           Container(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 5.0),
-              child: Text(
-                      (text) {
-                    return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
-                  }(_message.text.trim()),
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
+            child: Text(
+                  (text) {
+                return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
+              }(_message.text.trim()),
+              style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             padding: EdgeInsets.all(12.0),
             margin: EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
-            height: 50,
             width: 222.0,
+            height: 50,
             decoration: BoxDecoration(
-                color:
-                _message.whom == clientID ? chatBotColor : Colors.grey,
-                borderRadius: BorderRadius.circular(7.0),
+              color:
+              _message.whom == clientID ? chatBotColor : Colors.grey,
+              borderRadius: BorderRadius.circular(7.0),
             ),
           ),
         ],
@@ -188,7 +204,6 @@ class _ChatPage extends State<VoiceControl> {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: (isConnecting
             ? Text('Connecting chat to ' + widget.server.name + '...')
             : isConnected
@@ -198,7 +213,7 @@ class _ChatPage extends State<VoiceControl> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: AvatarGlow(
         animate: _isListening,
-        glowColor: chatBotColor,
+        glowColor: Theme.of(context).primaryColor,
         endRadius: 75.0,
         duration: const Duration(milliseconds: 2000),
         repeatPauseDuration: const Duration(milliseconds: 100),
@@ -294,16 +309,26 @@ class _ChatPage extends State<VoiceControl> {
         await connection.output.allSent;
 
         switch(text) {
-          case '0': {text = 'Move Forward';
-          break;}
-          case '1': {text = 'Move Backaward';
-          break;}
-          case '2': {text = 'Move Right';
-          break;}
-          case '3': {text = 'Move Left';
-          break;}
-          case '4': {text = 'Stop';
-          break;}
+          case '0': {
+            text = 'Move Forward'.tr().toString();
+            break;
+          }
+          case '1': {
+            text = 'Move Backaward'.tr().toString();
+          break;
+          }
+          case '2': {
+            text = 'Move Right'.tr().toString();
+            break;
+          }
+          case '3': {
+            text = 'Move Left'.tr().toString();
+            break;
+          }
+          case '4': {
+            text = 'Stop'.tr().toString();
+            break;
+          }
         }
 
         setState(() {
@@ -348,18 +373,53 @@ class _ChatPage extends State<VoiceControl> {
   }
 
   void moveServo() {
-    if (_text.contains('forward') || _text.contains('up') ||
-        _text.contains('front')) {
-      _sendMessage('0');
-    } else if (_text.contains('backward') || _text.contains('back') ||
-        _text.contains('down')) {
-      _sendMessage("1");
-    } else if (_text.contains('right')) {
-      _sendMessage('2');
-    } else if (_text.contains('left')) {
-      _sendMessage('3');
-    } else if (_text.contains('stop')) {
-      _sendMessage('4');
+    List<String> forward;
+    List<String> backward;
+    List<String> right;
+    List<String> left;
+    List<String> stop;
+
+    for(int i = 0 ; i < commands.length ; i++){
+      if(i % 5 == 0){
+        forward.add(commands[i]);
+      }
+      else if(i % 5 == 1){
+        backward.add(commands[i]);
+      }
+      else if(i % 5 == 2){
+        right.add(commands[i]);
+      }
+      else if(i % 5 == 3){
+        left.add(commands[i]);
+      }
+      else if(i % 5 == 4){
+        stop.add(commands[i]);
+      }
+    }
+
+    for(int i = 0 ; i < forward.length ; i++){
+      if(_text.compareTo(forward[i]) == 0 || _text.contains('forward') || _text.contains('up')
+          || _text.contains('front')){
+        _sendMessage('0');
+        break;
+      }
+      else if(_text.compareTo(backward[i]) == 0 || _text.contains('backward') || _text.contains('back')
+          || _text.contains('down')){
+        _sendMessage("1");
+        break;
+      }
+      else if(_text.compareTo(right[i]) == 0 || _text.contains('right')){
+        _sendMessage("2");
+        break;
+      }
+      else if(_text.compareTo(left[i]) == 0 || _text.contains('left')){
+        _sendMessage("3");
+        break;
+      }
+      else if(_text.compareTo(stop[i]) == 0 || _text.contains('stop')){
+        _sendMessage("4");
+        break;
+      }
     }
   }
 }

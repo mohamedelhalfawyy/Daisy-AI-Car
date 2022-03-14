@@ -88,7 +88,7 @@
   "Male and Female Jumper wires": "أسلاك الوصلة الذكور والإناث",
   "Protected Lithium-Ion Battery": "بطارية ليثيوم أيون محمية",
   "Wheels": "عجلات",
-  "The Arduino Uno is an open-source microcontroller board based on the Microchip ATmega328P microcontroller and developed by Arduino": "Arduino Uno هي لوحة تحكم دقيقة مفتوحة المصدر تعتمد على المتحكم الدقيق ATmega328P Microchip وتم تطويرها بواسطة Arduino",
+  "The Arduino Uno is an open-source microcontroller board based on the Microchip ATmega328P microcontroller and developed by Arduino.": "Arduino Uno هي لوحة تحكم دقيقة مفتوحة المصدر تعتمد على المتحكم الدقيق ATmega328P Microchip وتم تطويرها بواسطة Arduino",
   "A gearmotor is a type of gear reducer based around an ac or dc electrical motor. The gear and the motors are combined into one unit. A gearmotor delivers high torque at low horsepower or low speed.": "محرك التروس هو نوع من مخفض التروس يعتمد على محرك كهربائي AC أو DC. يتم الجمع بين الترس والمحركات في وحدة واحدة. يوفر محرك التروس عزم دوران عاليا عند القدرة الحصانية المنخفضة أو السرعة المنخفضة.",
   "Micro Servo Motor SG90 is a tiny and lightweight server motor with high output power. Servo can rotate approximately 180 degrees.": "Micro Servo Motor SG90 هو محرك خادم صغير وخفيف الوزن مع طاقة إخراج عالية. يمكن أن تدور المؤازرة حوالي 180 درجة.",
   "The L293D is a dual-channel H-Bridge motor driver. A single IC is able to control two DC motors or one stepper motor.": "L293D هو برنامج تشغيل محرك H-Bridge ثنائي القناة. IC واحد قادر على التحكم في اثنين من محركات DC أو محرك واحد السائر.",
@@ -97,5 +97,6 @@
   "The Holder Box is used to hold a maximum of 2 battery and is connected with the vehicle.": "يستخدم صندوق الحامل لحمل بطارية بحد أقصى 2 وهو متصل بالسيارة.",
   "Jumper wires typically come in three versions: male-to-male, male-to-female and female-to-female. Male ends have a pin protruding and can plug into things, while female ends do not and are used to plug things into.": "عادة ما تأتي أسلاك الوصلة في ثلاثة إصدارات: من ذكر إلى ذكر ، ومن ذكر إلى أنثى ، ومن أنثى إلى أنثى. تحتوي النهايات الذكرية على دبوس بارز ويمكن توصيله بالأشياء ، في حين أن النهايات الأنثوية لا تفعل ذلك وتستخدم لتوصيل الأشياء بها.",
   "Protected Lithium-Ion (Li-ion) batteries have a small electronic circuit integrated into the cell packaging. Most lithium ion batteries charge to a voltage of 4.2 volts per cell.": "تحتوي بطاريات الليثيوم أيون المحمية (ليثيوم أيون) على دائرة إلكترونية صغيرة مدمجة في عبوة الخلية. يتم شحن معظم بطاريات الليثيوم أيون إلى جهد 4.2 فولت لكل خلية.",
-  "The wheels are utilized to move the vehicle in the corrispettive directions. The number of wheels utilized are 4.": "يتم استخدام العجلات لتحريك السيارة في الاتجاهات الارتدادية. عدد العجلات المستخدمة هي 4."
+  "The wheels are utilized to move the vehicle in the corrispettive directions. The number of wheels utilized are 4.": "يتم استخدام العجلات لتحريك السيارة في الاتجاهات الارتدادية. عدد العجلات المستخدمة هي 4.",
+  "Sign out": "تسجيل الخروج"
 }

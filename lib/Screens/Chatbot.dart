@@ -1,8 +1,6 @@
 import 'dart:math';
-
 import 'package:bubble/bubble.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -441,12 +439,12 @@ class _ChatBotState extends State<ChatBot> {
         children: [
           data == 0
               ? Container(
-            height: 60,
-            width: 60,
-            child: CircleAvatar(
-              backgroundImage: AssetImage("assets/Images/robot.jpg"),
-            ),
-          )
+                  height: 60,
+                  width: 60,
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage("assets/Images/robot.jpg"),
+                  ),
+                )
               : Container(),
           Padding(
             padding: EdgeInsets.all(10.0),
@@ -474,12 +472,12 @@ class _ChatBotState extends State<ChatBot> {
           ),
           data == 1
               ? Container(
-            height: 60,
-            width: 60,
-            child: CircleAvatar(
-              backgroundImage: AssetImage("assets/Images/Seby.jpeg"),
-            ),
-          )
+                  height: 60,
+                  width: 60,
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage("assets/Images/Seby.jpeg"),
+                  ),
+                )
               : Container(),
         ],
       ),

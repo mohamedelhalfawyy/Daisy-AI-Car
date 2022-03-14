@@ -91,6 +91,24 @@ class FireStoreServices {
     return photo;
   }
 
+  Future<String> getPhotoWithPass(String password) async {
+    String photo;
+
+    await _fireStore
+        .collection('Users')
+        .where('Password', isEqualTo: password)
+        .get()
+        .then((value) {
+      if (value.docs.isNotEmpty) {
+        photo = value.docs.first.get('Photo');
+      } else {
+        log('something wrong happened');
+      }
+    });
+
+    return photo;
+  }
+
   Future<void> updatePassword(String email, String password, String uid) async {
     await _users.doc(uid).update({'Password': password}).then(
             (value) => log('Client password changed successfully'));
