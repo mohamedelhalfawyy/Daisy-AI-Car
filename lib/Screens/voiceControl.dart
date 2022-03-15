@@ -220,7 +220,7 @@ class _ChatPage extends State<VoiceControl> {
         repeat: true,
         child: FloatingActionButton(
           onPressed: isConnected ? _listen : null,
-          child: Icon(_isListening ? Icons.mic : Icons.mic_none),
+          child: Icon(_isListening ? Icons.mic : Icons.stop),
         ),
       ),
       body: SafeArea(
@@ -355,6 +355,7 @@ class _ChatPage extends State<VoiceControl> {
         onError: (val) => print('onError: $val'),
       );
       if (available) {
+        _sendMessage("4");
         setState(() => _isListening = true);
         _speech.listen(
           onResult: (val) => setState(() {
