@@ -31,14 +31,6 @@ class _Message {
 
 class _ChatPage extends State<VoiceControl> {
   final Map<String, HighlightedWord> _highlights = {
-    'flutter': HighlightedWord(
-      onTap: () => print('flutter'),
-      textStyle: const TextStyle(
-        color: Colors.deepOrange,
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
     'right': HighlightedWord(
       onTap: () => print('right'),
       textStyle: const TextStyle(
@@ -355,9 +347,9 @@ class _ChatPage extends State<VoiceControl> {
         onError: (val) => print('onError: $val'),
       );
       if (available) {
-        _sendMessage("4");
         setState(() => _isListening = true);
         _speech.listen(
+          localeId: context.locale.toString(),
           onResult: (val) => setState(() {
             _text = val.recognizedWords;
             if (val.hasConfidenceRating && val.confidence > 0) {
