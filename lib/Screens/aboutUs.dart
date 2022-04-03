@@ -145,9 +145,9 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          ListView(
+                          Column(
                             children: [
                               Text('Arduino Uno'.tr().toString(),
                                 textAlign: TextAlign.center,
@@ -191,9 +191,9 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          ListView(
+                          Column(
                             children: [
                               Text('Dc Gearmotor'.tr().toString(),
                                 textAlign: TextAlign.center,
@@ -279,9 +279,9 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          ListView(
+                          Column(
                             children: [
                               Text('Micro Servomotor'.tr().toString(),
                                 textAlign: TextAlign.center,
@@ -324,9 +324,9 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          ListView(
+                          Column(
                             children: [
                               Text('Motor Driver'.tr().toString(),
                                 textAlign: TextAlign.center,
@@ -411,9 +411,9 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          ListView(
+                          Column(
                             children: [
                               Text('Ultrasonic Sensor'.tr().toString(),
                                 textAlign: TextAlign.center,
@@ -457,9 +457,9 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          ListView(
+                          Column(
                             children: [
                               Text('HC-05 Bluetooth Module'.tr().toString(),
                                 textAlign: TextAlign.center,
@@ -545,9 +545,9 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          ListView(
+                          Column(
                             children: [
                               Text('Battery Holder Box'.tr().toString(),
                                 textAlign: TextAlign.center,
@@ -590,9 +590,9 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          ListView(
+                          Column(
                             children:[
                               Text('Male and Female Jumper wires'.tr().toString(),
                                 textAlign: TextAlign.center,
@@ -678,9 +678,9 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          ListView(
+                          Column(
                             children: [
                               Text('Protected Lithium-Ion Battery'.tr().toString(),
                                 textAlign: TextAlign.center,
@@ -724,9 +724,9 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          ListView(
+                          Column(
                             children: [
                               Text('Wheels'.tr().toString(),
                                 textAlign: TextAlign.center,
