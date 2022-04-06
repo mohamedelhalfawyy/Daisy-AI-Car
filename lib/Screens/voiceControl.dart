@@ -5,11 +5,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:graduation_project/widgets/Constants.dart';
 import 'package:highlight_text/highlight_text.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-
-import '../widgets/Constants.dart';
 
 class VoiceControl extends StatefulWidget {
   final BluetoothDevice server;
@@ -105,12 +103,9 @@ class _ChatPage extends State<VoiceControl> {
   final ScrollController listScrollController = new ScrollController();
 
   bool isConnecting = true;
-
   bool get isConnected => connection != null && connection.isConnected;
 
   bool isDisconnecting = false;
-
-  List<String> commands;
 
   @override
   void initState() {
@@ -138,12 +133,11 @@ class _ChatPage extends State<VoiceControl> {
       print('Cannot connect, exception occured');
       print(error);
     });
-
-    load();
   }
 
   @override
   void dispose() {
+    // Avoid memory leak (`setState` after dispose) and disconnect
     if (isConnected) {
       isDisconnecting = true;
       connection.dispose();
@@ -151,18 +145,6 @@ class _ChatPage extends State<VoiceControl> {
     }
 
     super.dispose();
-  }
-
-  Future<void> load() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    try {
-      commands = prefs.getStringList("commands");
-      if (commands == null) {
-        commands = ["forward", "backward", "right", "left", "stop"];
-      }
-    } catch (e) {
-    }
   }
 
   @override
@@ -173,7 +155,7 @@ class _ChatPage extends State<VoiceControl> {
           Container(
             child: Text(
                   (text) {
-                return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
+                return text == '/shrug' ? '¯\\_(?)_/¯' : text;
               }(_message.text.trim()),
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
@@ -301,29 +283,34 @@ class _ChatPage extends State<VoiceControl> {
         await connection.output.allSent;
 
         switch(text) {
-          case '0': {
-            text = 'Move Forward'.tr().toString();
-            break;
-          }
-          case '1': {
-            text = 'Move Backaward'.tr().toString();
-          break;
-          }
-          case '2': {
-            text = 'Move Right'.tr().toString();
-            break;
-          }
-          case '3': {
-            text = 'Move Left'.tr().toString();
-            break;
-          }
-          case '4': {
-            text = 'Stop'.tr().toString();
-            break;
-          }
+          case '0':
+            {
+              text = 'Move Forward'.tr().toString();
+              break;
+            }
+          case '1':
+            {
+              text = 'Move Backaward'.tr().toString();
+              break;
+            }
+          case '2':
+            {
+              text = 'Move Right'.tr().toString();
+              break;
+            }
+          case '3':
+            {
+              text = 'Move Left'.tr().toString();
+              break;
+            }
+          case '4':
+            {
+              text = 'Stop'.tr().toString();
+              break;
+            }
         }
 
-        setState(() {
+          setState(() {
           messages.add(_Message(clientID, text));
         });
 
@@ -349,7 +336,6 @@ class _ChatPage extends State<VoiceControl> {
       if (available) {
         setState(() => _isListening = true);
         _speech.listen(
-          //localeId: context.locale.toString(),
           onResult: (val) => setState(() {
             _text = val.recognizedWords;
             if (val.hasConfidenceRating && val.confidence > 0) {
@@ -366,69 +352,16 @@ class _ChatPage extends State<VoiceControl> {
   }
 
   void moveServo() {
-    // List<String> forward;
-    // List<String> backward;
-    // List<String> right;
-    // List<String> left;
-    // List<String> stop;
-    //
-    // for(int i = 0 ; i < commands.length ; i++){
-    //   if(i % 5 == 0){
-    //     forward.add(commands[i]);
-    //   }
-    //   else if(i % 5 == 1){
-    //     backward.add(commands[i]);
-    //   }
-    //   else if(i % 5 == 2){
-    //     right.add(commands[i]);
-    //   }
-    //   else if(i % 5 == 3){
-    //     left.add(commands[i]);
-    //   }
-    //   else if(i % 5 == 4){
-    //     stop.add(commands[i]);
-    //   }
-    // }
-
-    // for(int i = 0 ; i < forward.length ; i++){
-    //   if(_text.compareTo(forward[i]) == 0 || _text.contains('forward') || _text.contains('up')
-    //       || _text.contains('front')){
-    //     _sendMessage('0');
-    //     break;
-    //   }
-    //   else if(_text.compareTo(backward[i]) == 0 || _text.contains('backward') || _text.contains('back')
-    //       || _text.contains('down')){
-    //     _sendMessage("1");
-    //     break;
-    //   }
-    //   else if(_text.compareTo(right[i]) == 0 || _text.contains('right')){
-    //     _sendMessage("2");
-    //     break;
-    //   }
-    //   else if(_text.compareTo(left[i]) == 0 || _text.contains('left')){
-    //     _sendMessage("3");
-    //     break;
-    //   }
-    //   else if(_text.compareTo(stop[i]) == 0 || _text.contains('stop')){
-    //     _sendMessage("4");
-    //     break;
-    //   }
-    // }
-
-    if(_text.contains('forward') || _text.contains('up') || _text.contains('front')){
+    if (_text.contains('forward') || _text.contains('up') || _text.contains('front')) {
       _sendMessage('0');
-    }
-    else if(_text.contains('backward') || _text.contains('back') || _text.contains('down')){
+    } else if (_text.contains('backward') || _text.contains('back') || _text.contains('down')) {
       _sendMessage("1");
-    }
-    else if(_text.contains('right')){
-      _sendMessage("2");
-    }
-    else if(_text.contains('left')){
-      _sendMessage("3");
-    }
-    else if(_text.contains('stop')){
-      _sendMessage("4");
+    } else if (_text.contains('right')) {
+      _sendMessage('2');
+    } else if (_text.contains('left')) {
+      _sendMessage('3');
+    } else if (_text.contains('stop')) {
+      _sendMessage('4');
     }
   }
 }
