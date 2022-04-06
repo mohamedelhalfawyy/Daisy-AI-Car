@@ -212,7 +212,7 @@ class _ChatPage extends State<VoiceControl> {
         repeat: true,
         child: FloatingActionButton(
           onPressed: isConnected ? _listen : null,
-          child: Icon(_isListening ? Icons.mic : Icons.stop),
+          child: Icon(_isListening ? Icons.stop : Icons.mic),
         ),
       ),
       body: SafeArea(
@@ -349,7 +349,7 @@ class _ChatPage extends State<VoiceControl> {
       if (available) {
         setState(() => _isListening = true);
         _speech.listen(
-          localeId: context.locale.toString(),
+          //localeId: context.locale.toString(),
           onResult: (val) => setState(() {
             _text = val.recognizedWords;
             if (val.hasConfidenceRating && val.confidence > 0) {
@@ -366,53 +366,69 @@ class _ChatPage extends State<VoiceControl> {
   }
 
   void moveServo() {
-    List<String> forward;
-    List<String> backward;
-    List<String> right;
-    List<String> left;
-    List<String> stop;
+    // List<String> forward;
+    // List<String> backward;
+    // List<String> right;
+    // List<String> left;
+    // List<String> stop;
+    //
+    // for(int i = 0 ; i < commands.length ; i++){
+    //   if(i % 5 == 0){
+    //     forward.add(commands[i]);
+    //   }
+    //   else if(i % 5 == 1){
+    //     backward.add(commands[i]);
+    //   }
+    //   else if(i % 5 == 2){
+    //     right.add(commands[i]);
+    //   }
+    //   else if(i % 5 == 3){
+    //     left.add(commands[i]);
+    //   }
+    //   else if(i % 5 == 4){
+    //     stop.add(commands[i]);
+    //   }
+    // }
 
-    for(int i = 0 ; i < commands.length ; i++){
-      if(i % 5 == 0){
-        forward.add(commands[i]);
-      }
-      else if(i % 5 == 1){
-        backward.add(commands[i]);
-      }
-      else if(i % 5 == 2){
-        right.add(commands[i]);
-      }
-      else if(i % 5 == 3){
-        left.add(commands[i]);
-      }
-      else if(i % 5 == 4){
-        stop.add(commands[i]);
-      }
+    // for(int i = 0 ; i < forward.length ; i++){
+    //   if(_text.compareTo(forward[i]) == 0 || _text.contains('forward') || _text.contains('up')
+    //       || _text.contains('front')){
+    //     _sendMessage('0');
+    //     break;
+    //   }
+    //   else if(_text.compareTo(backward[i]) == 0 || _text.contains('backward') || _text.contains('back')
+    //       || _text.contains('down')){
+    //     _sendMessage("1");
+    //     break;
+    //   }
+    //   else if(_text.compareTo(right[i]) == 0 || _text.contains('right')){
+    //     _sendMessage("2");
+    //     break;
+    //   }
+    //   else if(_text.compareTo(left[i]) == 0 || _text.contains('left')){
+    //     _sendMessage("3");
+    //     break;
+    //   }
+    //   else if(_text.compareTo(stop[i]) == 0 || _text.contains('stop')){
+    //     _sendMessage("4");
+    //     break;
+    //   }
+    // }
+
+    if(_text.contains('forward') || _text.contains('up') || _text.contains('front')){
+      _sendMessage('0');
     }
-
-    for(int i = 0 ; i < forward.length ; i++){
-      if(_text.compareTo(forward[i]) == 0 || _text.contains('forward') || _text.contains('up')
-          || _text.contains('front')){
-        _sendMessage('0');
-        break;
-      }
-      else if(_text.compareTo(backward[i]) == 0 || _text.contains('backward') || _text.contains('back')
-          || _text.contains('down')){
-        _sendMessage("1");
-        break;
-      }
-      else if(_text.compareTo(right[i]) == 0 || _text.contains('right')){
-        _sendMessage("2");
-        break;
-      }
-      else if(_text.compareTo(left[i]) == 0 || _text.contains('left')){
-        _sendMessage("3");
-        break;
-      }
-      else if(_text.compareTo(stop[i]) == 0 || _text.contains('stop')){
-        _sendMessage("4");
-        break;
-      }
+    else if(_text.contains('backward') || _text.contains('back') || _text.contains('down')){
+      _sendMessage("1");
+    }
+    else if(_text.contains('right')){
+      _sendMessage("2");
+    }
+    else if(_text.contains('left')){
+      _sendMessage("3");
+    }
+    else if(_text.contains('stop')){
+      _sendMessage("4");
     }
   }
 }
