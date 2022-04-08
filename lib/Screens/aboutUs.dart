@@ -145,26 +145,31 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          Text('Arduino Uno',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(height:5),
-                          AutoSizeText('The Arduino Uno is an open-source microcontroller board based'
-                              'on the Microchip ATmega328P microcontroller and developed by Arduino',
-                            maxFontSize: 16,
-                            minFontSize: 12,
-                            maxLines: 3,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14
-                            ),
+                          Column(
+                            children: [
+                              Text('Arduino Uno'.tr().toString(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height:5),
+                              AutoSizeText('The Arduino Uno is an open-source microcontroller board based '
+                                  'on the Microchip ATmega328P microcontroller and developed by Arduino.'
+                                  .tr().toString(),
+                                maxFontSize: 16,
+                                minFontSize: 12,
+                                maxLines: 10,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -186,27 +191,31 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          Text('Dc Gearmotor',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(height:5),
-                          AutoSizeText('A gearmotor is a type of gear reducer based around an ac or dc electrical '
-                              'motor. The gear and the motors are combined into one unit. A gearmotor delivers '
-                              'high torque at low horsepower or low speed.',
-                            maxFontSize: 16,
-                            minFontSize: 12,
-                            maxLines: 3,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14
-                            ),
+                          Column(
+                            children: [
+                              Text('Dc Gearmotor'.tr().toString(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height:5),
+                              AutoSizeText('A gearmotor is a type of gear reducer based around an ac or dc electrical '
+                                  'motor. The gear and the motors are combined into one unit. A gearmotor delivers '
+                                  'high torque at low horsepower or low speed.'.tr().toString(),
+                                maxFontSize: 16,
+                                minFontSize: 12,
+                                maxLines: 10,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -270,26 +279,30 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          Text('Micro Servomotor',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(height:5),
-                          AutoSizeText('Micro Servo Motor SG90 is a tiny and lightweight server motor with high '
-                              'output power. Servo can rotate approximately 180 degrees.',
-                            maxFontSize: 16,
-                            minFontSize: 12,
-                            maxLines: 3,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14
-                            ),
+                          Column(
+                            children: [
+                              Text('Micro Servomotor'.tr().toString(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height:5),
+                              AutoSizeText('Micro Servo Motor SG90 is a tiny and lightweight server motor with high '
+                                'output power. Servo can rotate approximately 180 degrees.'.tr().toString(),
+                                maxFontSize: 16,
+                                minFontSize: 12,
+                                maxLines: 10,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -311,26 +324,30 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          Text('Motor Driver',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(height:5),
-                          AutoSizeText('The L293D is a dual-channel H-Bridge motor driver. A single IC is able '
-                              'to control two DC motors or one stepper motor.',
-                            maxFontSize: 16,
-                            minFontSize: 12,
-                            maxLines: 3,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14
-                            ),
+                          Column(
+                            children: [
+                              Text('Motor Driver'.tr().toString(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height:5),
+                              AutoSizeText('The L293D is a dual-channel H-Bridge motor driver. A single IC is able '
+                                  'to control two DC motors or one stepper motor.'.tr().toString(),
+                                maxFontSize: 16,
+                                minFontSize: 12,
+                                maxLines: 10,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -394,26 +411,31 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          Text('Ultrasonic Sensor',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(height:5),
-                          AutoSizeText('Ultrasonic sensors emit a chirp usually between 23 kHz and 40 kHz, '
-                              'much higher than the typical audible range of human hearing at 20 kHz.',
-                            maxFontSize: 16,
-                            minFontSize: 12,
-                            maxLines: 3,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14
-                            ),
+                          Column(
+                            children: [
+                              Text('Ultrasonic Sensor'.tr().toString(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height:5),
+                              AutoSizeText('Ultrasonic sensors emit a chirp usually between 23 kHz and 40 kHz, '
+                                  'much higher than the typical audible range of human hearing at 20 kHz.'
+                                  .tr().toString(),
+                                maxFontSize: 16,
+                                minFontSize: 12,
+                                maxLines: 10,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -435,26 +457,31 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          Text('HC-05 Bluetooth Module',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(height:5),
-                          AutoSizeText('HC-05 Bluetooth module provides switching mode between master and '
-                              'slave mode which means it able to use neither receiving nor transmitting data.',
-                            maxFontSize: 16,
-                            minFontSize: 12,
-                            maxLines: 2,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12
-                            ),
+                          Column(
+                            children: [
+                              Text('HC-05 Bluetooth Module'.tr().toString(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height:5),
+                              AutoSizeText('HC-05 Bluetooth module provides switching mode between master and '
+                                  'slave mode which means it able to use neither receiving nor transmitting data.'
+                                  .tr().toString(),
+                                maxFontSize: 16,
+                                minFontSize: 12,
+                                maxLines: 10,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -518,26 +545,30 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          Text('Battery Holder Box',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(height:5),
-                          AutoSizeText('The Holder Box is used to hold a maximum of 2 battery and is connected with'
-                              'the vehicle.',
-                            maxFontSize: 16,
-                            minFontSize: 12,
-                            maxLines: 3,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14
-                            ),
+                          Column(
+                            children: [
+                              Text('Battery Holder Box'.tr().toString(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height:5),
+                              AutoSizeText('The Holder Box is used to hold a maximum of 2 battery and is connected with '
+                                  'the vehicle.'.tr().toString(),
+                                maxFontSize: 16,
+                                minFontSize: 12,
+                                maxLines: 10,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -559,27 +590,31 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          Text('Male and Female Jumper wires',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(height:5),
-                          AutoSizeText('Jumper wires typically come in three versions: male-to-male, male-to-female '
-                              'and female-to-female. Male ends have a pin protruding and can plug into things, '
-                              'while female ends do not and are used to plug things into.',
-                            maxFontSize: 16,
-                            minFontSize: 12,
-                            maxLines: 2,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14
-                            ),
+                          Column(
+                            children:[
+                              Text('Male and Female Jumper wires'.tr().toString(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height:5),
+                              AutoSizeText('Jumper wires typically come in three versions: male-to-male, male-to-female '
+                                  'and female-to-female. Male ends have a pin protruding and can plug into things, '
+                                  'while female ends do not and are used to plug things into.'.tr().toString(),
+                                maxFontSize: 16,
+                                minFontSize: 12,
+                                maxLines: 10,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -643,27 +678,31 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          Text('Protected Lithium-Ion Battery',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(height:5),
-                          AutoSizeText('Protected Lithium-Ion (Li-ion) batteries have a small electronic circuit '
-                              'integrated into the cell packaging. Most lithium ion batteries charge to a '
-                              'voltage of 4.2 volts per cell',
-                            maxFontSize: 16,
-                            minFontSize: 12,
-                            maxLines: 2,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14
-                            ),
+                          Column(
+                            children: [
+                              Text('Protected Lithium-Ion Battery'.tr().toString(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height:5),
+                              AutoSizeText('Protected Lithium-Ion (Li-ion) batteries have a small electronic circuit '
+                                  'integrated into the cell packaging. Most lithium ion batteries charge to a '
+                                  'voltage of 4.2 volts per cell.'.tr().toString(),
+                                maxFontSize: 16,
+                                minFontSize: 12,
+                                maxLines: 10,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -685,26 +724,30 @@ class _AboutUsState extends State<AboutUs> {
                       decoration: BoxDecoration(
                         color: buttonsColor,
                       ),
-                      child: Column(
+                      child: ListView(
                         children: [
-                          Text('Wheels',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(height:5),
-                          AutoSizeText('The wheels are utilized to move the vehicle in the corrispettive directions.'
-                              'The number of wheels utilized are 4.',
-                            maxFontSize: 16,
-                            minFontSize: 12,
-                            maxLines: 3,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14
-                            ),
+                          Column(
+                            children: [
+                              Text('Wheels'.tr().toString(),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(height:5),
+                              AutoSizeText('The wheels are utilized to move the vehicle in the corrispettive directions. '
+                                  'The number of wheels utilized are 4.'.tr().toString(),
+                                maxFontSize: 16,
+                                minFontSize: 12,
+                                maxLines: 10,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -769,6 +812,8 @@ class LightHomePage extends StatelessWidget {
             onTap: onFlip,
             child: Image.asset(
                 image,
+                width: 125,
+                height: 120,
                 fit: BoxFit.fill,
             ),
           ),
@@ -804,9 +849,11 @@ class DarkHomePage extends StatelessWidget {
               : null,
           child: InkWell(
             onTap: onFlip,
-            child: FittedBox(
-                child: Image.asset(image),
-                fit: BoxFit.cover,
+            child: Image.asset(
+              image,
+              width: 125,
+              height: 120,
+              fit: BoxFit.fill,
             ),
           ),
         ),
