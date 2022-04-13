@@ -1,4 +1,4 @@
-import 'dart:io';
+//import 'dart:io';
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -13,8 +13,11 @@ import 'package:page_transition/page_transition.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/languages.dart';
+import 'Manual.dart';
 import 'Chatbot.dart';
 import 'Voice.dart';
+
+
 
 class ControlRoom extends StatefulWidget {
   const ControlRoom(this.username, {Key key}) : super(key: key);
@@ -361,7 +364,12 @@ class _ControlRoomState extends State<ControlRoom> {
                         children: [
                           InkWell(
                             onTap: () {
-
+                              Navigation(
+                                  widget: widget,
+                                  context: context,
+                                  type: PageTransitionType.rightToLeft,
+                                  screen: Manual())
+                                  .navigate();
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.9,
