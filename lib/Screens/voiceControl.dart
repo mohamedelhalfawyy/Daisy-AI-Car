@@ -7,6 +7,7 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:graduation_project/widgets/Constants.dart';
 import 'package:highlight_text/highlight_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class VoiceControl extends StatefulWidget {
@@ -96,6 +97,12 @@ class _ChatPage extends State<VoiceControl> {
   BluetoothConnection connection;
 
   List<_Message> messages = [];
+  List<String> commands;
+  List<String> forward;
+  List<String> backward;
+  List<String> right;
+  List<String> left;
+  List<String> stop;
   String _messageBuffer = '';
 
   final TextEditingController textEditingController =
@@ -133,6 +140,36 @@ class _ChatPage extends State<VoiceControl> {
       print('Cannot connect, exception occured');
       print(error);
     });
+  }
+
+  Future<void> load() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    try {
+      commands = prefs.getStringList("commands");
+      if (commands == null) {
+        commands = ["forward", "backward", "right", "left", "stop"];
+      }
+    } catch (e) {
+    }
+
+    for(int i = 0 ; i < commands.length ; i++){
+      if(i % 5 == 0){
+        forward.add(commands[i]);
+      }
+      else if(i % 5 == 1){
+        backward.add(commands[i]);
+      }
+      else if(i % 5 == 2){
+        right.add(commands[i]);
+      }
+      else if(i % 5 == 3){
+        left.add(commands[i]);
+      }
+      else if(i % 5 == 4){
+        stop.add(commands[i]);
+      }
+    }
   }
 
   @override
@@ -257,10 +294,11 @@ class _ChatPage extends State<VoiceControl> {
         messages.add(
           _Message(
             1,
-            backspacesCounter > 0
-                ? _messageBuffer.substring(
-                0, _messageBuffer.length - backspacesCounter)
-                : _messageBuffer + dataString.substring(0, index),
+            // backspacesCounter > 0
+            //     ? _messageBuffer.substring(
+            //     0, _messageBuffer.length - backspacesCounter)
+            //     : _messageBuffer + dataString.substring(0, index),
+            _text,
           ),
         );
         _messageBuffer = dataString.substring(index);
@@ -290,7 +328,7 @@ class _ChatPage extends State<VoiceControl> {
             }
           case '1':
             {
-              text = 'Move Backaward'.tr().toString();
+              text = 'Move Backward'.tr().toString();
               break;
             }
           case '2':
@@ -328,6 +366,8 @@ class _ChatPage extends State<VoiceControl> {
   }
 
   void _listen() async {
+    await load();
+
     if (!_isListening) {
       bool available = await _speech.initialize(
         onStatus: (val) => print('onStatus: $val'),
@@ -352,16 +392,38 @@ class _ChatPage extends State<VoiceControl> {
   }
 
   void moveServo() {
-    if (_text.contains('forward') || _text.contains('up') || _text.contains('front')) {
-      _sendMessage('0');
-    } else if (_text.contains('backward') || _text.contains('back') || _text.contains('down')) {
-      _sendMessage("1");
-    } else if (_text.contains('right')) {
-      _sendMessage('2');
-    } else if (_text.contains('left')) {
-      _sendMessage('3');
-    } else if (_text.contains('stop')) {
-      _sendMessage('4');
+    for(int i = 0 ; i < forward.length ; i++){
+      if(_text.contains(forward[i])){
+        _sendMessage('0');
+        break;
+      }
+      else if(_text.contains(backward[i])){
+        _sendMessage("1");
+        break;
+      }
+      else if(_text.contains(right[i])){
+        _sendMessage("2");
+        break;
+      }
+      else if(_text.contains(left[i])){
+        _sendMessage("3");
+        break;
+      }
+      else if(_text.contains(stop[i])){
+        _sendMessage("4");
+        break;
+      }
     }
+    // if (_text.contains('forward') || _text.contains('up') || _text.contains('front')) {
+    //   _sendMessage('0');
+    // } else if (_text.contains('backward') || _text.contains('back') || _text.contains('down')) {
+    //   _sendMessage("1");
+    // } else if (_text.contains('right')) {
+    //   _sendMessage('2');
+    // } else if (_text.contains('left')) {
+    //   _sendMessage('3');
+    // } else if (_text.contains('stop')) {
+    //   _sendMessage('4');
+    // }
   }
 }
