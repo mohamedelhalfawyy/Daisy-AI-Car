@@ -1,10 +1,10 @@
-import 'dart:io';
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graduation_project/widgets/Constants.dart';
@@ -14,20 +14,29 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/languages.dart';
 import 'Chatbot.dart';
+import 'DashBoard.dart';
 import 'Voice.dart';
 
 class ControlRoom extends StatefulWidget {
-  const ControlRoom(this.username, {Key key}) : super(key: key);
+  const ControlRoom(this.username,this.photo, {Key key}) : super(key: key);
 
   static const String id = 'ControlRoomScreen';
 
   final String username;
+  final String photo;
 
   @override
-  State<ControlRoom> createState() => _ControlRoomState(username);
+  State<ControlRoom> createState() => _ControlRoomState(username, photo);
 }
 
 class _ControlRoomState extends State<ControlRoom> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    DashBoard.isUser = true;
+  }
 
   List<String> bot = [];
   List<String> commands = [];
@@ -38,8 +47,9 @@ class _ControlRoomState extends State<ControlRoom> {
   String forwardCommand = "Enter the command equivalent to Forward.";
 
   String username;
+  String photo;
 
-  _ControlRoomState(this.username);
+  _ControlRoomState(this.username, this.photo);
 
   Future<void> load() async {
     bot.clear();
@@ -281,7 +291,18 @@ class _ControlRoomState extends State<ControlRoom> {
                             margin: EdgeInsets.all(20),
                             width: 55,
                             height: 75,
-                            child: Image.asset('assets/Images/Marwan.jpeg'),
+                            child: photo != null
+                                ? SizedBox(
+                                  height: 250,
+                                  child: CachedNetworkImage(
+                                    imageUrl: photo,
+                                    placeholder: (context, url) =>
+                                      CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                  ),
+                                )
+                                : Container(width: 0.0, height: 0.0),
                           ),
                           AnimatedTextKit(
                             animatedTexts: [

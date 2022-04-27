@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flare_flutter/flare_actor.dart';
@@ -9,8 +8,6 @@ import 'package:graduation_project/Screens/sign-up.dart';
 import 'package:pin_code_fields/pin_code_fields.dart' as pinCode;
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:synchronized/synchronized.dart';
-
-import '../Services/FirebaseApi.dart';
 import '../Services/facenet.service.dart';
 import '../Services/ml_kit_service.dart';
 import '../db/database.dart';

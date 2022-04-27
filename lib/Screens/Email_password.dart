@@ -227,6 +227,7 @@ class _Email_PasswordState extends State<Email_Password> {
                                                 .signInWithEmail(_email, _password);
 
                                             final name = await FireStoreServices().getName(_email);
+                                            final photo = await FireStoreServices().getPhoto(_email);
 
                                             if (user != null) {
                                               await Future.delayed(const Duration(seconds: 5), () {
@@ -235,8 +236,8 @@ class _Email_PasswordState extends State<Email_Password> {
                                                     MaterialPageRoute(
                                                         builder: (context) => NavBar.Info(
                                                           username: name,
+                                                          photo: photo,
                                                           index: 1,
-
                                                           //imagePath: _imagePath,
                                                         )
                                                     ),(Route<dynamic> route) => false

@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:typed_data';
-import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:graduation_project/widgets/Constants.dart';
 import 'package:highlight_text/highlight_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class VoiceControl extends StatefulWidget {
@@ -28,19 +29,12 @@ class _Message {
 }
 
 class _ChatPage extends State<VoiceControl> {
-
   final Map<String, HighlightedWord> _highlights = {
-    'flutter': HighlightedWord(
-      onTap: () => print('flutter'),
-      textStyle: const TextStyle(
-        color: Colors.blue,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
     'right': HighlightedWord(
       onTap: () => print('right'),
       textStyle: const TextStyle(
         color: Colors.green,
+        fontSize: 24,
         fontWeight: FontWeight.bold,
       ),
     ),
@@ -48,6 +42,47 @@ class _ChatPage extends State<VoiceControl> {
       onTap: () => print('left'),
       textStyle: const TextStyle(
         color: Colors.red,
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    'forward': HighlightedWord(
+      onTap: () => print('forward'),
+      textStyle: const TextStyle(
+        color: Colors.amberAccent,
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    'backward': HighlightedWord(
+      onTap: () => print('backward'),
+      textStyle: const TextStyle(
+        color: Colors.blue,
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    'back': HighlightedWord(
+      onTap: () => print('backward'),
+      textStyle: const TextStyle(
+        color: Colors.indigo,
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    'up': HighlightedWord(
+      onTap: () => print('backward'),
+      textStyle: const TextStyle(
+        color: Colors.amber,
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    'stop': HighlightedWord(
+      onTap: () => print('stop'),
+      textStyle: const TextStyle(
+        color: Colors.red,
+        fontSize: 24,
         fontWeight: FontWeight.bold,
       ),
     ),
@@ -61,7 +96,13 @@ class _ChatPage extends State<VoiceControl> {
   static final clientID = 0;
   BluetoothConnection connection;
 
-  List<_Message> messages = <_Message>[];
+  List<_Message> messages = [];
+  List<String> commands;
+  List<String> forward;
+  List<String> backward;
+  List<String> right;
+  List<String> left;
+  List<String> stop;
   String _messageBuffer = '';
 
   final TextEditingController textEditingController =
@@ -101,6 +142,36 @@ class _ChatPage extends State<VoiceControl> {
     });
   }
 
+  Future<void> load() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    try {
+      commands = prefs.getStringList("commands");
+      if (commands == null) {
+        commands = ["forward", "backward", "right", "left", "stop"];
+      }
+    } catch (e) {
+    }
+
+    for(int i = 0 ; i < commands.length ; i++){
+      if(i % 5 == 0){
+        forward.add(commands[i]);
+      }
+      else if(i % 5 == 1){
+        backward.add(commands[i]);
+      }
+      else if(i % 5 == 2){
+        right.add(commands[i]);
+      }
+      else if(i % 5 == 3){
+        left.add(commands[i]);
+      }
+      else if(i % 5 == 4){
+        stop.add(commands[i]);
+      }
+    }
+  }
+
   @override
   void dispose() {
     // Avoid memory leak (`setState` after dispose) and disconnect
@@ -113,7 +184,6 @@ class _ChatPage extends State<VoiceControl> {
     super.dispose();
   }
 
-  double _value = 90.0;
   @override
   Widget build(BuildContext context) {
     final List<Row> list = messages.map((_message) {
@@ -121,17 +191,20 @@ class _ChatPage extends State<VoiceControl> {
         children: <Widget>[
           Container(
             child: Text(
-                    (text) {
-                  return text == '/shrug' ? '¯\\_(ツ)_/¯' : text;
-                }(_message.text.trim()),
-                style: TextStyle(color: Colors.white)),
+                  (text) {
+                return text == '/shrug' ? '¯\\_(?)_/¯' : text;
+              }(_message.text.trim()),
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
             padding: EdgeInsets.all(12.0),
             margin: EdgeInsets.only(bottom: 8.0, left: 8.0, right: 8.0),
             width: 222.0,
+            height: 50,
             decoration: BoxDecoration(
-                color:
-                _message.whom == clientID ? Colors.blueAccent : Colors.grey,
-                borderRadius: BorderRadius.circular(7.0)),
+              color:
+              _message.whom == clientID ? chatBotColor : Colors.grey,
+              borderRadius: BorderRadius.circular(7.0),
+            ),
           ),
         ],
         mainAxisAlignment: _message.whom == clientID
@@ -145,14 +218,8 @@ class _ChatPage extends State<VoiceControl> {
         title: (isConnecting
             ? Text('Connecting chat to ' + widget.server.name + '...')
             : isConnected
-            ? Text('Connected with ' + widget.server.name)
-            : Text('Logout with ' + widget.server.name)),
-        leading: ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Icon(Icons.arrow_back_ios),
-        ),
+            ? Text('Live chat with ' + widget.server.name)
+            : Text('Chat log with ' + widget.server.name)),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: AvatarGlow(
@@ -164,20 +231,17 @@ class _ChatPage extends State<VoiceControl> {
         repeat: true,
         child: FloatingActionButton(
           onPressed: isConnected ? _listen : null,
-          child: Icon(_isListening ? Icons.mic : Icons.mic_none),
+          child: Icon(_isListening ? Icons.stop : Icons.mic),
         ),
       ),
       body: SafeArea(
         child: Column(
           children: <Widget>[
             Container(
-              height: 100,
-              width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 150.0),
               child: TextHighlight(
                 text: _text == '' ? "listening.." : _text,
                 words: _highlights,
-                textAlign: TextAlign.justify,
                 textStyle: const TextStyle(
                   fontSize: 32.0,
                   color: Colors.black,
@@ -230,10 +294,11 @@ class _ChatPage extends State<VoiceControl> {
         messages.add(
           _Message(
             1,
-            backspacesCounter > 0
-                ? _messageBuffer.substring(
-                0, _messageBuffer.length - backspacesCounter)
-                : _messageBuffer + dataString.substring(0, index),
+            // backspacesCounter > 0
+            //     ? _messageBuffer.substring(
+            //     0, _messageBuffer.length - backspacesCounter)
+            //     : _messageBuffer + dataString.substring(0, index),
+            _text,
           ),
         );
         _messageBuffer = dataString.substring(index);
@@ -247,17 +312,43 @@ class _ChatPage extends State<VoiceControl> {
   }
 
   void _sendMessage(String text) async {
-    log("am in sendmessage scope");
     text = text.trim();
     textEditingController.clear();
-    log(text);
 
     if (text.length > 0) {
       try {
         connection.output.add(utf8.encode(text + "\r\n"));
         await connection.output.allSent;
 
-        setState(() {
+        switch(text) {
+          case '0':
+            {
+              text = 'Move Forward'.tr().toString();
+              break;
+            }
+          case '1':
+            {
+              text = 'Move Backward'.tr().toString();
+              break;
+            }
+          case '2':
+            {
+              text = 'Move Right'.tr().toString();
+              break;
+            }
+          case '3':
+            {
+              text = 'Move Left'.tr().toString();
+              break;
+            }
+          case '4':
+            {
+              text = 'Stop'.tr().toString();
+              break;
+            }
+        }
+
+          setState(() {
           messages.add(_Message(clientID, text));
         });
 
@@ -275,6 +366,8 @@ class _ChatPage extends State<VoiceControl> {
   }
 
   void _listen() async {
+    await load();
+
     if (!_isListening) {
       bool available = await _speech.initialize(
         onStatus: (val) => print('onStatus: $val'),
@@ -288,7 +381,6 @@ class _ChatPage extends State<VoiceControl> {
             if (val.hasConfidenceRating && val.confidence > 0) {
               _confidence = val.confidence;
             }
-            log(_text);
           }),
         );
       }
@@ -300,13 +392,38 @@ class _ChatPage extends State<VoiceControl> {
   }
 
   void moveServo() {
-    log("am in servo scope");
-    if (_text == "right") {
-      log("1");
-      _sendMessage('1');
-    } else if (_text == "left") {
-      log("2");
-      _sendMessage('2');
+    for(int i = 0 ; i < forward.length ; i++){
+      if(_text.contains(forward[i])){
+        _sendMessage('0');
+        break;
+      }
+      else if(_text.contains(backward[i])){
+        _sendMessage("1");
+        break;
+      }
+      else if(_text.contains(right[i])){
+        _sendMessage("2");
+        break;
+      }
+      else if(_text.contains(left[i])){
+        _sendMessage("3");
+        break;
+      }
+      else if(_text.contains(stop[i])){
+        _sendMessage("4");
+        break;
+      }
     }
+    // if (_text.contains('forward') || _text.contains('up') || _text.contains('front')) {
+    //   _sendMessage('0');
+    // } else if (_text.contains('backward') || _text.contains('back') || _text.contains('down')) {
+    //   _sendMessage("1");
+    // } else if (_text.contains('right')) {
+    //   _sendMessage('2');
+    // } else if (_text.contains('left')) {
+    //   _sendMessage('3');
+    // } else if (_text.contains('stop')) {
+    //   _sendMessage('4');
+    // }
   }
 }
