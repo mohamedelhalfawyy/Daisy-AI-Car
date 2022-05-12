@@ -38,11 +38,11 @@ class _AuthActionButtonState extends State<AuthActionButton> {
   final CameraService _cameraService = CameraService();
 
   final TextEditingController _userTextEditingController =
-      TextEditingController(text: '');
+  TextEditingController(text: '');
   final TextEditingController _passwordTextEditingController =
-      TextEditingController(text: '');
+  TextEditingController(text: '');
   final TextEditingController _emailTextEditingController =
-      TextEditingController(text: '');
+  TextEditingController(text: '');
 
   final _formKey = GlobalKey<FormState>();
 
@@ -125,11 +125,11 @@ class _AuthActionButtonState extends State<AuthActionButton> {
               title: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Lottie.asset(
-                    'assets/emailTaken.json',
-                    height: 130,
-                    fit: BoxFit.cover,
-                    animate: true,
-                    repeat: false,
+                  'assets/emailTaken.json',
+                  height: 130,
+                  fit: BoxFit.cover,
+                  animate: true,
+                  repeat: false,
                 ),
               )
           );
@@ -148,16 +148,16 @@ class _AuthActionButtonState extends State<AuthActionButton> {
       /// resets the face stored in the face net sevice
       this._faceNetService.setPredictedData(null);
 
-    await Future.delayed(const Duration(seconds: 5), () {
+      await Future.delayed(const Duration(seconds: 5), () {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
                 builder: (context) => NavBar.Info(
-                      username: _name,
-                      photo: _imagePa,
-                      index: 1,
-                 )),
-            (Route<dynamic> route) => false);
+                  username: _name,
+                  photo: _imagePa,
+                  index: 1,
+                )),
+                (Route<dynamic> route) => false);
       });
     }
   }
@@ -188,13 +188,13 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => NavBar.Info(
-                                username: this.predictedUser.user,
-                                photo: _imagePath,
-                                index: 1,
-                              ),
+                        builder: (context) => NavBar.Info(
+                          username: this.predictedUser.user,
+                          photo: _imagePath,
+                          index: 1,
+                        ),
                       ),
-                      (Route<dynamic> route) => false);
+                          (Route<dynamic> route) => false);
                 });
               },
               alignment: Alignment.center,
@@ -272,8 +272,8 @@ class _AuthActionButtonState extends State<AuthActionButton> {
               }
             }
             PersistentBottomSheetController bottomSheetController =
-                Scaffold.of(context)
-                    .showBottomSheet((context) => signSheet(context));
+            Scaffold.of(context)
+                .showBottomSheet((context) => signSheet(context));
 
             bottomSheetController.closed.whenComplete(() => widget.reload());
           }
@@ -323,29 +323,29 @@ class _AuthActionButtonState extends State<AuthActionButton> {
         children: [
           widget.isLogin && predictedUser != null
               ? Container(
-                  child: Text(
-                    'Welcome back, ' + predictedUser.user + '.',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                )
+            child: Text(
+              'Welcome back, ' + predictedUser.user + '.',
+              style: TextStyle(fontSize: 20),
+            ),
+          )
               : widget.isLogin
-                  ? Column(
-                      children: [
-                        Container(
-                            child: Text(
-                          'User not found 😞'.tr().toString(),
-                          style: TextStyle(fontSize: 20),
-                        )),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Lottie.asset(
-                          "assets/faceError.json",
-                          height: 100,
-                        ),
-                      ],
-                    )
-                  : Container(),
+              ? Column(
+            children: [
+              Container(
+                  child: Text(
+                    'User not found 😞'.tr().toString(),
+                    style: TextStyle(fontSize: 20),
+                  )),
+              SizedBox(
+                height: 15,
+              ),
+              Lottie.asset(
+                "assets/faceError.json",
+                height: 100,
+              ),
+            ],
+          )
+              : Container(),
           Container(
             child: Column(
               children: [
@@ -355,48 +355,47 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                     children: [
                       !widget.isLogin
                           ? LTextField(
-                              icon: Icons.person,
-                              isSecured: false,
-                              hintText:
-                                  'Enter your Full Name'.tr().toString(),
-                              labelText: 'Full Name'.tr().toString(),
-                              keyboardType: TextInputType.name,
-                              maxLength: 20,
-                              validator: Validations().nameValidator,
-                              controller: _userTextEditingController,
-                              isAutoValidate: _validate,
-                            )
+                        icon: Icons.person,
+                        isSecured: false,
+                        hintText:
+                        'Enter your Full Name'.tr().toString(),
+                        labelText: 'Full Name'.tr().toString(),
+                        keyboardType: TextInputType.name,
+                        maxLength: 20,
+                        validator: Validations().nameValidator,
+                        controller: _userTextEditingController,
+                        isAutoValidate: _validate,
+                      )
                           : Container(),
                       SizedBox(height: 15),
                       widget.isLogin && predictedUser == null
                           ? Container()
                           : LTextField(
-                              icon: Icons.lock,
-                              isSecured: _isSecure,
-                              hintText: 'Enter your Password'.tr().toString(),
-                              labelText: 'Password'.tr().toString(),
-                              keyboardType: TextInputType.visiblePassword,
-                              maxLength: 20,
-                              validator: Validations().passwordValidator,
-                              controller: _passwordTextEditingController,
-                              isAutoValidate: _validate,
-                            ),
+                        icon: Icons.lock,
+                        isSecured: _isSecure,
+                        hintText: 'Enter your Password'.tr().toString(),
+                        labelText: 'Password'.tr().toString(),
+                        keyboardType: TextInputType.visiblePassword,
+                        maxLength: 20,
+                        validator: Validations().passwordValidator,
+                        controller: _passwordTextEditingController,
+                        isAutoValidate: _validate,
+                      ),
                       SizedBox(height: 15),
                       !widget.isLogin
                           ? LTextField(
-                              icon: Icons.email,
-                              isSecured: false,
-                              hintText: 'Enter your Email'.tr().toString(),
-                              labelText: 'Email'.tr().toString(),
-                              keyboardType: TextInputType.emailAddress,
-                              maxLength: 30,
-                              validator: Validations().emailValidator,
-                              controller: _emailTextEditingController,
-                              isAutoValidate: _validate,
-                            )
+                        icon: Icons.email,
+                        isSecured: false,
+                        hintText: 'Enter your Email'.tr().toString(),
+                        labelText: 'Email'.tr().toString(),
+                        keyboardType: TextInputType.emailAddress,
+                        maxLength: 30,
+                        validator: Validations().emailValidator,
+                        controller: _emailTextEditingController,
+                        isAutoValidate: _validate,
+                      )
                           : Container(),
-                      !widget.isLogin ?
-                      SizedBox(height: 15) : Container(),
+                      SizedBox(height: 15),
                       !widget.isLogin ?
                       InkWell(
                         onTap: () {
@@ -447,79 +446,79 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                 SizedBox(height: 10),
                 widget.isLogin && predictedUser != null
                     ? InkWell(
-                        onTap: () async {
-                          await _signIn(context);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: buttonsColor,
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                color: Colors.blue.withOpacity(0.1),
-                                blurRadius: 1,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.symmetric(
-                              vertical: 14, horizontal: 16),
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: 60,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'LOGIN'.tr().toString(),
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Icon(Icons.person_add, color: Colors.white)
-                            ],
-                          ),
+                  onTap: () async {
+                    await _signIn(context);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: buttonsColor,
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          color: Colors.blue.withOpacity(0.1),
+                          blurRadius: 1,
+                          offset: Offset(0, 2),
                         ),
-                      )
+                      ],
+                    ),
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(
+                        vertical: 14, horizontal: 16),
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: 60,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'LOGIN'.tr().toString(),
+                          style: TextStyle(
+                              color: Colors.white, fontSize: 20),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Icon(Icons.person_add, color: Colors.white)
+                      ],
+                    ),
+                  ),
+                )
                     : !widget.isLogin
-                        ? ArgonButton(
-                            height: 60,
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'SIGN UP'.tr().toString(),
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Icon(Icons.person_add, color: Colors.white)
-                              ],
-                            ),
-                            color: buttonsColor,
-                            borderRadius: 12,
-                            padding: EdgeInsets.symmetric(
-                                vertical: 14, horizontal: 16),
-                            elevation: 5,
-                            loader: SpinKitSquareCircle(
-                              color: Colors.white,
-                            ),
-                            onTap: (startLoading, stopLoading, btnState) async {
-                              startLoading();
+                    ? ArgonButton(
+                  height: 60,
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'SIGN UP'.tr().toString(),
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 20),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(Icons.person_add, color: Colors.white)
+                    ],
+                  ),
+                  color: buttonsColor,
+                  borderRadius: 12,
+                  padding: EdgeInsets.symmetric(
+                      vertical: 14, horizontal: 16),
+                  elevation: 5,
+                  loader: SpinKitSquareCircle(
+                    color: Colors.white,
+                  ),
+                  onTap: (startLoading, stopLoading, btnState) async {
+                    startLoading();
 
-                              if (_formKey.currentState.validate()) {
-                                await _signUp(context);
-                              }
+                    if (_formKey.currentState.validate()) {
+                      await _signUp(context);
+                    }
 
-                              stopLoading();
-                            },
-                          )
-                        : Container(),
+                    stopLoading();
+                  },
+                )
+                    : Container(),
               ],
             ),
           ),

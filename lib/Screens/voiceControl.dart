@@ -98,11 +98,11 @@ class _ChatPage extends State<VoiceControl> {
 
   List<_Message> messages = [];
   List<String> commands;
-  List<String> forward;
-  List<String> backward;
-  List<String> right;
-  List<String> left;
-  List<String> stop;
+  List<String> forward = [];
+  List<String> backward = [];
+  List<String> right = [];
+  List<String> left = [];
+  List<String> stop = [];
   String _messageBuffer = '';
 
   final TextEditingController textEditingController =
@@ -152,6 +152,12 @@ class _ChatPage extends State<VoiceControl> {
       }
     } catch (e) {
     }
+
+    forward = ["forward"];
+    backward = ["backward"];
+    right = ["right"];
+    left = ["left"];
+    stop = ["stop"];
 
     for(int i = 0 ; i < commands.length ; i++){
       if(i % 5 == 0){

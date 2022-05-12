@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import 'device.dart';
+import 'package:graduation_project/Services/device.dart';
 
 class SelectBondedDevicePage extends StatefulWidget {
   /// If true, on page start there is performed discovery upon the bonded devices.
@@ -31,7 +31,7 @@ class _DeviceWithAvailability extends BluetoothDevice {
 }
 
 class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
-  List<_DeviceWithAvailability> devices = <_DeviceWithAvailability>[];
+  List<_DeviceWithAvailability> devices = List<_DeviceWithAvailability>();
 
   // Availability
   StreamSubscription<BluetoothDiscoveryResult> _discoveryStreamSubscription;
@@ -48,6 +48,7 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
     if (_isDiscovering) {
       _startDiscovery();
     }
+
     // Setup a list of the bonded devices
     FlutterBluetoothSerial.instance
         .getBondedDevices()
