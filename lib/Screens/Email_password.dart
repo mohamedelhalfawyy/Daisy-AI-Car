@@ -95,7 +95,7 @@ class _Email_PasswordState extends State<Email_Password> {
                             Padding(
                               padding: const EdgeInsets.only(top: 20),
                               child: Image(
-                                image: AssetImage('assets/Images/daisy.png'),
+                                image: AssetImage('assets/Images/daisy2.png'),
                                 fit: BoxFit.cover,
                                 width: 170,
                                 height: 150,
@@ -214,6 +214,11 @@ class _Email_PasswordState extends State<Email_Password> {
                                     textColor: Colors.black,
                                     onTap:
                                         (startLoading, stopLoading, btnState) async {
+                                      /**
+                                       * *First we validate the information the user entered
+                                       * *if it's validated then we make sure that the user is connected to the firebase
+                                       * *and then start signIn with the email and password user entered
+                                       * **/
                                       if (_formKey.currentState.validate()) {
                                         startLoading();
                                         bool _isConnected =
@@ -230,6 +235,9 @@ class _Email_PasswordState extends State<Email_Password> {
                                             final photo = await FireStoreServices().getPhoto(_email);
 
                                             if (user != null) {
+                                              /**
+                                               * *If user is found in the firebase then login successful and direct to control room
+                                               * **/
                                               await Future.delayed(const Duration(seconds: 5), () {
                                                 Navigator.pushAndRemoveUntil(
                                                     context,
@@ -247,6 +255,9 @@ class _Email_PasswordState extends State<Email_Password> {
                                             _passController.clear();
                                             stopLoading();
                                           } catch (e) {
+                                            /**
+                                             * *Else the user is not found and cant login
+                                             * **/
                                             log(e.toString());
                                             showSnackBar(
                                                 _scaffoldKey,
@@ -261,6 +272,9 @@ class _Email_PasswordState extends State<Email_Password> {
                                             });
                                           }
                                         } else {
+                                          /**
+                                           * *If the user is not connected to the internet
+                                           * **/
                                           showSnackBar(
                                               _scaffoldKey,
                                               'No internet connection'

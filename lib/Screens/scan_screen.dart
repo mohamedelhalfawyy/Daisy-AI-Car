@@ -54,6 +54,11 @@ class _ScanScreenState extends State<ScanScreen> {
 
 
   void _changeLanguage(Language language) {
+    /**
+     * *The default is English but if the user changed it
+     * *to arabic all the application languageCdoe will be changed
+     * *to arabic and translated
+     * **/
     Locale _temp;
     switch (language.LanguageCode) {
       case 'en':

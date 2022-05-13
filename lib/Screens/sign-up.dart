@@ -34,11 +34,15 @@ class SignUpState extends State<SignUp> {
   Future _initializeControllerFuture;
   bool cameraInitializated = false;
 
-  // switchs when the user press the camera
+  /**
+   * *switchs when the user press the camera
+   * **/
   bool _saving = false;
   bool _bottomSheetVisible = false;
 
-  // service injection
+  /**
+   * *The services we need for the face recognition
+   * **/
   MLKitService _mlKitService = MLKitService();
   CameraService _cameraService = CameraService();
   FaceNetService _faceNetService = FaceNetService();
@@ -47,13 +51,17 @@ class SignUpState extends State<SignUp> {
   void initState() {
     super.initState();
 
-    /// starts the camera & start framing faces
+    /**
+     * *starts the camera & start framing faces
+     * **/
     _start();
   }
 
   @override
   void dispose() {
-    // Dispose of the controller when the widget is disposed.
+    /**
+     * *Dispose of the controller when the widget is disposed.
+     * **/
     _cameraService.dispose();
     super.dispose();
   }
@@ -71,8 +79,11 @@ class SignUpState extends State<SignUp> {
     _frameFaces();
   }
 
-  /// handles the button pressed event
   Future<void> onShot() async {
+    /**
+     * *if no face is detected
+     * *Then a pop up dialog will appear to notice the user that no face is detected
+     * **/
     if (faceDetected == null) {
       showDialog(
         context: context,
@@ -99,6 +110,12 @@ class SignUpState extends State<SignUp> {
 
       return false;
     } else {
+      /**
+       *  *If the button is pressed first we check if there is any face detected
+       * *If a face is detected then we will delay for 500 miliSeconds and stop the
+       * *image stream then we take that picture take and put it in a file and save it
+       * *in our Database withe all the data of the face registered
+       * **/
       _saving = true;
       await Future.delayed(Duration(milliseconds: 500));
       await _cameraService.cameraController.stopImageStream();
@@ -115,8 +132,12 @@ class SignUpState extends State<SignUp> {
     }
   }
 
-  /// draws rectangles when detects faces
   _frameFaces() {
+    /**
+     * *draws rectangles when detects faces
+     * *by calling the mlkitservice to get the face detected from the image
+     * *if no face detected then no rectangle will be drawn
+     * **/
     imageSize = _cameraService.getImageSize();
 
     _cameraService.cameraController.startImageStream((image) async {

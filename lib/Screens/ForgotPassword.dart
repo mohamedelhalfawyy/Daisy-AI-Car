@@ -50,6 +50,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   bool showSpinner = false;
 
   Future<void> sendEmail(String userEmail) async {
+    /**
+     * *Here we sign in to our google account and start formating the mail we will send
+     * *to the user with the code to reset password
+     * **/
+
     getCode();
 
     final user = await AuthServices().googleSignIn();
@@ -184,6 +189,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       width: 350,
                       textColor: Colors.white,
                       onTap: (startLoading, stopLoading, btnState) async {
+                        /**
+                         * *First we check if the email is written in the right format
+                         * *Then we check if this email actually exists in our database
+                         * *if it exists we send the user a code to his email and direct him to the
+                         * *next page to verify the code
+                         * **/
                         if (_formKey.currentState.validate()) {
                           startLoading();
                           setState(() {

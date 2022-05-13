@@ -10,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graduation_project/widgets/Constants.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/languages.dart';
@@ -278,10 +279,13 @@ class _ControlRoomState extends State<ControlRoom> {
                   padding: const EdgeInsets.only(bottom: 90,top: 10),
                   child: Column(
                     children: [
-                      Container(
-                          width: 150,
-                          height: 150,
-                          child: Image.asset('assets/Images/daisy.png')),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0,20,0,0),
+                        child: Container(
+                            width: 150,
+                            height: 150,
+                            child: Image.asset('assets/Images/daisy.png')),
+                      ),
                       Row(
                         children: [
                           Container(
@@ -325,13 +329,22 @@ class _ControlRoomState extends State<ControlRoom> {
                         //mainAxisSize: MainAxisSize.min,
                         children: [
                           InkWell(
-                            onTap: () {
-                              Navigation(
-                                  widget: widget,
-                                  context: context,
-                                  type: PageTransitionType.rightToLeft,
-                                  screen: Voice())
-                                  .navigate();
+                            onTap: () async{
+                              Map<Permission, PermissionStatus> statuses = await [
+                                Permission.bluetooth,
+                                Permission.bluetoothAdvertise,
+                                Permission.bluetoothConnect,
+                                Permission.bluetoothScan,
+                              ].request();
+
+                              if(statuses.isNotEmpty){
+                                Navigation(
+                                    widget: widget,
+                                    context: context,
+                                    type: PageTransitionType.rightToLeft,
+                                    screen: Voice())
+                                    .navigate();
+                              }
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.9,

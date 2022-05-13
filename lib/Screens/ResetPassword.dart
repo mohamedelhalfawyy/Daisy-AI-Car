@@ -190,6 +190,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                                         colour: Color(0xFF051D6D),
                                         onTap: (startLoading, stopLoading,
                                             btnState) async {
+                                          /**
+                                           * *First we check that the password is validated successfully
+                                           * *Then we get the old password of this user and compare it to the
+                                           * *new password if they are the same we give an error else
+                                           * *the new password is saved and updated in firebase then the user
+                                           * *is directed back to login page
+                                           * **/
                                           if (_formKey.currentState
                                               .validate()) {
                                             startLoading();

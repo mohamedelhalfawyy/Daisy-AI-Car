@@ -99,7 +99,10 @@ class _AuthActionButtonState extends State<AuthActionButton> {
   }
 
   Future _signUp(context) async {
-    /// gets predicted data from facenet service (user face detected)
+    /**
+     * *gets predicted data from facenet service (user face detected)
+     * *Then we start getting the data the user entered in the forms of signup
+     **/
     List predictedData = _faceNetService.predictedData;
     String _email = _emailTextEditingController.text;
     String _name = _userTextEditingController.text;
@@ -108,6 +111,9 @@ class _AuthActionButtonState extends State<AuthActionButton> {
     _isTaken = await FireStoreServices().checkEmail(_email);
 
     if (_isTaken) {
+      /**
+       * *Here we check if the email the user entered is taken or not
+       **/
       showDialog(
         context: context,
         builder: (context) {
@@ -139,13 +145,21 @@ class _AuthActionButtonState extends State<AuthActionButton> {
       _emailTextEditingController.clear();
       _passwordTextEditingController.clear();
     } else {
+      /**
+       * *Here it means the user email is not taken so we start by adding the user to
+       * *the firebase and add the data of the user to firestore then we save the data
+       * *of the image in our local database (sqlite) and firebase then direct the user
+       * *to the controlroom
+       **/
       await FireStoreServices().addUser(_email, _password, _name, _imagePa);
       await AuthServices().createUserWithEmail(_email, _password);
 
-      /// creates a new user in the 'database'
+      /**
+       * *creates a new user in the 'database' **/
       await _dataBaseService.saveData(_name, _password, predictedData);
 
-      /// resets the face stored in the face net sevice
+      /**
+       * *resets the face stored in the face net sevice **/
       this._faceNetService.setPredictedData(null);
 
       await Future.delayed(const Duration(seconds: 5), () {
@@ -163,6 +177,12 @@ class _AuthActionButtonState extends State<AuthActionButton> {
   }
 
   Future _signIn(context) async {
+    /**
+     * *In this function when the user had taken the picture and entered the password
+     * *we check if the password is the same as the password in the database
+     * *If it's the same we get the username and photo of the user and direct the user
+     * *to the control room after checking his cardentials
+     * **/
     String password = _passwordTextEditingController.text;
 
     if (this.predictedUser.password == password) {
@@ -259,9 +279,17 @@ class _AuthActionButtonState extends State<AuthActionButton> {
     return InkWell(
       onTap: () async {
         try {
-          // Ensure that the camera is initialized.
+          /**
+          * *Ensure that the camera is initialized.
+          **/
           await widget._initializeControllerFuture;
-          // onShot event (takes the image and predict output)
+          /**
+           * *onShot event (takes the image and predict output)
+           * *if the face is detected we compare it with all the face data we have
+           * *in the database and if we can find a data same as the face of the user
+           * *Then we take this data and get the username and password of this user
+           * *then compare the password with the password of the user in the database
+           **/
           bool faceDetected = await widget.onPressed();
 
           if (faceDetected) {

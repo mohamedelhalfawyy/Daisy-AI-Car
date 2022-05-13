@@ -177,6 +177,13 @@ class _OTPScreenState extends State<OTPScreen> {
                               text: 'VERIFY'.tr().toString(),
                               textColor: Colors.white,
                               onTap: (startLoading, stopLoading, btnState) async {
+                                /**
+                                * *In this function once the user press on verify then we start the loading of the button
+                                 * *we first make sure that the length of
+                                 * *the code is = 6 and then we check if the code the user entered is the same as the
+                                 * *private code and if it is the same an Alert dialog will pop up and direct the user
+                                 * *to the signup page
+                                * */
                                 startLoading();
 
                                 if (_code.length != 6) {
@@ -187,11 +194,18 @@ class _OTPScreenState extends State<OTPScreen> {
                                 }
 
                                 bool _result = await _lock.synchronized(() async {
+                                  /**
+                                   * *Send the code to the checkCode function which compares the code that
+                                   * *the user entered with the security code which is 100100
+                                   * **/
                                   return await checkCode(_code);
                                 });
 
                                 if (_result) {
-
+                                  /**
+                                   * *If the codes are the same then result will be true
+                                   * *an Alert dialog will pop up to direct the user to the sign up page
+                                   * **/
                                   setState(() {
                                       Alert(
                                         style: AlertStyle(
