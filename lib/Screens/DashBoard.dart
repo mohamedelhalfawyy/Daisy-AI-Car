@@ -96,10 +96,13 @@ class _DashBoardState extends State<DashBoard> {
         backgroundColor: Color(0XFF1E90FF),
         body: ListView(
           children: [
-            Container(
-              height: 100,
-              width: 200,
-              child: Image.asset('assets/Images/daisy.png'),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0,10,0,0),
+              child: Container(
+                height: 100,
+                width: 200,
+                child: Image.asset('assets/Images/daisy.png'),
+              ),
             ),
             Center(
               child: Text(

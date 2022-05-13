@@ -10,6 +10,11 @@ class FacePainter extends CustomPainter {
   Face face;
   @override
   void paint(Canvas canvas, Size size) {
+    /**
+     * *We get the face from the camera and then check
+     * *if the face is in a rectangel 10*10 then a green border is drawn
+     * *else if the whole face is not inside a 10*10 rectangle then red border will be drawn
+     * **/
     if (face == null) return;
 
     Paint paint;
