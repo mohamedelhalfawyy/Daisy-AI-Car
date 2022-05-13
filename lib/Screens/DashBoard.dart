@@ -88,28 +88,6 @@ class _DashBoardState extends State<DashBoard> {
     subscription.cancel();
   }
 
-  //Control Room navigation:
-
-  // Navigator.push(
-  // context,
-  // MaterialPageRoute(
-  // builder: (BuildContext context) => SignIn(
-  // cameraDescription: cameraDescription,
-  // ),
-  // ),
-  // );
-
-  //Signup Navigation:
-
-  // Navigator.push(
-  // context,
-  // MaterialPageRoute(
-  // builder: (BuildContext context) => SignUp(
-  // cameraDescription: cameraDescription,
-  // ),
-  // ),
-  // );
-
   @override
   Widget build(BuildContext context) {
     return Directionality(
