@@ -90,7 +90,7 @@ class _ChatPage extends State<VoiceControl> {
 
   stt.SpeechToText _speech;
   bool _isListening = false;
-  String _text = 'Press the button and start speaking';
+  String _text = 'Press the button and start speaking'.tr().toString();
   double _confidence = 1.0;
 
   static final clientID = 0;
@@ -222,10 +222,10 @@ class _ChatPage extends State<VoiceControl> {
     return Scaffold(
       appBar: AppBar(
         title: (isConnecting
-            ? Text('Connecting chat to ' + widget.server.name + '...')
+            ? Text('Connecting chat to '.tr().toString() + widget.server.name + '...')
             : isConnected
-            ? Text('Live chat with ' + widget.server.name)
-            : Text('Chat log with ' + widget.server.name)),
+            ? Text('Live chat with '.tr().toString() + widget.server.name)
+            : Text('Chat log with '.tr().toString() + widget.server.name)),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: AvatarGlow(
@@ -246,7 +246,7 @@ class _ChatPage extends State<VoiceControl> {
             Container(
               padding: const EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 150.0),
               child: TextHighlight(
-                text: _text == '' ? "listening.." : _text,
+                text: _text == '' ? "listening..".tr().toString() : _text,
                 words: _highlights,
                 textStyle: const TextStyle(
                   fontSize: 32.0,
@@ -382,6 +382,7 @@ class _ChatPage extends State<VoiceControl> {
       if (available) {
         setState(() => _isListening = true);
         _speech.listen(
+          //localeId: context.locale.toString(),
           onResult: (val) => setState(() {
             _text = val.recognizedWords;
             if (val.hasConfidenceRating && val.confidence > 0) {

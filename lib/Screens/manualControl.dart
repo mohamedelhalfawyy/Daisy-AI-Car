@@ -3,6 +3,7 @@ import 'dart:convert';
 //import 'dart:developer';
 import 'dart:typed_data';
 //import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 /*import 'package:avatar_glow/avatar_glow.dart';
@@ -118,10 +119,10 @@ class _ChatPage extends State<ManualControl> {
     return Scaffold(
       appBar: AppBar(
           title: (isConnecting
-              ? Text('Connecting chat to ' + widget.server.name + '...')
+              ? Text('Connecting chat to '.tr().toString() + widget.server.name + '...')
               : isConnected
-              ? Text('Live chat with ' + widget.server.name)
-              : Text('Chat log with ' + widget.server.name))),
+              ? Text('Live chat with '.tr().toString() + widget.server.name)
+              : Text('Chat log with '.tr().toString() + widget.server.name))),
       body: SafeArea(
         child: Column(
           children: <Widget>[

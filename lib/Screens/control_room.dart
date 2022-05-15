@@ -310,7 +310,8 @@ class _ControlRoomState extends State<ControlRoom> {
                           ),
                           AnimatedTextKit(
                             animatedTexts: [
-                              TypewriterAnimatedText('Welcome\n${widget.username}',
+                              TypewriterAnimatedText('Welcome\n'.tr().toString() +
+                                  '${widget.username}'.tr().toString(),
                                   textStyle: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -368,7 +369,7 @@ class _ControlRoomState extends State<ControlRoom> {
                                       width: 20,
                                     ),
                                     Text(
-                                      'Voice\ncontrol',
+                                      'Voice\ncontrol'.tr().toString(),
                                       style: TextStyle(
                                         fontSize: 40,
                                         fontWeight: FontWeight.bold,
@@ -413,7 +414,7 @@ class _ControlRoomState extends State<ControlRoom> {
                                       width: 20,
                                     ),
                                     Text(
-                                      'Manual\ncontrol',
+                                      'Manual\ncontrol'.tr().toString(),
                                       style: TextStyle(
                                         fontSize: 40,
                                         fontWeight: FontWeight.bold,

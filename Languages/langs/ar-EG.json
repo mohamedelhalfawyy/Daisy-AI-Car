@@ -98,5 +98,19 @@
   "Jumper wires typically come in three versions: male-to-male, male-to-female and female-to-female. Male ends have a pin protruding and can plug into things, while female ends do not and are used to plug things into.": "عادة ما تأتي أسلاك الوصلة في ثلاثة إصدارات: من ذكر إلى ذكر ، ومن ذكر إلى أنثى ، ومن أنثى إلى أنثى. تحتوي النهايات الذكرية على دبوس بارز ويمكن توصيله بالأشياء ، في حين أن النهايات الأنثوية لا تفعل ذلك وتستخدم لتوصيل الأشياء بها.",
   "Protected Lithium-Ion (Li-ion) batteries have a small electronic circuit integrated into the cell packaging. Most lithium ion batteries charge to a voltage of 4.2 volts per cell.": "تحتوي بطاريات الليثيوم أيون المحمية (ليثيوم أيون) على دائرة إلكترونية صغيرة مدمجة في عبوة الخلية. يتم شحن معظم بطاريات الليثيوم أيون إلى جهد 4.2 فولت لكل خلية.",
   "The wheels are utilized to move the vehicle in the corrispettive directions. The number of wheels utilized are 4.": "يتم استخدام العجلات لتحريك السيارة في الاتجاهات الارتدادية. عدد العجلات المستخدمة هي 4.",
-  "Sign out": "تسجيل الخروج"
+  "Sign out": "تسجيل الخروج",
+  "Connecting chat to ": "ربط المحادثه ب ",
+  "Live chat with ": "المحادثه مباشر مع ",
+  "Chat log with ": "سجل المحادثه مع ",
+  "Press the button and start speaking": "اضغط على الزر وابدأ التحدث ",
+  "listening..": "تستمع..",
+  "Welcome\n": "مرحبا\n",
+  "Halfawy": "حلفاوي",
+  "sebastiano": "سيباستيانو",
+  "marwan": "مروان",
+  "farida": "فريده",
+  "ossama": "أسامة",
+  "mohamed saad": "محمد سعد",
+  "Voice\ncontrol": "صوت\nتحكم",
+  "Manual\ncontrol": "تحكم\nيدوي"
 }
