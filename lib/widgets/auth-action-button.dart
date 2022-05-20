@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:graduation_project/Models/user.model.dart';
+import 'package:graduation_project/Screens/QRScanner.dart';
 import 'package:graduation_project/Screens/navbar.dart';
 import 'package:graduation_project/Services/AuthServices.dart';
 import 'package:graduation_project/Services/Firestore_Services.dart';
@@ -208,6 +209,18 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
+                        builder: (context) => QR_Scanner(
+                          username: this.predictedUser.user,
+                          photo: _imagePath,
+                        ),
+                      ),
+                          (Route<dynamic> route) => false);
+                });
+
+/*                await Future.delayed(const Duration(seconds: 5), () {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
                         builder: (context) => NavBar.Info(
                           username: this.predictedUser.user,
                           photo: _imagePath,
@@ -215,7 +228,7 @@ class _AuthActionButtonState extends State<AuthActionButton> {
                         ),
                       ),
                           (Route<dynamic> route) => false);
-                });
+                });*/
               },
               alignment: Alignment.center,
               repeat: false,

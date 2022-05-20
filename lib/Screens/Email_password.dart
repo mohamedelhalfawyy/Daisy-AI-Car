@@ -9,6 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../Services/AuthServices.dart';
 import '../widgets/Constants.dart';
 import '../widgets/FadeAnimation.dart';
+import 'QRScanner.dart';
 import 'navbar.dart';
 
 class Email_Password extends StatefulWidget {
@@ -242,14 +243,12 @@ class _Email_PasswordState extends State<Email_Password> {
                                                 Navigator.pushAndRemoveUntil(
                                                     context,
                                                     MaterialPageRoute(
-                                                        builder: (context) => NavBar.Info(
-                                                          username: name,
-                                                          photo: photo,
-                                                          index: 1,
-                                                          //imagePath: _imagePath,
-                                                        )
-                                                    ),(Route<dynamic> route) => false
-                                                );
+                                                      builder: (context) => QR_Scanner(
+                                                        username: name,
+                                                        photo: photo,
+                                                      ),
+                                                    ),
+                                                        (Route<dynamic> route) => false);
                                               });
                                             }
                                             _passController.clear();
