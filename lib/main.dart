@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +7,7 @@ import 'package:graduation_project/Screens/EmailValidation.dart';
 import 'package:graduation_project/Screens/Email_password.dart';
 import 'package:graduation_project/Screens/ForgotPassword.dart';
 import 'package:graduation_project/Screens/LoadingScreen.dart';
+import 'package:graduation_project/Screens/ObjectDetection.dart';
 import 'package:graduation_project/Screens/ResetPassword.dart';
 import 'package:graduation_project/Screens/aboutUs.dart';
 import 'package:graduation_project/Screens/sign-in.dart';
@@ -14,7 +16,6 @@ import 'package:graduation_project/Screens/voiceControl.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-
   runApp(
     EasyLocalization(
     child: MyApp(),

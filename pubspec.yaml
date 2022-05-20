@@ -79,6 +79,7 @@ dependencies:
   video_player: ^2.4.2
   permission_handler: ^9.2.0
   qr_code_scanner: ^0.7.0
+  tflite: 1.0.4
 
 dev_dependencies:
   flutter_test:
@@ -104,6 +105,8 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/yolov2_tiny.tflite
+    - assets/yolov2_tiny.txt
     - assets/mobilefacenet.tflite
     - assets/Images/
     - assets/

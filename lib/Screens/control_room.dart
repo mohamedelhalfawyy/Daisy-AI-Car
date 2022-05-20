@@ -1,12 +1,14 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:graduation_project/Screens/ObjectDetection.dart';
 import 'package:graduation_project/widgets/Constants.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
@@ -430,6 +432,63 @@ class _ControlRoomState extends State<ControlRoom> {
                                       width: MediaQuery.of(context).size.width *
                                           0.42,
                                     ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 30,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        //mainAxisSize: MainAxisSize.min,
+                        children: [
+                          InkWell(
+                            onTap: () async{
+                              try {
+                                List<CameraDescription> cameras = await availableCameras();
+
+                                Navigation(
+                                    widget: widget,
+                                    context: context,
+                                    type: PageTransitionType.rightToLeft,
+                                    screen: ObjectDetection(cameras))
+                                    .navigate();
+                              } on CameraException catch (e) {
+                                print('Error: $e.code\nError Message: $e.message');
+                              }
+
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    bottomLeft: Radius.circular(20)),
+                              ),
+                              child: Center(
+                                child: Row(
+                                  children: [
+                                    Lottie.asset(
+                                      'assets/object.json',
+                                      height: 300,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.42,
+                                    ),
+                                    Text(
+                                      'Object\nDetection'.tr().toString(),
+                                      style: TextStyle(
+                                        fontSize: 35,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    // SizedBox(
+                                    //   width: 5,
+                                    // ),
                                   ],
                                 ),
                               ),
