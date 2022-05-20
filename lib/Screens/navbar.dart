@@ -1,6 +1,7 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:graduation_project/Screens/control_room.dart';
 import 'package:graduation_project/Screens/scan_screen.dart';
 import 'dart:ui' as ui;
@@ -13,7 +14,8 @@ class NavBar extends StatefulWidget {
   NavBar.Info({
     this.username,
     this.photo,
-    this.index
+    this.index,
+    this.server,
   });
 
   NavBar.ind({
@@ -21,23 +23,25 @@ class NavBar extends StatefulWidget {
     this.isUser
   });
 
+  BluetoothDevice server;
   String username = '';
   String photo = '';
   int index = 0;
   bool isUser = true;
 
   @override
-  _NavBarState createState() => _NavBarState(username, photo, index, isUser);
+  _NavBarState createState() => _NavBarState(username, photo, index, isUser, server);
 }
 
 class _NavBarState extends State<NavBar> {
+  BluetoothDevice server;
   int _selectedScreen = 0;
   String username;
   String photo;
   int index;
   bool isUser;
 
-  _NavBarState(this.username,this.photo, this.index, this.isUser);
+  _NavBarState(this.username,this.photo, this.index, this.isUser, this.server);
 
   var _screens = [DashBoard(), ScanScreen(), AboutUs()];
   var _screens2;
@@ -51,7 +55,7 @@ class _NavBarState extends State<NavBar> {
 
 void checkScreen (){
   if (index == 1 && isUser){
-    _screens2 = [DashBoard(), ControlRoom(username, photo), AboutUs()];
+    _screens2 = [DashBoard(), ControlRoom(username, photo, server), AboutUs()];
     _selectedScreen = 1;
   }else if(!isUser){
     _selectedScreen = 1;

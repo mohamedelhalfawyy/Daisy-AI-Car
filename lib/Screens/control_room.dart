@@ -7,6 +7,7 @@ import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:graduation_project/Screens/voiceControl.dart';
 import 'package:graduation_project/widgets/Constants.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
@@ -16,18 +17,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/languages.dart';
 import 'Chatbot.dart';
 import 'DashBoard.dart';
-import 'Voice.dart';
 
 class ControlRoom extends StatefulWidget {
-  const ControlRoom(this.username,this.photo, {Key key}) : super(key: key);
+  const ControlRoom(this.username, this.photo, this.server, {Key key}) : super(key: key);
 
   static const String id = 'ControlRoomScreen';
 
+  final BluetoothDevice server;
   final String username;
   final String photo;
 
   @override
-  State<ControlRoom> createState() => _ControlRoomState(username, photo);
+  State<ControlRoom> createState() => _ControlRoomState(username, photo, server);
 }
 
 class _ControlRoomState extends State<ControlRoom> {
@@ -47,10 +48,11 @@ class _ControlRoomState extends State<ControlRoom> {
   String note;
   String forwardCommand = "Enter the command equivalent to Forward.";
 
+  BluetoothDevice server;
   String username;
   String photo;
 
-  _ControlRoomState(this.username, this.photo);
+  _ControlRoomState(this.username, this.photo, this.server);
 
   Future<void> load() async {
     bot.clear();
@@ -339,12 +341,21 @@ class _ControlRoomState extends State<ControlRoom> {
                               ].request();
 
                               if(statuses.isNotEmpty){
-                                Navigation(
-                                    widget: widget,
-                                    context: context,
-                                    type: PageTransitionType.rightToLeft,
-                                    screen: Voice())
-                                    .navigate();
+                                // Navigation(
+                                //     widget: widget,
+                                //     context: context,
+                                //     type: PageTransitionType.rightToLeft,
+                                //     screen: Voice())
+                                //     .navigate();
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return VoiceControl(server: server);
+                                    },
+                                  ),
+                                );
                               }
                             },
                             child: Container(
@@ -376,9 +387,6 @@ class _ControlRoomState extends State<ControlRoom> {
                                         color: Colors.black,
                                       ),
                                     ),
-                                    // SizedBox(
-                                    //   width: 5,
-                                    // ),
                                   ],
                                 ),
                               ),
@@ -437,93 +445,6 @@ class _ControlRoomState extends State<ControlRoom> {
                           ),
                         ],
                       ),
-                      // Column(
-                      //   children: [
-                      //     InkWell(
-                      //       onTap: () {
-                      //         Navigator.push(
-                      //           context,
-                      //           MaterialPageRoute(
-                      //             builder: (context) {
-                      //               return Voice();
-                      //             },
-                      //           ),
-                      //         );
-                      //       },
-                      //       child: Container(
-                      //         decoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.circular(10),
-                      //           color: Color(0xFF0F0BDB),
-                      //           boxShadow: <BoxShadow>[
-                      //             BoxShadow(
-                      //               color: Colors.blue.withOpacity(0.1),
-                      //               blurRadius: 1,
-                      //               offset: Offset(0, 2),
-                      //             ),
-                      //           ],
-                      //         ),
-                      //         alignment: Alignment.center,
-                      //         padding: EdgeInsets.symmetric(
-                      //             vertical: 14, horizontal: 16),
-                      //         width: MediaQuery.of(context).size.width * 0.8,
-                      //         child: Row(
-                      //           mainAxisAlignment: MainAxisAlignment.center,
-                      //           children: [
-                      //             Text(
-                      //               'Voice'
-                      //                   'Control',
-                      //               style: TextStyle(color: Colors.white),
-                      //             ),
-                      //             SizedBox(
-                      //               width: 10,
-                      //             ),
-                      //             Icon(Icons.keyboard_voice, color: Colors.white)
-                      //           ],
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     SizedBox(
-                      //         height:20
-                      //     ),
-                      //     InkWell(
-                      //       onTap: () {
-                      //         //manual page
-                      //       },
-                      //       child: Container(
-                      //         decoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.circular(10),
-                      //           color: Color(0xFF0F0BDB),
-                      //           boxShadow: <BoxShadow>[
-                      //             BoxShadow(
-                      //               color: Colors.blue.withOpacity(0.1),
-                      //               blurRadius: 1,
-                      //               offset: Offset(0, 2),
-                      //             ),
-                      //           ],
-                      //         ),
-                      //         alignment: Alignment.center,
-                      //         padding: EdgeInsets.symmetric(
-                      //             vertical: 14, horizontal: 16),
-                      //         width: MediaQuery.of(context).size.width * 0.8,
-                      //         child: Row(
-                      //           mainAxisAlignment: MainAxisAlignment.center,
-                      //           children: [
-                      //             Text(
-                      //               'Manual'
-                      //                   'Control',
-                      //               style: TextStyle(color: Colors.black),
-                      //
-                      //             ),
-                      //             SizedBox(
-                      //               width: 10,
-                      //             ),
-                      //             Icon(Icons.gamepad, color: Colors.white)
-                      //           ],
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),

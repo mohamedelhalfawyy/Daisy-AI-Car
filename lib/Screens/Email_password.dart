@@ -6,9 +6,11 @@ import 'package:graduation_project/Services/Firestore_Services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:page_transition/page_transition.dart';
 import '../Services/AuthServices.dart';
 import '../widgets/Constants.dart';
 import '../widgets/FadeAnimation.dart';
+import 'Voice.dart';
 import 'navbar.dart';
 
 class Email_Password extends StatefulWidget {
@@ -239,17 +241,28 @@ class _Email_PasswordState extends State<Email_Password> {
                                                * *If user is found in the firebase then login successful and direct to control room
                                                * **/
                                               await Future.delayed(const Duration(seconds: 5), () {
-                                                Navigator.pushAndRemoveUntil(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) => NavBar.Info(
-                                                          username: name,
-                                                          photo: photo,
-                                                          index: 1,
-                                                          //imagePath: _imagePath,
-                                                        )
-                                                    ),(Route<dynamic> route) => false
+                                                // Navigator.pushAndRemoveUntil(
+                                                //     context,
+                                                //     MaterialPageRoute(
+                                                //         builder: (context) => NavBar.Info(
+                                                //           username: name,
+                                                //           photo: photo,
+                                                //           index: 1,
+                                                //         )
+                                                //     ),(Route<dynamic> route) => false
+                                                // );
+
+                                                NavBar.Info(
+                                                  username: name,
+                                                  photo: photo,
                                                 );
+
+                                                Navigation(
+                                                    widget: widget,
+                                                    context: context,
+                                                    type: PageTransitionType.rightToLeft,
+                                                    screen: Voice())
+                                                    .navigate();
                                               });
                                             }
                                             _passController.clear();

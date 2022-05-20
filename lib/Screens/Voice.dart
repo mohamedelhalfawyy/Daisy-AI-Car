@@ -4,6 +4,8 @@ import 'package:graduation_project/Screens/voiceControl.dart';
 import 'package:graduation_project/Services/connection.dart';
 import 'package:graduation_project/widgets/Constants.dart';
 
+import 'navbar.dart';
+
 class Voice extends StatelessWidget {
 
   static const String id = 'Voice';
@@ -54,7 +56,10 @@ class Home extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return VoiceControl(server: device);
+                return NavBar.Info(
+                  server: device,
+                  index: 1,
+                );
               },
             ),
           );

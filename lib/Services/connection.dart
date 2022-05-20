@@ -54,6 +54,10 @@ class _SelectBondedDevicePage extends State<SelectBondedDevicePage> {
         .getBondedDevices()
         .then((List<BluetoothDevice> bondedDevices) {
       setState(() {
+        bondedDevices.removeWhere(
+                (bondedDevices) => bondedDevices.name.contains("HC-05")
+        );
+
         devices = bondedDevices
             .map(
               (device) => _DeviceWithAvailability(
