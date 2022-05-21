@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../Services/AuthServices.dart';
 import '../widgets/Constants.dart';
 import '../widgets/FadeAnimation.dart';
@@ -240,7 +241,7 @@ class _Email_PasswordState extends State<Email_Password> {
                                               /**
                                                * *If user is found in the firebase then login successful and direct to control room
                                                * **/
-                                              await Future.delayed(const Duration(seconds: 5), () {
+                                              await Future.delayed(const Duration(seconds: 5), () async {
                                                 // Navigator.pushAndRemoveUntil(
                                                 //     context,
                                                 //     MaterialPageRoute(
@@ -257,12 +258,21 @@ class _Email_PasswordState extends State<Email_Password> {
                                                   photo: photo,
                                                 );
 
-                                                Navigation(
-                                                    widget: widget,
-                                                    context: context,
-                                                    type: PageTransitionType.rightToLeft,
-                                                    screen: Voice())
-                                                    .navigate();
+                                                Map<Permission, PermissionStatus> statuses = await [
+                                                Permission.bluetooth,
+                                                    Permission.bluetoothAdvertise,
+                                                Permission.bluetoothConnect,
+                                                Permission.bluetoothScan,
+                                                ].request();
+
+                                                if(statuses.isNotEmpty){
+                                                  Navigation(
+                                                  widget: widget,
+                                                  context: context,
+                                                  type: PageTransitionType.rightToLeft,
+                                                  screen: Voice())
+                                                      .navigate();
+                                                }
                                               });
                                             }
                                             _passController.clear();

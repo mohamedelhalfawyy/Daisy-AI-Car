@@ -333,14 +333,14 @@ class _ControlRoomState extends State<ControlRoom> {
                         children: [
                           InkWell(
                             onTap: () async{
-                              Map<Permission, PermissionStatus> statuses = await [
-                                Permission.bluetooth,
-                                Permission.bluetoothAdvertise,
-                                Permission.bluetoothConnect,
-                                Permission.bluetoothScan,
-                              ].request();
+                              // Map<Permission, PermissionStatus> statuses = await [
+                              //   Permission.bluetooth,
+                              //   Permission.bluetoothAdvertise,
+                              //   Permission.bluetoothConnect,
+                              //   Permission.bluetoothScan,
+                              // ].request();
 
-                              if(statuses.isNotEmpty){
+                              //if(statuses.isNotEmpty){
                                 // Navigation(
                                 //     widget: widget,
                                 //     context: context,
@@ -356,7 +356,7 @@ class _ControlRoomState extends State<ControlRoom> {
                                     },
                                   ),
                                 );
-                              }
+                              //}
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.9,
