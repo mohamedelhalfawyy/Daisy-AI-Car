@@ -27,6 +27,10 @@ Future<dynamic> createUserWithEmail(String email, String password) {
    return _auth.createUserWithEmailAndPassword(email: email, password: password);
 }
 
+Future<dynamic> updatePassword(String password) {
+  return _auth.currentUser.updatePassword(password);
+}
+
 Future<GoogleSignInAccount> googleSignIn() async{
   if(await _googleSignIn.isSignedIn()){
     return _googleSignIn.currentUser;
